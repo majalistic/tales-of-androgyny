@@ -8897,7 +8897,37 @@
 	{
 		"key": "BEASTMISTRESS-ACCEPT",
 		"scriptLines": [
-			{"text": ""}
+			{
+			"mutations": [{"saveType":"PORTRAIT"}], 
+			"text": "You wiggle your rear in her direction, and she licks her lips. \"That's right kitty, on all fours like a good kitty...\""},
+			{"text": "You hear her footsteps as she approaches, and then they're silent, and she's stripping your lower half.  Her hands roam back up your thighs and grab hold of your ass."},
+			{"text": "She licks her index finger, then pushes it gently inside. \"Hope you don't mind doing it elven style... not that I have much choice, given that you're a boy kitty in reality, aren't you?\" she says, letting her finger roam down over your quivering pouch."},
+			{"text": "She pulls out her finger, then inserts two again... somehow there's almost no friction. She pumps you with two fingers before popping both of them out... and bringing something else up to your tight little hole."},			
+			{
+			"sound": "ANAL_INSERTION",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "other": "BEASTMISTRESS"}}],
+			"text": "You're not sure if it's some special ability of hers, but she slips inside without any friction. At first you think it might be that she's just not particularly thick, but when you involuntarily squeeze down, you feel exactly how thick it is."},
+			{"text": "It seems supernatural that she managed to get it all inside without any resistance, but you don't have much time to really ponder about that when you feel her dark cock stretching open your anal walls, her balls against yours, her precum drooling down from your plugged hole already."},
+			{"text": "She pulls it out just as swiftly and intangibly... and then slips it back in... and then you don't know whether it's coming or going at any given time, only that is is, and that you're being fucked raw by her dick."},
+			{"text": "Her ride walks over to where you're... engaged, and she gives it some signal. Surprisingly, it rears up and she grabs its paws... leaving a particular part of it directly in front of your face."},			
+			{"text": "\"Open wide for kitty, meow,\" she says, and you hesitate... only for her fuck to suddenly feel much more intense, making you open your mouth in surprise."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "You taste your humiliation while she continues to pound your ass, unable to speak a word of protest due to a certain... obstruction."},			
+			{"text": "\"Your lips are going to be rather raw after this,\" somewhat nonchalantly, while giving your tush a raw fucking that is itself pretty animalistic."},
+			{"text": "Being taken from both ends in a rather... raunchy situation, you feel yourself about to cum, and you groan around the thing in your mouth, which is oddly shaped and prickly."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1, "other": "BEASTMISTRESS"}}],
+			"text": "Being taken from both ends, you fire off into the dirt, your prick sending spurt after spurt while her precum drools down your balls."},			
+			{"text": "Feeling your tight asshole get even tighter, she plunges it deep inside and groans. \"I'm cumming! Catch it all, queen!\""},			
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1, "other": "BEASTMISTRESS"}}],
+			"text": "Like the signal she gave to her ride, you perform as she wishes, catching every rope and blast of her semen into your rectum, except for the excess that seeps out over your untouched genitals."},			
+			{"text": "You spit out the cock in your mouth before it can fill it up with feline goop, then wipe your mouth with your knuckles, trying to rid yourself of the taste."},
+			{"text": "\"Human boys really do have the tightest assholes. Hope you don't miss yours,\" she says, giving your upturned ass as playful slap. Just like that, she pulls it all out, and again it feels like she does it without any tugging."},
+			{"text": "Her cum isn't quite so easy to dislodge, and you feel it slowly drooling out, even as she rights her clothing and remounts her mount, who's looking weirdly smug about the whole thing."},
+			{"text": "She takes off, leaving you in a puddle of the aftermath, and you sigh."}			
 		]
 	},
 	{
@@ -8909,8 +8939,22 @@
 		]
 	},
 	{
-		"key": "BEASTMISTRESS-QUEEN",
-		"scriptLines": [			
+		"key": "BEASTMISTRESS-RESIST2",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"WILLPOWER", "value":{"class": "java.lang.Integer", "value": -1}}],
+			"text": "Despite your... predilections, you resist the allure of being a permanent queen."}
+		]
+	},
+	{
+		"key": "BEASTMISTRESS-REFUSE",
+		"scriptLines": [
+			{"text": "You refuse, wanting to keep your dignity in defeat. She spits."},
+		]
+	},
+	{
+		"key": "BEASTMISTRESS-KITTY",
+		"scriptLines": [
 			{"text": "\"Hmmm, seems my kitty's got a new toy...\" she says, her voice full of vinegar."},
 			{"text": "Her cat approaches you, and you shake your head. No - this can't be."},
 			{"text": "\"Hm... a human male, are you?\" she says, a sinister smile slowly creeping across her face. \"I see that now,\" she says, licking her finger as her mount closes in on you."},
@@ -8918,15 +8962,43 @@
 			{
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}], 
 			"text": "\"This my pet kitty. Every underdweller huntress has one. I'm... very proud of mine. You should be honored,\" she says, barely containing a mocking snicker."},
-			{"text": "Fangs tear into the seat of your pants, leaving you exposed."},
+			{"text": "Fangs tear into the seat of your pants, leaving you exposed."},			
+			{"text": "\"You understand what I'm saying, don't you?\" she says, smiling darkly. \"I'm going to watch you two kitties have sex.  Lots of it.  You'll be the girl kitty, of course.  The queen.\""},
+			{"text": "You feel your breath caught in your chest. Is she kidding?"},
 			{"text": "\"Mmmm, this is going to be... salacious. You should be glad that nobody is around to witness - I know this kind of thing is frowned upon among surface dwellers.\""},
-			{"text": "You can feel the heat of the thing approaching... the beast drops its weight on you, and you lose your chance to escape."},
+			{"text": "He licks at your rear, and your body tenses up."},
 			{"text": "\"He's been acting antsy with his gonads so full - I was worried he would start getting disobedient if he didn't have a vessel to catch his seed, and he'd turn on me.\""},
+			{"text": "His tongue is actually kind of rough... which is actively stimulating your hole, grooming it for its intended purpose."},
+			{"text": "When he's finished licking, your hole is now sopping wet... and kind of loose.  The word \"sex\" flashes into your mind, as does an image of the act that's about to be carried out... and a single, very confused droplet of precum trails down to the ground."}
+		]
+	},
+	{
+		"key": "BEASTMISTRESS-NONCAGED",
+		"scriptLines": [
 			{"text": "She approaches the bizarre sight and squats down, noting your erection."},
-			{"text": "\"I didn't expect for his gracious semen host to be a man, though.\""},
-			{"text": "She flicks your exposed penis, and then rests her chin on her hands."},
+			{"text": "\"I didn't expect for his gracious semen host to be a man, though.\""},			
+			{"text": "She flicks your exposed penis, and then rests her chin on her hands."}
+		]
+	},
+	{
+		"key": "BEASTMISTRESS-CAGED",
+		"scriptLines": [
+			{"text": "She approaches the bizarrre sight and squats down, and then notices your cage."},
+			{"text": "She inspects it, then rattles it. \"Hm. Humans are so fascinatingly depraved. Well, you really, really won't need your cock for this, anyway. All the queen needs is an arched back and an inviting hole.\""}
+		]
+	},
+	{
+		"key": "BEASTMISTRESS-PURE",
+		"scriptLines": [
 			{"text": "\"Interspecies love isn't taboo below the surface... in fact, it's encouraged to introduce your defeated enemies to your most amorous pets, as a reward. I'll let you decide who's being rewarded.\""},
-			{"text": "The beast starts to try to penetrate you, but it has difficulty finding its breeding target."},
+			{"text": "You don't believe her cultural education for a moment, but you also know what her beastly friend is getting ready to make good on her promises."},			
+			{"text": "\"I find that male pride can withstand a lot of things - but the spines of my kitty's cock forcing them to ovulate isn't one of them.  Somehow, having your tight butthole used as a pussy for pussy is too much,\" she says, slapping your ass, then giving it a firm caress."},
+			{"text": "The idea of having that kitty cock in your guts... you claw at the dirt."},			
+			{"text": "\"The only thing that isn't certain is whether your hubris or your hole will break first...\""},
+			{"text": "You tremble at the sound of that."},
+			{"text": "\"I'll let you in on a little secret.  My kitty only responds to girl kitties in heat.  If you think that doesn't describe you, well... your pussy disagrees, pussy,\" she says, tapping what she believes to be your pussy, making it tighten up reflexively."},			
+			{"text": "Your body breaks out into a sweat.  Is this really going to happen?  Your ass is in the air, and you're being sized up... as a mate.  Your hole is quivering.  It doesn't know what might be about to happen to it, but you do."},
+			{"text": "The beast rears up and grasps your hips with its paws and starts to try to penetrate you, but it has difficulty finding its breeding target."},			
 			{"text": "\"I'm afraid the time to deny my kitty his pussy has passed. Open up for him, human.\""},
 			{"text": "She reaches underneath her mount to spread your cheeks for the breeding."},
 			{"text": "\"As long as I spread your cheeks like this for him, he'll be able to start anally violating you.\""},
@@ -8969,6 +9041,73 @@
 			{
 			"sound": "CUMFART",
 			"text": "As he pulls his barbed cock free, you let out an inhuman sound, the underdweller's cum still drooling from your lips, and you collapse into the dirt thereafter."},
+		]
+	},
+	{
+		"key": "BEASTMISTRESS-IMPURE",
+		"scriptLines": [
+			{"text": "\"Interspecies love isn't taboo below the surface... in fact, it's encouraged to introduce your defeated enemies to your most amorous pets, as a reward. I'll let you decide who's being rewarded.\""},
+			{"text": "You don't believe her cultural education for a moment, but you also know what her beastly friend is getting ready to make good on her promises."},			
+			{"text": "\"I find that male pride can withstand a lot of things - but the spines of my kitty's cock forcing them to ovulate isn't one of them.  Somehow, having your tight butthole used as a pussy for pussy is too much,\" she says, slapping your ass, then giving it a firm caress."},
+			{"text": "The idea of having that kitty cock in your guts... you claw at the dirt."},			
+			{"text": "\"The only thing that isn't certain is whether your hubris or your hole will break first...\""},
+			{"text": "You tremble at the sound of that."},
+			{"text": "\"I'll let you in on a little secret.  My kitty only responds to girl kitties in heat.  If you think that doesn't describe you, well... your pussy disagrees, pussy,\" she says, tapping what she believes to be your pussy, making it tighten up reflexively."},			
+			{"text": "Your body breaks out into a sweat.  Is this really going to happen?  Your ass is in the air, and you're being sized up... as a mate.  Your hole is quivering.  It doesn't know what might be about to happen to it, but you do."},
+			{"text": "The beast rears up and grasps your hips with its paws and starts to try to penetrate you, but it has difficulty finding its breeding target."},			
+			{"text": "\"I'm afraid the time to deny my kitty his pussy has passed. Open up for him, human.\""},
+			{"text": "She reaches underneath her mount to spread your cheeks for the breeding."},
+			{"text": "\"As long as I spread your cheeks like this for him, he'll be able to start anally violating you.\""},
+			{
+			"chatter": "Is it... oh my...",
+			"chatterPerson": "Kylira",
+			"sound": "ANAL_INSERTION",
+			"foreground": "BEASTMISTRESS_KITTY_ANAL",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bellyful": 2, "beast": true}}],
+			"text": "You can't believe this is happening - that is, until you feel a strange object force its way inside, and your vision goes white."},
+			{"text": "\"Painful, isn't it? The barbs are meant to force a female to ovulate... in your ass, though, it's just an unfortunate mismatch.\""},
+			{"text": "The feline phallus bores into you, straightening out your rectal pipe as it does, but even when it withdraws, it isn't a relief, as the barbs scrape your smooth walls."},
+			{
+			"foreground": "BEASTMISTRESS_KITTY_ANAL_INTERNAL",
+			"text": "You whine and moan and begin shaking your hips at the rude sensation. Your teeth stay grit and your fingers dig into the dirt."},
+			{"text": "\"Hmmm... you're acting like quite the female,\" she says, smugly. \"My kitty is very smart, you know. If this was homo sex, he'd know.\""},
+			{"text": "Your voice is hoarse and your eyes stare up at some unseen threat. Meanwhile, your human pecker drools precum - not quite ovulation, but close enough."},
+			{"text": "\"Not exactly your proudest moment, is it? Getting fucked in the ass by an overgrown housecat,\" she says, straightening up, and walking to the front side of her mount."},
+			{"text": "She eyes your <LIPSIZE> lips, licking her own as the mass in her tight shorts swells and stiffens."},
+			{"text": "\"Open up, human. Kitty's not the only one who's been getting antsy,\" she says, having the direcat turn slightly so that she can reach you."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1, "other": "BEASTMISTRESS"}}],
+			"text": "She frees her elven prick from its confines, and then she pries open your mouth with her fingers, before pushing the length of it into your teary-eyed face."},
+			{"text": "In comparison to the feral breeding from behind, her thrusting in and out of your face is relatively subdued, but you're still forced to repeatedly swallow her dark elf dick down your gullet faster than you can adjust to it, and choke pathetically around her schlong as her beast pummels your backdoor."},
+			{"text": "\"Mmm... if you swallow mine, I'll have kitty cum elsewhere,\" she offers, and you nod along, albeit because she forces your head to bob up and down onto her shaft."},
+			{"text": "As she sloppily fucks your face, her impending spew-frenzy seems more and more imminent... until, suddenly, her saliva-coated cock is deep inside, and pulsing in, your throat."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1, "other": "BEASTMISTRESS"}}],
+			"text": "\"Swallow my sticky stuff, human,\" she says, although she leaves you little choice - with her dark meat pulsing in your throat, she ejaculates almost directly into your stomach."},
+			{"text": "You gag horrifically as she dumps her elven ejaculate into your belly, and you finally get a breath of air as she withdraws it from your lips."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "\"I lied. I'm going to let kitty sow his seed in your bowels like a womb. Enjoy the humiliation, human toilet.\""},
+			{"text": "Between the pumping and the scraping, the anal ordeal has proven incredibly difficult, even as you've drooled your own seed into the dirt. You feel an intense rumbling in your stomach, and then heat, and then... humiliation."},
+			{
+			"sound": "CUM",
+			"foreground": "BEASTMISTRESS_KITTY_ANAL_INTERNAL_CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":4, "creampies": 3, "analEjaculation": 1}}],
+			"text": "Getting kitty cock up your kitty litter hole is one thing - being the queen in heat to a powerful tom and being bred is another. You whine as your intestines are pumped full of goo, inseminated and disgraced."},
+			{
+			"sound": "CUMFART",
+			"text": "As he pulls his barbed cock free, you let out an inhuman sound, the underdweller's cum still drooling from your lips, and you collapse into the dirt thereafter."},
+		]
+	},
+	{
+		"key": "BEASTMISTRESS-IMPURE-END",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "BEASTMISTRESS-QUEEN",
+		"scriptLines": [			
 			{"text": "\"A toy it is,\" she says, watching you dismissively. \"I won't use your kittyhole - that's for his exclusive use now. It would be disgusting to use the same fuckhole as an animal, after all,\" she says, looking down on you."},
 			{"text": "She pulls your head up by your hair, and puts her half-flaccid dark meat back inside your mouth."},
 			{"text": "\"Get used to my taste, human. I would say to get used to the barbs... but you won't. Isn't that right, kitty?\" she says, and you know there's no going back now."},

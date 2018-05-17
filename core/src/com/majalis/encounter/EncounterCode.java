@@ -459,8 +459,10 @@ public enum EncounterCode {
 					
 				);
 			case BEASTMISTRESS:
-				Branch mistressChoice = b.branch("Meow").textScene("BEASTMISTRESS-ACCEPT");			
-				Branch queen = b.branch().textScene("BEASTMISTRESS-QUEEN").gameEnd();
+				Branch mistressChoice = b.branch("Meow").textScene("BEASTMISTRESS-ACCEPT");		
+				Branch kittyImpure = b.branch(1).textScene("BEASTMISTRESS-IMPURE").checkScene(Perk.BEASTMASTER, b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("BEASTMISTRESS-RESIST2"), b.branch(false).textScene("BEASTMISTRESS-QUEEN").gameEnd()), b.branch(0).textScene("BEASTMISTRESS-IMPURE-END"));
+				Branch kittySex = b.branch().checkScene(Perk.BEASTMASTER, kittyImpure, b.branch(0).textScene("BEASTMISTRESS-PURE"));
+				Branch kittyForeplay = b.branch().textScene("BEASTMISTRESS-KITTY").checkScene(CheckType.FREE_COCK, b.branch(true).textScene("BEASTMISTRESS-NONCAGED").concat(kittySex), b.branch(false).textScene("BEASTMISTRESS-CAGED").concat(kittySex));
 				
 				return b.branch().textScene("BEASTMISTRESS-INTRO").choiceScene(
 					"Snake or Pussy?", 
@@ -474,12 +476,12 @@ public enum EncounterCode {
 						),
 						b.branch(Outcome.DEFEAT).textScene("BEASTMISTRESS-DEFEAT").checkScene(
 							Perk.BEASTMASTER, 
-							b.branch(3).checkScene(
-								CheckType.ANY_WILLPOWER, 
-								b.branch(true).choiceScene("Which dick will it be?", b.branch("The elf").textScene("BEASTMISTRESS-RESIST").concat(mistressChoice), b.branch("The kitty")), // non-purity branch
-								b.branch(false).concat(queen) // non-purity branch leading to GO
+							b.branch(1).checkScene(
+								CheckType.ANY_WILLPOWER, 	
+								b.branch(true).choiceScene("Which dick will it be?", b.branch("The elf").textScene("BEASTMISTRESS-RESIST").concat(mistressChoice), b.branch("The kitty").concat(kittyForeplay)), // non-purity branch
+								b.branch(false).concat(kittyForeplay) // non-purity branch
 							), 
-							b.branch(0).choiceScene("Get dicked down?", mistressChoice, b.branch("Door number two")) // purity branch
+							b.branch(0).choiceScene("Get dicked down?", mistressChoice, b.branch("Door number two").textScene("BEASTMISTRESS-REFUSE").concat(kittyForeplay)) // purity branch
 						),
 						b.branch(Outcome.SATISFIED_ANAL).checkScene(
 							Stat.AGILITY,
