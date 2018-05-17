@@ -9175,11 +9175,58 @@
 	},
 	{
 		"key": "BEASTMISTRESS-QUEEN",
-		"scriptLines": [			
-			{"text": "\"A toy it is,\" she says, watching you dismissively. \"I won't use your kittyhole - that's for his exclusive use now. It would be disgusting to use the same fuckhole as an animal, after all,\" she says, looking down on you."},
-			{"text": "She pulls your head up by your hair, and puts her half-flaccid dark meat back inside your mouth."},
-			{"text": "\"Get used to my taste, human. I would say to get used to the barbs... but you won't. Isn't that right, kitty?\" she says, and you know there's no going back now."},
-			{"text": "In the end, you find yourself living underground, wearing cat ears that she fashioned for you, while you suck her off and get bred by her direcat, for the rest of your days."}
+		"scriptLines": [		
+			{"text": "Your class has changed to Queen!"},
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."},
+			{"text": "\"Meoooooooowwwww.....\""}, 
+			{
+			"foreground": "BEASTMISTRESS_KITTY_ANAL",
+			"text": "You stretch out your claws in front of you, your back arched, whining obnoxiously as you always do when you're in heat and your tom takes notice."},
+			{"text": "You're underground, in the pen the two of you share, and while your owner is out hunting, you felt the stir of passion... and so assumed your role, as you always do."},
+			{
+			"foreground": "BEASTMISTRESS_KITTY_ANAL_INTERNAL",
+			"text": "If it was possible to become accustomed to the barbs, you would be already... but it isn't. It still waters your eyes whenever you have sex, but of course, that's a natural thing for a queen like yourself to endure, so you do so with... well, not grace, but you do endure it."},
+			{"text": "Your hole is pretty much always itching and drooling. You wish you could lick your own butthole like a real cat, but nobody's perfect. Sometimes, when you see his cock, it begins to cramp, but it soon passes... when it starts to cramp for a more immediate reason."},			
+			{"text": "He never waits for you to cum, so you have to make sure you're really in heat before you initiate, or it can be a bit... unsatisfying.  He's NEVER unsatisfied, though.  Kitty spunk goes in kitty litter hole, period."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":2}}],
+			"text": "Today's your luck day and you cum first... squeezing your hole down on his cock to make sure he helps you \"ovulate\" all over the fucking place. You fling cum while red-faced and panting, getting it all and more from behind."},
+			{"text": "You make sure to spew it all into the kitty litter, like you've been trained - after all, it is useless gunk that's only fit for throwing away. Your owner will see the little balls of litter containing your semen and know exactly how it got there, but that's just fine."},
+			{"text": "\"Good kitty,\" she'd say, condescendingly, while she scooped it up, giving you a look of utter derision. She prefers when her kitty love-den maintains itself."},
+			{"text": "When your spew is done, you try to focus on getting your next one in before your impatient lover decides it's time to make a litter."},
+			{"text": "As much as you like getting destroyed in the ass by his giant direcat dick, you also know you shouldn't go too long or you'll regret it. Fortunately, you know what gets him off, even if admitting that would make you blush."},			
+			{"text": "You press your big ass coated in his slimy stuff back against his fur, grinding against him and keeping his dick as deep as it will go, coaxing it out. You can tell this mating is almost concluded, and you meow sexily for him to seal the deal."},					
+			{"text": "You and you alone know what he likes.  Aside from your ass, of course. It would be strange if he didn't like your ass, given how much cum he pumps in it. It's no secret that your ass is pussy's favorite pussy, even if it isn't his one and only."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":2}}],
+			"foreground": "BEASTMISTRESS_KITTY_ANAL_INTERNAL_CUM",
+			"text": "And, feeling him pump your aching guts full, you're proud of that. You can satisfy him the way no one else can. You love him. And... you love his spiny dick, spines and all."},
+			{
+			"foreground": "NULL",
+			"text": "..."},	
+			{"text": ".."},	
+			{"text": "."},		
+			{"text": "When she trots you out in front of the surface dwellers as a kind of sideshow... you feel the inkling of something, buried deep, deep within... but, of course, the big cat cock buried deep inside that's wrecking your ass on those occasions is a more pressing concern."},
+			{"text": "You're not sure what the boos and jeers are about. Your owner explains that people expect you to put up a fight... but the only thing you put up is your ass, in the air, so that your mate has a clear and ready target for his hard cock."},
+			{"text": "Disappointment eventually leads to disgust as you inevitably let loose in front of the crowd, who apparently don't expect for you to bust a nut while your mate gives it to you good, especially not with a smile on your face and your eyes rolled up into your head."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":2}}],
+			"sound": "CUM",
+			"text": "You purse your lips, blowing out a little bit of air as you feel him blow what is definitely not air into your shared fun-place. It's a healthy load, much bigger than anything anyone in the crowd could put out, and it's a bit too hot to be comfortable."},
+			{"text": "It's deep inside, where it belongs, so you purr for him. The beastmistress watches, pointing out to the incredulous crowd that you're purring, and what could that mean? You smile. Your gut is getting full."},
+			{"text": "Cat cum isn't the only thing you feel deep inside... you also feel excitement at the secret intimacy you share with your feline lover. Only the two of you know how whitewashed your cream cavern is becoming, and only you feel the heat of animalistic lust shooting into your welcoming bowels."},
+			{"text": "You lay your head down, waiting for him to pull out once he's finished. To them, it looks like nothing, but to the two of you... it's done. It happened. Like it was supposed to."},
+			{"text": "He withdraws it quickly this time, likely bothered by the jitters of the crowd.  You arch your back and purse your lips and cum from the raking, letting everyone see your shameful face."},
+			{
+			"animatedForeground": "BUTTBANG",
+			"sound": "CUMFART",
+			"text": "The second wave of disgust hits when he pulls out, and the gush of feline slime reveals to the audience that they've just borne witness to an interspecies anal insemination without even realizing it."},
+			{"text": "The show ends with a bang - her spreading your cheeks to show the crowd exactly what batting for team kitty looks like. The crowd is aghast. They see it leaking out... the pudding proof that it wasn't just some clever trick."},
+			{"text": "You don't care.  You want them to know exactly what kind of relationship you have... and if anyone in the audience knows a good topical cream for a hard-used direcat pussy, you'd be grateful if they let you know. It's so itchy."},			
 		]
 	},
 	{
