@@ -8909,6 +8909,7 @@
 			"text": "You're not sure if it's some special ability of hers, but she slips inside without any friction. At first you think it might be that she's just not particularly thick, but when you involuntarily squeeze down, you feel exactly how thick it is."},
 			{"text": "It seems supernatural that she managed to get it all inside without any resistance, but you don't have much time to really ponder about that when you feel her dark cock stretching open your anal walls, her balls against yours, her precum drooling down from your plugged hole already."},
 			{"text": "She pulls it out just as swiftly and intangibly... and then slips it back in... and then you don't know whether it's coming or going at any given time, only that is is, and that you're being fucked raw by her dick."},
+			{"text": "She thrusts her hips forward excitedly. \"Human ass-pussies... so nice and snug... especially on... stupid human adventurers...\" she says while exploring your anal cavity the hard way."},
 			{"text": "Her ride walks over to where you're... engaged, and she gives it some signal. Surprisingly, it rears up and she grabs its paws... leaving a particular part of it directly in front of your face."},			
 			{"text": "\"Open wide for kitty, meow,\" she says, and you hesitate... only for her fuck to suddenly feel much more intense, making you open your mouth in surprise."},
 			{
@@ -8988,7 +8989,7 @@
 		]
 	},
 	{
-		"key": "BEASTMISTRESS-PURE",
+		"key": "BEASTMISTRESS-KITTY2",
 		"scriptLines": [
 			{"text": "\"Interspecies love isn't taboo below the surface... in fact, it's encouraged to introduce your defeated enemies to your most amorous pets, as a reward. I'll let you decide who's being rewarded.\""},
 			{"text": "You don't believe her cultural education for a moment, but you also know what her beastly friend is getting ready to make good on her promises."},			
@@ -8999,23 +9000,52 @@
 			{"text": "\"I'll let you in on a little secret.  My kitty only responds to girl kitties in heat.  If you think that doesn't describe you, well... your pussy disagrees, pussy,\" she says, tapping what she believes to be your pussy, making it tighten up reflexively."},			
 			{"text": "Your body breaks out into a sweat.  Is this really going to happen?  Your ass is in the air, and you're being sized up... as a mate.  Your hole is quivering.  It doesn't know what might be about to happen to it, but you do."},
 			{"text": "The beast rears up and grasps your hips with its paws and starts to try to penetrate you, but it has difficulty finding its breeding target."},			
-			{"text": "\"I'm afraid the time to deny my kitty his pussy has passed. Open up for him, human.\""},
-			{"text": "She reaches underneath her mount to spread your cheeks for the breeding."},
-			{"text": "\"As long as I spread your cheeks like this for him, he'll be able to start anally violating you.\""},
+			{"text": "\"I'm afraid the time to deny my kitty his pussy has passed. Open up for him, human.\""}
+		]
+	},
+	{
+		"key": "BEASTMISTRESS-PURE",
+		"scriptLines": [
+			{"text": "You try not to make it too easy a target, in the hopes that he'll get bored... and she clicks her teeth."},
+			{"text": "She reaches underneath her mount to spread your cheeks for the breeding. \"Looks like kitty needs some help, it seems.\""},
+			{"text": "She spreads your cheeks, and suddenly, the several near-misses you'd just experienced come to mind.  You keep trying to shift in her grasp, but you feel kitty honing in on your \"no kitties allowed\" gate."},
+			{"text": "\"As long as I spread your cheeks like this for him, he'll be able to start anally violating you,\" she says, as if you didn't already know."},
+			{"text": "It's going to hit its mark sooner or later, and you can't tell exactly when, so it's impossible to prepare your heart, or your butthole for the matter."},		
 			{
 			"chatter": "Is it... oh my...",
 			"chatterPerson": "Kylira",
 			"sound": "ANAL_INSERTION",
 			"foreground": "BEASTMISTRESS_KITTY_ANAL",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bellyful": 2, "beast": true}}],
-			"text": "You can't believe this is happening - that is, until you feel a strange object force its way inside, and your vision goes white."},
+			"text": "When it does slam into your balloon knot, it does so suddenly and forcefully, knocking the wind out of you.  It makes its way inside, too late for regrets.  Your body trembles, unsure of how to cope with the foreign anal sex, and you let out a defeated whine."},
+			{"text": "You purse your lips - it's in there alright, and it's quite a bit bigger than your poor donut hole can take comfortably.  It's getting stretched... and you are getting fucked."},
+			{"text": "You doubt it's a particularly hygienic thing to have shoved up your rectum, but you doubt hygiene is high on your unfortunately-new-lover's list of priorities.  \"Fuck\" and \"breed\" definitely top the list, and he's going to get to check off both before you get any dignity back."},
 			{"text": "\"Painful, isn't it? The barbs are meant to force a female to ovulate... in your ass, though, it's just an unfortunate mismatch.\""},
 			{"text": "The feline phallus bores into you, straightening out your rectal pipe as it does, but even when it withdraws, it isn't a relief, as the barbs scrape your smooth walls."},
+			{"text": "His mating instinct is strong, but it's also climbing up the very wrongest tree, what with you being human and him putting his cock up your not-for-reproduction-butthole."},		
 			{
 			"foreground": "BEASTMISTRESS_KITTY_ANAL_INTERNAL",
 			"text": "You whine and moan and begin shaking your hips at the rude sensation. Your teeth stay grit and your fingers dig into the dirt."},
 			{"text": "\"Hmmm... you're acting like quite the female,\" she says, smugly. \"My kitty is very smart, you know. If this was homo sex, he'd know.\""},
 			{"text": "Your voice is hoarse and your eyes stare up at some unseen threat. Meanwhile, your human pecker drools precum - not quite ovulation, but close enough."},
+			{"text": "The spines are a... nice touch.  You hope they don't do anything that lasts, anymore than the oversized cock in your backside will, anyway.  You grit your teeth whenever one tugs on your anus - size alone would leave you red in the face, but the spurs make you dig your fingers into the dirt."},
+			{"text": "The mating is... awkward, as you wiggle your butt and try to dodge his cock and keep the spines away from particularly sensitive areas, which are just about everywhere in your rectum.  The one on the giving end doesn't seem to mind, though."},
+			{"text": "The drow seems amused by your hip-twisting and your obvious anal frustration.  You are one consternated kitty, that's for sure.  You bite your lip and scrape the ground with your nails, and she mocks you for it."},
+			{"text": "\"What's the matter?\" she asks, knowing you're not about to answer that her big cat's big cock is wrecking your ass and you're not sure how much your poor little pussy can take.  But the way your hips gyrate, that's basically what your body language says anyway."},
+			{"text": "Your hole sputters and spasms around his big cock, stretched wide without any rest or relief.  You wish there was more lubrication, but then, you wish his barbed dick wasn't laying a big-time fuck in your ass, so you wish for a lot of things."},
+			{"text": "Even if you could forget something like this happening, you're sure you'll have a reminder in the form of the weird sensation in your rectum from this kitty sex, which you're hoping will only last, at best, a couple of days, but feeling the spines dig in to your rectal walls, you'll likely be feeling for weeks."},
+			{"text": "Every time he pulls outwards, they scrape along your rectal wall, an unnatural and insistent sensation that you wish you could just start ovulating to accommodate."},
+			{"text": "Of course, him spreading deep into your chute on the in-thrust isn't itself a comfortable feeling, but once he starts retracting you can't wait for the next thrust in."},
+			{"text": "You bite your lip and sweat profusely, unable to convince your body that the strange warm feeling in your belly isn't dangerous."},
+			{"text": "Every time he pulls out, you purse your lips, and when he pushes back in, you have a moment where he's fully inside your ass and your breath falters and halts before the spines come out to play again."},
+			{"text": "It's impossible to ignore the alien buttfucking or its implications, even as you waggle your hips to try in futility to adjust the ebb and flow of the pussy pounding."},	
+			{"text": "Put another way: Kitty cock goes in, kitty cock goes out. You can't explain that."},
+			{"text": "It's trying to induce ovulation... and you're worried it might be working.  You doubt you'll actually get butt-pregnant by a direcat, of course, but you wouldn't want anyone you know to hear how you're mewling, or the particular angle your penis is making with the ground."},
+			{"text": "And though you aren't dropping any eggs... sperm is a different story. You try not to think about the fact that you wouldn't be producing nearly as much if not for the spines... and you wouldn't be mewling as much either."},
+			{"text": "You don't know if he's experience at doing this, but you know that if he isn't, he's getting a lot of practice... and you wonder how much longer he can keep going.  Then, it dawns on you - it's going to happen."},
+			{"text": "Your belly is gurgling, as if it knows it's about to be used in a way that it wasn't made for, playing the part of the womb. You don't know when it will come, but it's inevitable, and you know he won't be pulling out."},
+			{"text": "You ponder if his confused cock knows that it's somewhere it doesn't belong, even as its urge to seed builds.  He must be convinced that his raking has induced ovulation, and if so, he's going to be disappointed."},
+			{"text": "His seed will not find a womb, but, at best, a stomach.  It does not find an ovulating direcat on the receiving end of its fuck, but instead, your very human, fucked-hard asshole."},
 			{"text": "\"Not exactly your proudest moment, is it? Getting fucked in the ass by an overgrown housecat,\" she says, straightening up, and walking to the front side of her mount."},
 			{"text": "She eyes your <LIPSIZE> lips, licking her own as the mass in her tight shorts swells and stiffens."},
 			{"text": "\"Open up, human. Kitty's not the only one who's been getting antsy,\" she says, having the direcat turn slightly so that she can reach you."},
@@ -9032,15 +9062,42 @@
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
 			"text": "\"I lied. I'm going to let kitty sow his seed in your bowels like a womb. Enjoy the humiliation, human toilet.\""},
-			{"text": "Between the pumping and the scraping, the anal ordeal has proven incredibly difficult, even as you've drooled your own seed into the dirt. You feel an intense rumbling in your stomach, and then heat, and then... humiliation."},
+			{"text": "As if she instructed him to do so, you can tell he's about to begin to inseminate you right in the corner pocket. You begin to make unintelligible, rushed sounds of protest, knowing that it won't matter."},
+			{"text": "Between the pumping and the scraping, the anal ordeal has proven incredibly difficult, even as you've drooled your own seed into the dirt. You feel an intense rumbling in your stomach, and then heat, and then... humiliation."},			
 			{
 			"sound": "CUM",
 			"foreground": "BEASTMISTRESS_KITTY_ANAL_INTERNAL_CUM",
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":4, "creampies": 3, "analEjaculation": 1}}],
-			"text": "Getting kitty cock up your kitty litter hole is one thing - being the queen in heat to a powerful tom and being bred is another. You whine as your intestines are pumped full of goo, inseminated and disgraced."},
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies": 2, "analEjaculation": 1}}],
+			"text": "It does, however, definitely fire a long, milky rope into what is now no different from a pussy's pussy.  The sudden spike in bowel pressure makes it obvious to you what's happening, even if you can't really believe it."},
+			{"text": "Your mouth hangs open, agape, in shock, at the sensation that you know, deep down, was the inevitable conclusion of this play.  Defeated, you rest your chin on the ground - nothing to do now but collect your spoils while losing the last of your dignity."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies": 2}}],
+			"text": "Apparently, you played your part in the bizarre ritual quite well - either that or direcats will put any old queen on full blast, because your mating partner does not leave your plugged hole unfed. You catch a bucket of the stuff in your gut."},
+			{"text": "Getting kitty cock up your kitty litter hole is one thing - being the queen in heat to a powerful tom and being bred is another. You whine as your intestines are pumped full of goo, inseminated and disgraced."},			
+			{
+			"sound": "CUM_BUBBLING",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies": 2}}],
+			"text": "Your toes curl as the pressure builds, far more cum than you'd like snaking through your intestines.  It eventually lets up, but not before you whine pathetically, your gut swollen."},
+			{"text": "She wipes your forehead and places her hand gently on your swollen belly, giving it a little squish as a test. \"Are your bowels full of his seed, human?\" she asks, knowing the answer."},
+			{"text": "You nod your head, humiliated, and she runs her hand over your hip, grabbing your asscheek."},
+			{"text": "\"Good kitty. Now loosen up,\" she demands, and you relax as best you can."},
+			{"text": "As he pulls his barbed cock free, you let out an inhuman sound, the underdweller's cum still drooling from your lips, and you collapse into the dirt thereafter."},
 			{
 			"sound": "CUMFART",
-			"text": "As he pulls his barbed cock free, you let out an inhuman sound, the underdweller's cum still drooling from your lips, and you collapse into the dirt thereafter."},
+			"animatedForeground": "BUTTBANG",
+			"text": "The spines give you one last good scraping as he withdraws, dragging them along your anal walls until he pulls the whole thing free of your fucked-out hole, as if to mark you as his."},
+			{"text": "At the moment, you -feel- like his... you've been ridden hard and put away internally wet.  He pounced, he pumped, he pussified.  And all you got out of it were itchy bowels and a profound sense of surrender."},
+			{"text": "You can't imagine looking another human in the eye, knowing what you now know - particularly, where kitty's horny cocky has been, and what it did there."},
+			{"text": "\"Phew.  That is one creamed cornhole,\" she says, whistling, adding insult to ass-injury.  \"Good kitty.  I bet she'll have a nice, healthy litter of kittens.\""},
+			{
+			"sound": "CUM_BUBBLING",
+			"text": "The direcat's cum bubbles out of you - there's far too much to just hold comfortably in your rectum."},
+			{
+			"sound": "CUMFART",
+			"text": "You push out his cum as quickly as possible, not out of fear of pregnancy, but wanting to rid yourself of a reminder that your asshole is now an interspecies ambassador."},
+			{"text": "A cumdump for all comers."},
+			{"text": "She pets her kitty affectionately, and tells him that he should know better than to breed a random stray... that's you, of course. You at least got to fling cum from the experience... but you hope that you don't cross the cruel drow's path again."}
 		]
 	},
 	{
