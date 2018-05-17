@@ -459,6 +459,9 @@ public enum EncounterCode {
 					
 				);
 			case BEASTMISTRESS:
+				Branch mistressChoice = b.branch("Meow").textScene("BEASTMISTRESS-ACCEPT");			
+				Branch queen = b.branch().textScene("BEASTMISTRESS-QUEEN").gameEnd();
+				
 				return b.branch().textScene("BEASTMISTRESS-INTRO").choiceScene(
 					"Snake or Pussy?", 
 					b.branch("Snake").textScene("BEASTMISTRESS-ENTRANCE"),
@@ -469,7 +472,15 @@ public enum EncounterCode {
 							b.branch("Go Spelunking").require(ChoiceCheckType.FREE_COCK).textScene("BEASTMISTRESS-SPELUNKING"), 
 							b.branch("Go Home").textScene("BEASTMISTRESS-DECLINE")
 						),
-						b.branch(Outcome.DEFEAT).textScene("BEASTMISTRESS-QUEEN").gameEnd(),
+						b.branch(Outcome.DEFEAT).textScene("BEASTMISTRESS-DEFEAT").checkScene(
+							Perk.BEASTMASTER, 
+							b.branch(3).checkScene(
+								CheckType.ANY_WILLPOWER, 
+								b.branch(true).choiceScene("Which dick will it be?", b.branch("The elf").textScene("BEASTMISTRESS-RESIST").concat(mistressChoice), b.branch("The kitty")), // non-purity branch
+								b.branch(false).concat(queen) // non-purity branch leading to GO
+							), 
+							b.branch(0).choiceScene("Get dicked down?", mistressChoice, b.branch("Door number two")) // purity branch
+						),
 						b.branch(Outcome.SATISFIED_ANAL).checkScene(
 							Stat.AGILITY,
 							b.branch(4).textScene("BEASTMISTRESS-DODGE"),

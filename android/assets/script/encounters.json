@@ -8884,11 +8884,33 @@
 		]
 	},
 	{
-		"key": "BEASTMISTRESS-QUEEN",
+		"key": "BEASTMISTRESS-DEFEAT",
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}], 
 			"text": "You fall under the intensity of the cat's assault. She dismounts it with an air of smug condescension. You watch the beast stirring in her loins... but she doesn't approach."},
+			{"text": "\"Good kitty,\" she says, stroking her steed, \"now... human. I want to claim you... but I believe my kitty deserves a treat. What do you think?\" she asks, walking a few paces away from the direcat."},
+			{"text": "You don't know what to say... or what to do."},
+			{"text": "\"You'll be my kitty, won't you? On all fours?\" she says, suggestively, and you swallow."}
+		]
+	},
+	{
+		"key": "BEASTMISTRESS-ACCEPT",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "BEASTMISTRESS-RESIST",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"WILLPOWER", "value":{"class": "java.lang.Integer", "value": -1}}],
+			"text": "Despite your... predilections, you resist the allure, and point your ass at the enticed drow."}
+		]
+	},
+	{
+		"key": "BEASTMISTRESS-QUEEN",
+		"scriptLines": [			
 			{"text": "\"Hmmm, seems my kitty's got a new toy...\" she says, her voice full of vinegar."},
 			{"text": "Her cat approaches you, and you shake your head. No - this can't be."},
 			{"text": "\"Hm... a human male, are you?\" she says, a sinister smile slowly creeping across her face. \"I see that now,\" she says, licking her finger as her mount closes in on you."},
