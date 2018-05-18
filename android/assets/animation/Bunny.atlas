@@ -1,0 +1,438 @@
+
+Bunny.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+carmleft
+  rotate: false
+  xy: 1737, 1690
+  size: 308, 350
+  orig: 308, 350
+  offset: 0, 0
+  index: -1
+cbangs
+  rotate: false
+  xy: 1520, 1311
+  size: 196, 219
+  orig: 196, 219
+  offset: 0, 0
+  index: -1
+chead
+  rotate: true
+  xy: 1477, 648
+  size: 199, 253
+  orig: 199, 253
+  offset: 0, 0
+  index: -1
+cleftear
+  rotate: false
+  xy: 2, 2
+  size: 345, 212
+  orig: 345, 212
+  offset: 0, 0
+  index: -1
+clegleft
+  rotate: false
+  xy: 2, 216
+  size: 293, 631
+  orig: 293, 631
+  offset: 0, 0
+  index: -1
+ctail
+  rotate: true
+  xy: 1737, 3
+  size: 277, 221
+  orig: 277, 221
+  offset: 0, 0
+  index: -1
+ctorso
+  rotate: false
+  xy: 2, 849
+  size: 504, 1191
+  orig: 504, 1191
+  offset: 0, 0
+  index: -1
+farmleft
+  rotate: false
+  xy: 1737, 1338
+  size: 308, 350
+  orig: 308, 350
+  offset: 0, 0
+  index: -1
+fbangs
+  rotate: false
+  xy: 1520, 1090
+  size: 196, 219
+  orig: 196, 219
+  offset: 0, 0
+  index: -1
+fhead
+  rotate: true
+  xy: 1477, 447
+  size: 199, 253
+  orig: 199, 253
+  offset: 0, 0
+  index: -1
+fleftear
+  rotate: false
+  xy: 349, 2
+  size: 345, 212
+  orig: 345, 212
+  offset: 0, 0
+  index: -1
+flegleft
+  rotate: false
+  xy: 297, 216
+  size: 293, 631
+  orig: 293, 631
+  offset: 0, 0
+  index: -1
+ftorso
+  rotate: false
+  xy: 1014, 849
+  size: 504, 1191
+  orig: 504, 1191
+  offset: 0, 0
+  index: -1
+marmleft
+  rotate: false
+  xy: 1737, 986
+  size: 308, 350
+  orig: 308, 350
+  offset: 0, 0
+  index: -1
+mbangs
+  rotate: false
+  xy: 1520, 869
+  size: 196, 219
+  orig: 196, 219
+  offset: 0, 0
+  index: -1
+mhead
+  rotate: true
+  xy: 1477, 246
+  size: 199, 253
+  orig: 199, 253
+  offset: 0, 0
+  index: -1
+mleftear
+  rotate: false
+  xy: 696, 2
+  size: 345, 212
+  orig: 345, 212
+  offset: 0, 0
+  index: -1
+mlegleft
+  rotate: false
+  xy: 592, 216
+  size: 293, 631
+  orig: 293, 631
+  offset: 0, 0
+  index: -1
+mtorso
+  rotate: false
+  xy: 508, 849
+  size: 504, 1191
+  orig: 504, 1191
+  offset: 0, 0
+  index: -1
+sarmleft
+  rotate: false
+  xy: 1737, 634
+  size: 308, 350
+  orig: 308, 350
+  offset: 0, 0
+  index: -1
+shead
+  rotate: false
+  xy: 1520, 1787
+  size: 199, 253
+  orig: 199, 253
+  offset: 0, 0
+  index: -1
+sleftear
+  rotate: false
+  xy: 1043, 2
+  size: 345, 212
+  orig: 345, 212
+  offset: 0, 0
+  index: -1
+slegleft
+  rotate: false
+  xy: 887, 216
+  size: 293, 631
+  orig: 293, 631
+  offset: 0, 0
+  index: -1
+varmleft
+  rotate: false
+  xy: 1737, 282
+  size: 308, 350
+  orig: 308, 350
+  offset: 0, 0
+  index: -1
+vhead
+  rotate: false
+  xy: 1520, 1532
+  size: 199, 253
+  orig: 199, 253
+  offset: 0, 0
+  index: -1
+vleftear
+  rotate: false
+  xy: 1390, 2
+  size: 345, 212
+  orig: 345, 212
+  offset: 0, 0
+  index: -1
+vlegleft
+  rotate: false
+  xy: 1182, 216
+  size: 293, 631
+  orig: 293, 631
+  offset: 0, 0
+  index: -1
+
+Bunny2.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cbraid
+  rotate: false
+  xy: 813, 1316
+  size: 139, 302
+  orig: 139, 302
+  offset: 0, 0
+  index: -1
+crightarm
+  rotate: true
+  xy: 1402, 1620
+  size: 410, 447
+  orig: 410, 447
+  offset: 0, 0
+  index: -1
+crightear
+  rotate: false
+  xy: 1402, 42
+  size: 298, 303
+  orig: 298, 303
+  offset: 0, 0
+  index: -1
+cshirt
+  rotate: false
+  xy: 2, 2
+  size: 278, 329
+  orig: 278, 329
+  offset: 0, 0
+  index: -1
+ctassels
+  rotate: true
+  xy: 1195, 1558
+  size: 472, 173
+  orig: 472, 173
+  offset: 0, 0
+  index: -1
+fbraid
+  rotate: true
+  xy: 508, 879
+  size: 139, 302
+  orig: 139, 302
+  offset: 0, 0
+  index: -1
+frightarm
+  rotate: true
+  xy: 1370, 1208
+  size: 410, 447
+  orig: 410, 447
+  offset: 0, 0
+  index: -1
+frightear
+  rotate: true
+  xy: 1702, 47
+  size: 298, 303
+  orig: 298, 303
+  offset: 0, 0
+  index: -1
+fshirt
+  rotate: false
+  xy: 282, 2
+  size: 278, 329
+  orig: 278, 329
+  offset: 0, 0
+  index: -1
+ftail
+  rotate: true
+  xy: 1782, 517
+  size: 277, 221
+  orig: 277, 221
+  offset: 0, 0
+  index: -1
+ftassels
+  rotate: true
+  xy: 1851, 1558
+  size: 472, 173
+  orig: 472, 173
+  offset: 0, 0
+  index: -1
+mbraid
+  rotate: true
+  xy: 812, 879
+  size: 139, 302
+  orig: 139, 302
+  offset: 0, 0
+  index: -1
+mrightarm
+  rotate: true
+  xy: 1370, 796
+  size: 410, 447
+  orig: 410, 447
+  offset: 0, 0
+  index: -1
+mrightear
+  rotate: true
+  xy: 508, 1320
+  size: 298, 303
+  orig: 298, 303
+  offset: 0, 0
+  index: -1
+mshirt
+  rotate: false
+  xy: 562, 2
+  size: 278, 329
+  orig: 278, 329
+  offset: 0, 0
+  index: -1
+mtail
+  rotate: true
+  xy: 1819, 805
+  size: 277, 221
+  orig: 277, 221
+  offset: 0, 0
+  index: -1
+mtassels
+  rotate: true
+  xy: 1195, 1084
+  size: 472, 173
+  orig: 472, 173
+  offset: 0, 0
+  index: -1
+sbangs
+  rotate: true
+  xy: 954, 1276
+  size: 196, 219
+  orig: 196, 219
+  offset: 0, 0
+  index: -1
+srightarm
+  rotate: false
+  xy: 1370, 347
+  size: 410, 447
+  orig: 410, 447
+  offset: 0, 0
+  index: -1
+srightear
+  rotate: true
+  xy: 508, 1020
+  size: 298, 303
+  orig: 298, 303
+  offset: 0, 0
+  index: -1
+sshirt
+  rotate: false
+  xy: 842, 2
+  size: 278, 329
+  orig: 278, 329
+  offset: 0, 0
+  index: -1
+stail
+  rotate: true
+  xy: 957, 1753
+  size: 277, 221
+  orig: 277, 221
+  offset: 0, 0
+  index: -1
+stassels
+  rotate: true
+  xy: 1819, 1084
+  size: 472, 173
+  orig: 472, 173
+  offset: 0, 0
+  index: -1
+storso
+  rotate: false
+  xy: 2, 839
+  size: 504, 1191
+  orig: 504, 1191
+  offset: 0, 0
+  index: -1
+vbangs
+  rotate: false
+  xy: 813, 1055
+  size: 196, 219
+  orig: 196, 219
+  offset: 0, 0
+  index: -1
+vrightarm
+  rotate: true
+  xy: 508, 1620
+  size: 410, 447
+  orig: 410, 447
+  offset: 0, 0
+  index: -1
+vshirt
+  rotate: false
+  xy: 1122, 2
+  size: 278, 329
+  orig: 278, 329
+  offset: 0, 0
+  index: -1
+vtail
+  rotate: true
+  xy: 957, 1474
+  size: 277, 221
+  orig: 277, 221
+  offset: 0, 0
+  index: -1
+vtassels
+  rotate: true
+  xy: 1195, 610
+  size: 472, 173
+  orig: 472, 173
+  offset: 0, 0
+  index: -1
+vtorso
+  rotate: true
+  xy: 2, 333
+  size: 504, 1191
+  orig: 504, 1191
+  offset: 0, 0
+  index: -1
+
+Bunny3.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sbraid
+  rotate: false
+  xy: 302, 144
+  size: 139, 302
+  orig: 139, 302
+  offset: 0, 0
+  index: -1
+vbraid
+  rotate: true
+  xy: 2, 2
+  size: 139, 302
+  orig: 139, 302
+  offset: 0, 0
+  index: -1
+vrightear
+  rotate: false
+  xy: 2, 143
+  size: 298, 303
+  orig: 298, 303
+  offset: 0, 0
+  index: -1

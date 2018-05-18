@@ -52,12 +52,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.storyMode = storyMode;
 		init(textures, textureMap, animations, stance);
 		climaxCounters = new ObjectMap<String, Integer>();
-		currentFrame = 0;
-		if (enemyType == EnemyEnum.BUNNY) {
-			String bunnyType = Gdx.app.getPreferences("tales-of-androgyny-preferences").getString("bunny", "CREAM");
-			currentFrame = bunnyType.equals("CREAM") ? 0 : bunnyType.equals("VANILLA") ? 1 : bunnyType.equals("CARAMEL") ? 2 : bunnyType.equals("CHOCOLATE") ? 3 : 4;
-		}
-		
+		currentFrame = 0;		
 		random = new RandomXS128((int)(Math.random() * 10000) % 10000);
 		weapon = enemyType.getWeaponType() != null && enemyType.getWeaponType().isMelee() ? new Weapon(enemyType.getWeaponType()): null;
 		rangedWeapon = enemyType.getWeaponType() != null && !enemyType.getWeaponType().isMelee() ? new Weapon(enemyType.getWeaponType()): null;

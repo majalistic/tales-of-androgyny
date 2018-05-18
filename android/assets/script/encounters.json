@@ -10986,7 +10986,7 @@
 		"key": "BUNNY-SHOW-CREAM",
 		"scriptLines": [
 			{
-			"foreground": "BUNNY_CREAM"
+			"animatedForeground": "BUNNY_CREAM"
 			"text": ""}
 		]
 	},
@@ -10994,7 +10994,7 @@
 		"key": "BUNNY-SHOW-VANILLA",
 		"scriptLines": [
 			{
-			"foreground": "BUNNY_VANILLA"
+			"animatedForeground": "BUNNY_VANILLA"
 			"text": ""}
 		]
 	},
@@ -11002,7 +11002,7 @@
 		"key": "BUNNY-SHOW-CARAMEL",
 		"scriptLines": [
 			{
-			"foreground": "BUNNY_CARAMEL"
+			"animatedForeground": "BUNNY_CARAMEL"
 			"text": ""}
 		]
 	},
@@ -11010,7 +11010,7 @@
 		"key": "BUNNY-SHOW-CHOCOLATE",
 		"scriptLines": [
 			{
-			"foreground": "BUNNY_CHOCOLATE"
+			"animatedForeground": "BUNNY_CHOCOLATE"
 			"text": ""}
 		]
 	},
@@ -11018,7 +11018,7 @@
 		"key": "BUNNY-SHOW-DARK-CHOCOLATE",
 		"scriptLines": [
 			{
-			"foreground": "BUNNY_DARK_CHOCOLATE"
+			"animatedForeground": "BUNNY_DARK_CHOCOLATE"
 			"text": ""}
 		]
 	},

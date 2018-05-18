@@ -19,6 +19,11 @@ public enum AnimationEnum {
 	GHOST(AssetEnum.GHOST_ANIMATION),
 	GHOST_SPOOKY(AssetEnum.GHOST_ANIMATION),
 	GHOST_SPOOKY_BLOODLESS(AssetEnum.GHOST_ANIMATION),
+	BUNNY_CREAM(AssetEnum.BUNNY_ANIMATION),
+	BUNNY_VANILLA(AssetEnum.BUNNY_ANIMATION),
+	BUNNY_CARAMEL(AssetEnum.BUNNY_ANIMATION),
+	BUNNY_CHOCOLATE(AssetEnum.BUNNY_ANIMATION),
+	BUNNY_DARK_CHOCOLATE(AssetEnum.BUNNY_ANIMATION),
 	NULL(AssetEnum.NULL_ANIMATION)	
 	;
 	private static final ObjectMap<AssetEnum, AnimatedActorFactory> factoryMap = new ObjectMap<AssetEnum, AnimatedActorFactory>();
@@ -40,7 +45,7 @@ public enum AnimationEnum {
 		if (this == HARPY) {
 			animation.setSkeletonPosition(900, 550);
 		}
-		else if (this == BRIGAND) {
+		else if (this == BRIGAND || this == BEASTMISTRESS || this == BUNNY_CREAM || this == BUNNY_VANILLA || this == BUNNY_CARAMEL || this == BUNNY_CHOCOLATE || this == BUNNY_DARK_CHOCOLATE) {
 			animation.setSkeletonPosition(900, 450);
 		}
 		else if (this == GOBLIN || this == GOBLIN_MALE) {
@@ -73,6 +78,21 @@ public enum AnimationEnum {
 		}
 		else if (this == GOBLIN_MALE) {
 			animation.setSkeletonSkin("Homme");
+		}
+		else if (this == BUNNY_CREAM) {
+			animation.setSkeletonSkin("Vanilla");
+		}
+		else if (this == BUNNY_VANILLA) {
+			animation.setSkeletonSkin("Cinnamon");
+		}
+		else if (this == BUNNY_CARAMEL) {
+			animation.setSkeletonSkin("Caramel");
+		}
+		else if (this == BUNNY_CHOCOLATE) {
+			animation.setSkeletonSkin("Mocha");
+		}
+		else if (this == BUNNY_DARK_CHOCOLATE) {
+			animation.setSkeletonSkin("Chocolate");
 		}
 		if (this == ORC_PRONE_BONE) {
 			animation.setAnimation(0, "SlowMed", true);
