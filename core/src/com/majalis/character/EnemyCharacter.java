@@ -469,6 +469,17 @@ public class EnemyCharacter extends AbstractCharacter {
 				resolvedAttack.addDialog("\"Got ya!\" she says, as she manhandles you from behind.");
 			}
 			
+			if (oldStance != Stance.DOGGY_KYLIRA && stance == Stance.DOGGY_KYLIRA) {
+				resolvedAttack.addDialog("\"Huh?! What are you... ahn! Nngh!\"");
+			}
+			
+			if (oldStance != Stance.DOGGY_TRUDY && stance == Stance.DOGGY_TRUDY) {
+				resolvedAttack.addDialog("\"Wait, what's tha... hnnngh!\"");
+			}
+			if (oldStance == Stance.DOGGY_TRUDY && stance == Stance.DOGGY_TRUDY) {
+				resolvedAttack.addDialog("\"Don't just stand there!  get her off!\"");
+			}
+			
 			if (oldStance != Stance.OFFENSIVE && stance == Stance.OFFENSIVE) {
 				switch (enemyType) {
 					case BRIGAND:
@@ -639,7 +650,6 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 				}
 			}
-			
 			if (resolvedAttack.isClimax()) {
 				switch (enemyType) {
 					case SLIME:
