@@ -836,6 +836,9 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (target.stance.receivesMediumAttacks() && enemyType == EnemyEnum.BRIGAND || (enemyType == EnemyEnum.SPIDER && !target.fullOfEggs()) || (enemyType == EnemyEnum.ORC && weapon == null) && currentStamina > 10) {
 				possibleTechniques.add(FULL_NELSON);
 			}
+			else if (target.companionAvailable()) {
+				possibleTechniques.add(CORNHOLE_OTHER);
+			}
 		}
 		
 		Array<Techniques> toRemove = new Array<Techniques>();

@@ -93,6 +93,7 @@ public class Technique {
 			thisPayload.getTrip(),
 			thisPayload.getBleeding(),
 			thisPayload.getRemovePlug(),
+			technique.getResultingStance() == Stance.DOGGY_OTHER || technique.getUsableStance() == Stance.DOGGY_OTHER,
 			technique.getClimaxType(), 
 			getAdvance() + otherTechnique.getAdvance(),
 			technique.getRange(),
@@ -128,7 +129,8 @@ public class Technique {
 				0, // disarm
 				0, // trip
 				(thisPayload.getBasePower() + 2) / 3 + 1, // bleed
-				0,
+				0, // remove plug,
+				false, // isCompanion
 				null, // climax type
 				0, // advance
 				1, // range

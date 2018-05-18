@@ -4,7 +4,7 @@ import com.majalis.character.GrappleType;
 import com.majalis.character.Stance;
 
 public class ClimaxTechnique extends TechniqueBuilder {
-
+	public ClimaxTechnique(Stance usableStance, Stance resultingStance, String name, ClimaxType type) { this(usableStance, resultingStance, name, null, type); }
 	public ClimaxTechnique(Stance usableStance, Stance resultingStance, String name, Stance forceStance, ClimaxType type) {
 		super(usableStance, resultingStance, name);
 		this.climaxType = type;
@@ -22,6 +22,8 @@ public class ClimaxTechnique extends TechniqueBuilder {
 		}
 	}
 	
+	
+
 	public enum ClimaxType {
 		ANAL,
 		ORAL,
@@ -29,6 +31,7 @@ public class ClimaxTechnique extends TechniqueBuilder {
 		BACKWASH, // cum on back
 		ANAL_RECEPTIVE, // cum while penetrated
 		ORAL_RECEPTIVE, 
-		NULL
+		OTHER,
+		NULL, 
 	}
 }

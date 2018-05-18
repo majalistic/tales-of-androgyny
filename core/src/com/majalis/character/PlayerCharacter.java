@@ -92,7 +92,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private boolean knockdownTutorial;
 	private boolean stanceTutorial;
 	private boolean kyliraHeal;
-	
+	private boolean companionAvailable;
 	private ObjectMap<String, Boolean> bonuses;
 	
 	@SuppressWarnings("unused")
@@ -314,6 +314,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public AttackResult receiveAttack(Attack resolvedAttack) {
 		super.receiveAttack(resolvedAttack);
 		
+		if (resolvedAttack.isCompanion()) { companionAvailable = false; }
 		String result;
 		if (resolvedAttack.isClimax()) {
 			if (oldStance.isAnalReceptive()) { setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_AHEGAO : AssetEnum.PORTRAIT_POUT); }
@@ -411,6 +412,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			weapon = disarmedWeapon;
 			disarmedWeapon = null;
 		}
+		companionAvailable = false;
 
 		setCurrentPortrait(getNeutralFace());
 		int currentBleed = statuses.get(StatusType.BLEEDING.toString(), 0);
@@ -1674,7 +1676,12 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Femininity getFemininity() { return femininity; }
 	public boolean hasTrudy() { return getTrudyLevel() > 0; }
 	public boolean hasKylira() { return getKyliraLevel() > 0 || questFlags.get(QuestType.ELF.toString(), 0) == 5;  }
-	public boolean hasKyliraHeal() { boolean temp = kyliraHeal; if (getKyliraLevel() > 0) kyliraHeal = false; return temp && getKyliraLevel() > 0 && hasKylira(); }
+	public boolean hasKyliraHeal() { 
+		boolean temp = kyliraHeal; 
+		if (getKyliraLevel() > 0) kyliraHeal = false; 
+		if (getKyliraLevel() > 0 && hasKylira() && temp) companionAvailable = true; 
+		return temp && getKyliraLevel() > 0 && hasKylira(); 
+	}
 	public int getKyliraLevel() { return questFlags.get(QuestType.ELF.toString(), 0) - 8; }
 	public int getTrudyLevel() { return questFlags.get(QuestType.TRUDY.toString(), 0) - 4; }
 	public String getKyliraAffection() { return getCompanionAffection(getKyliraLevel()); }
@@ -1726,4 +1733,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	public int getHeartbeat() { return heartbeat; }
 
 	public boolean isTight() { return receivedAnal < 15; }
+	@Override
+	public boolean companionAvailable() { return companionAvailable; }
 }

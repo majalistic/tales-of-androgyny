@@ -450,7 +450,7 @@ public class Battle extends Group{
 		}
 		
 		// temporary measure to ensure erotic stances are never one-sided
-		if (firstCharacter.getStance().isErotic() != secondCharacter.getStance().isErotic()) {
+		if (firstCharacter.getStance().isErotic() != secondCharacter.getStance().isErotic() && firstCharacter.getStance() != Stance.DOGGY_OTHER && secondCharacter.getStance() != Stance.DOGGY_OTHER) {
 			System.out.println("Player is in " + firstCharacter.getStance() + " stance and enemy is in " + secondCharacter.getStance() + " stance.");
 			if (firstCharacter.getStance().isErotic()) { firstCharacter.setStance(Stance.BALANCED);	}
 			else { secondCharacter.setStance(Stance.BALANCED); }
