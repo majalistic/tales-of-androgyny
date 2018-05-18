@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.majalis.battle.Battle;
+import com.majalis.screens.BattleScreen;
 
 public class MasculinityDisplay extends Group {
 	private final Image display;
@@ -33,7 +33,7 @@ public class MasculinityDisplay extends Group {
 				sequence(show(), fadeIn(1), new Action(){
 				@Override
 				public boolean act(float delta) {
-					display.setDrawable(Battle.getDrawable(assetManager.get(character.getMasculinityPath())));
+					display.setDrawable(BattleScreen.getDrawable(assetManager.get(character.getMasculinityPath())));
 					return true;
 				}},
 				fadeOut(1)

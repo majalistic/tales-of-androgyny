@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
-import com.majalis.battle.Battle.Outcome;
+import com.majalis.screens.BattleScreen.Outcome;
 import com.majalis.character.Perk;
 import com.majalis.character.Stance;
 import com.majalis.character.AbstractCharacter.Stat;

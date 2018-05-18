@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AnimatedActor;
-import com.majalis.battle.Battle.Outcome;
+import com.majalis.screens.BattleScreen.Outcome;
 import com.majalis.character.Arousal.ArousalLevel;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.SexualExperience.SexualExperienceBuilder;

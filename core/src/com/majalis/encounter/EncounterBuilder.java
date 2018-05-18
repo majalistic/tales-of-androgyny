@@ -25,7 +25,7 @@ import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AnimationEnum;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
-import com.majalis.battle.Battle.Outcome;
+import com.majalis.screens.BattleScreen.Outcome;
 import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Stance;
