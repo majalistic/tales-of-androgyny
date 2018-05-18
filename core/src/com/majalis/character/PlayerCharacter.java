@@ -92,11 +92,12 @@ public class PlayerCharacter extends AbstractCharacter {
 	private boolean knockdownTutorial;
 	private boolean stanceTutorial;
 	private boolean kyliraHeal;
+	private boolean trudyBuff;
 	private boolean companionAvailable;
 	private ObjectMap<String, Boolean> bonuses;
 	
 	@SuppressWarnings("unused")
-	private PlayerCharacter() { if(arousal == null) arousal = new Arousal(ArousalType.PLAYER); eventLog = new Array<String>(); dignity = new Dignity(); femininity = Femininity.MALE; kyliraHeal = true; bonuses = new ObjectMap<String, Boolean>(); }
+	private PlayerCharacter() { if(arousal == null) arousal = new Arousal(ArousalType.PLAYER); eventLog = new Array<String>(); dignity = new Dignity(); femininity = Femininity.MALE; kyliraHeal = true; trudyBuff = true; bonuses = new ObjectMap<String, Boolean>(); }
 	
 	public PlayerCharacter(boolean defaultValues) {
 		super(defaultValues);
@@ -127,6 +128,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			willpower = 5;
 			femininity = Femininity.MALE;
 			kyliraHeal = true;
+			trudyBuff = true;
 			bonuses = new ObjectMap<String, Boolean>();
 		}
 		
@@ -404,6 +406,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		ass.fillButtWithCum(-10);
 		mouthful = 0;
 		kyliraHeal = true;
+		trudyBuff = true;
 		if (armor != null) armor.refresh();	
 		if (legwear != null) legwear.refresh();	
 		if (underwear != null) underwear.refresh();	
@@ -1682,6 +1685,13 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (getKyliraLevel() > 0 && hasKylira() && temp) companionAvailable = true; 
 		return temp && getKyliraLevel() > 0 && hasKylira(); 
 	}
+	public boolean hasTrudyBuff() {
+		boolean temp = trudyBuff; 
+		if (getTrudyLevel() > 0) trudyBuff = false; 
+		//if (getTrudyLevel() > 0 && hasTrudy() && temp) companionAvailable = true; 
+		return temp && getTrudyLevel() > 0 && hasTrudy(); 
+	}
+	
 	public int getKyliraLevel() { return questFlags.get(QuestType.ELF.toString(), 0) - 8; }
 	public int getTrudyLevel() { return questFlags.get(QuestType.TRUDY.toString(), 0) - 4; }
 	public String getKyliraAffection() { return getCompanionAffection(getKyliraLevel()); }

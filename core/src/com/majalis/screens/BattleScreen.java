@@ -43,6 +43,8 @@ public class BattleScreen extends AbstractScreen{
 		}
 		
 		resourceRequirements.add(AssetEnum.BELLY_ANIMATION.getAnimation());
+		resourceRequirements.add(AssetEnum.TRUDY_SPRITE_ANIMATION.getAnimation());
+		
 	}
 	private final SaveService saveService;
 	private final Battle battle;

@@ -35,11 +35,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AnimationBuilder;
+import com.majalis.asset.AnimationEnum;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter;
 import com.majalis.character.AbstractCharacter.AttackResult;
 import com.majalis.character.Armor;
 import com.majalis.character.Stance;
+import com.majalis.character.StatusType;
 import com.majalis.character.Attack.Status;
 import com.majalis.character.BalanceBar;
 import com.majalis.character.DisplayWidget;
@@ -484,6 +486,18 @@ public class Battle extends Group{
 			popupGroup.addAction(sequence(alpha(0), fadeIn(1), fadeOut(1)));
 			soundMap.get(AssetEnum.FIREBALL_SOUND).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume"));
 		}
+		else if (character.getHealthPercent() < .5f && character.hasTrudyBuff()) {
+			character.getStatuses().put(StatusType.STRENGTH_BUFF.toString(), character.getTrudyLevel() * 2);
+			consoleContents.add(new MutationResult("Trudy casts Titan Strength on you! \"Do better!\""));
+			Group popupGroup = new Group();
+			this.addActor(popupGroup);
+			
+			AnimatedActor trudy = AnimationEnum.TRUDY.getAnimation(assetManager);
+			trudy.setSkeletonPosition(500, 500);
+			initActor(trudy, popupGroup, 0, 0, trudy.getWidth(), trudy.getHeight());		
+			popupGroup.addAction(sequence(alpha(0), delay(2), hide()));
+			soundMap.get(AssetEnum.FIREBALL_SOUND).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume"));
+		}		
 		
 		setTables();		
 		return playerResults;
