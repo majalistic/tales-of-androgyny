@@ -494,7 +494,7 @@ public class BattleScreen extends AbstractScreen{
 		}
 		
 		// temporary measure to ensure erotic stances are never one-sided
-		if (firstCharacter.getStance().isErotic() != secondCharacter.getStance().isErotic() && firstCharacter.getStance() != Stance.DOGGY_OTHER && secondCharacter.getStance() != Stance.DOGGY_OTHER) {
+		if (firstCharacter.getStance().isErotic() != secondCharacter.getStance().isErotic() && firstCharacter.getStance() != Stance.DOGGY_KYLIRA && secondCharacter.getStance() != Stance.DOGGY_KYLIRA && firstCharacter.getStance() != Stance.DOGGY_TRUDY && secondCharacter.getStance() != Stance.DOGGY_TRUDY) {
 			System.out.println("Player is in " + firstCharacter.getStance() + " stance and enemy is in " + secondCharacter.getStance() + " stance.");
 			if (firstCharacter.getStance().isErotic()) { firstCharacter.setStance(Stance.BALANCED);	}
 			else { secondCharacter.setStance(Stance.BALANCED); }

@@ -165,9 +165,13 @@ public enum Techniques {
 	
 	OVIPOSITION			(new NonAttackTechnique(Stance.FULL_NELSON, Stance.OVIPOSITION, "Oviposition", 0, 0, Stance.OVIPOSITION_BOTTOM).build(), false), // Used to oviposition
 	
-	CORNHOLE_OTHER 		(new NonAttackTechnique(Stance.OFFENSIVE, Stance.DOGGY_OTHER, "Cornhole", 0, 0).build(), false), // Used to pounce on Companion
-	POUND_DOGGY_OTHER	(new NonAttackTechnique(Stance.DOGGY_OTHER, Stance.DOGGY_OTHER, "Assfuck", 2, 0).addSelfSex(new SexualExperienceBuilder().setAnalSexTop(3)).build()), // Used to doggystyle companions
-	ERUPT_DOGGY_OTHER	(new ClimaxTechnique(Stance.DOGGY_OTHER, Stance.KNEELING, "Erupt", ClimaxType.OTHER).build(), false),
+	CORNHOLE_KYLIRA 		(new NonAttackTechnique(Stance.OFFENSIVE, Stance.DOGGY_KYLIRA, "Cornhole", 0, 0).build(), false), // Used to pounce on Companion
+	POUND_DOGGY_KYLIRA	(new NonAttackTechnique(Stance.DOGGY_KYLIRA, Stance.DOGGY_KYLIRA, "Assfuck", 2, 0).addSelfSex(new SexualExperienceBuilder().setAnalSexTop(3)).build()), // Used to doggystyle companions
+	ERUPT_DOGGY_KYLIRA	(new ClimaxTechnique(Stance.DOGGY_KYLIRA, Stance.KNEELING, "Erupt", ClimaxType.OTHER).build(), false),
+	
+	CORNHOLE_TRUDY		(new NonAttackTechnique(Stance.OFFENSIVE, Stance.DOGGY_TRUDY, "Cornhole", 0, 0).build(), false), // Used to pounce on Companion
+	POUND_DOGGY_TRUDY	(new NonAttackTechnique(Stance.DOGGY_TRUDY, Stance.DOGGY_TRUDY, "Assfuck", 2, 0).addSelfSex(new SexualExperienceBuilder().setAnalSexTop(3)).build()), // Used to doggystyle companions
+	ERUPT_DOGGY_TRUDY	(new ClimaxTechnique(Stance.DOGGY_TRUDY, Stance.KNEELING, "Erupt", ClimaxType.OTHER).build(), false),
 	
 	IRRUMATIO 			(new GrappleTechnique(Stance.FELLATIO, Stance.FELLATIO, "Irrumatio", 1).build()), 
 	FORCE_DEEPTHROAT	(new GrappleTechnique(Stance.FELLATIO, Stance.FELLATIO, "Deepthroat", 1).addSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).addSelfSex(new SexualExperienceBuilder().setMouthTeasing(1)).build()),

@@ -173,6 +173,8 @@ public enum EnemyEnum {
 	protected boolean usesDefensiveTechniques() { return this != QUETZAL; }
 	protected boolean isOffensive() { return this == WERESLUT || this == GOBLIN || this == ORC || this == ADVENTURER || this == SPIDER || this == DULLAHAN; }
 	protected boolean isDefensive() { return this == BRIGAND; }
+	protected boolean willPounceKylira() { return true; }
+	protected boolean willPounceTrudy() { return true; }
 	protected ObjectMap<String, Integer> getPerks() {
 		ObjectMap<String, Integer> perks = new ObjectMap<String, Integer>();
 		switch(this) {

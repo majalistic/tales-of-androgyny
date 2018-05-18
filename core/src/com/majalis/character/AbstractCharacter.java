@@ -608,7 +608,7 @@ public abstract class AbstractCharacter extends Group {
 		
 		if (attack.isSuccessful()) {
 			if (attack.getForceStance() == Stance.DOGGY_BOTTOM && bootyliciousness != null) { resultToDefender.add(new MutationResult("They slap their hips against your " + bootyliciousness.toString().toLowerCase() + " booty!")); }
-			if (attack.isAttack() || attack.isClimax() || !attack.getSex().isEmpty()) { resultToAttacker.add(new MutationResult(attack.getUser() + " used " + attack.getName() +  " on " + (attack.isCompanion() ? "Kylira" : secondPerson ? label.toLowerCase() : label) + "!")); }
+			if (attack.isAttack() || attack.isClimax() || !attack.getSex().isEmpty()) { resultToAttacker.add(new MutationResult(attack.getUser() + " used " + attack.getName() +  " on " + (attack.isKylira() ? "Kylira" : attack.isTrudy() ? "Trudy" : secondPerson ? label.toLowerCase() : label) + "!")); }
 			if (attack.getForceStance() == Stance.BALANCED) { 
 				resultToDefender.add(new MutationResult(attack.getUser() + " broke free!", Stance.BALANCED));
 				if (stance == Stance.FELLATIO_BOTTOM) { resultToDefender.add(new MutationResult("It slips out of your mouth and you get to your feet!", Stance.BALANCED)); }
@@ -1368,7 +1368,8 @@ public abstract class AbstractCharacter extends Group {
 			case FACE_SITTING: return getTechniques(target, SITTING_ORAL, RIDE_FACE);
 			case SIXTY_NINE: return getTechniques(target, ERUPT_SIXTY_NINE, RECIPROCATE);
 			case WRAPPED: return getTechniques(target, SQUEEZE_RELEASE, SQUEEZE_CRUSH, SQUEEZE, BITE);
-			case DOGGY_OTHER: return getTechniques(target, POUND_DOGGY_OTHER, ERUPT_DOGGY_OTHER);
+			case DOGGY_KYLIRA: return getTechniques(target, POUND_DOGGY_KYLIRA, ERUPT_DOGGY_KYLIRA);
+			case DOGGY_TRUDY: return getTechniques(target, POUND_DOGGY_TRUDY, ERUPT_DOGGY_TRUDY);
 			case ERUPT:
 				setStance(Stance.BALANCED);
 				possibles = getDefaultTechniqueOptions(target);
@@ -1407,8 +1408,8 @@ public abstract class AbstractCharacter extends Group {
 			else if (candidate == REVERSAL && !grappleStatus.isDisadvantage()) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, RECEIVE_ANAL, POUT, STROKE, BREAK_FREE_ANAL, STRUGGLE_ANAL, WRAP_LEGS) && wrapLegs) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, SUCK_AND_STROKE, SUCK_AND_BEAT, BLOW, DEEPTHROAT, LICK_BALLS) && perks.get(Perk.MOUTH_MANIAC.toString(), 0) < 1) { techniques.removeValue(candidate, true); }	
-			else if (inTechniques(candidate, IRRUMATIO, FACEFUCK, ROUND_AND_ROUND, PULL_OUT_ORAL, POUND_ANAL, PULL_OUT_ANAL, POUND_DOGGY, POUND_DOGGY_OTHER, SPANK, CRUSH_ASS, ASS_BLAST, PROSTATE_GRIND, POUND_PRONE_BONE, POUND_STANDING, PULL_OUT_STANDING, PULL_OUT, BE_RIDDEN, BE_RIDDEN_REVERSE, PUSH_OFF, PUSH_OFF_REVERSE, PUSH_OFF_ATTEMPT, PUSH_OFF_ATTEMPT_REVERSE, RECEIVE_HANDY, CRUSH, PULL_UP, RECIPROCATE, FORCE_DEEPTHROAT) && arousal.isClimax()) { techniques.removeValue(candidate, true); }	
-			else if (inTechniques(candidate, ERUPT_ORAL, ERUPT_ANAL, ERUPT_DOGGY_OTHER, ERUPT_COWGIRL, ERUPT_FACIAL, ERUPT_SIXTY_NINE, BLOW_LOAD, BLOW_LOAD_ORAL) && !arousal.isClimax()) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, IRRUMATIO, FACEFUCK, ROUND_AND_ROUND, PULL_OUT_ORAL, POUND_ANAL, PULL_OUT_ANAL, POUND_DOGGY, POUND_DOGGY_KYLIRA, POUND_DOGGY_TRUDY, SPANK, CRUSH_ASS, ASS_BLAST, PROSTATE_GRIND, POUND_PRONE_BONE, POUND_STANDING, PULL_OUT_STANDING, PULL_OUT, BE_RIDDEN, BE_RIDDEN_REVERSE, PUSH_OFF, PUSH_OFF_REVERSE, PUSH_OFF_ATTEMPT, PUSH_OFF_ATTEMPT_REVERSE, RECEIVE_HANDY, CRUSH, PULL_UP, RECIPROCATE, FORCE_DEEPTHROAT) && arousal.isClimax()) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, ERUPT_ORAL, ERUPT_ANAL, ERUPT_DOGGY_TRUDY, ERUPT_DOGGY_KYLIRA, ERUPT_COWGIRL, ERUPT_FACIAL, ERUPT_SIXTY_NINE, BLOW_LOAD, BLOW_LOAD_ORAL) && !arousal.isClimax()) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, PENETRATE_MISSIONARY, FLIP_PRONE, RELEASE_SUPINE) && target.getStance() != Stance.GROUND_WRESTLE_FACE_UP ) { techniques.removeValue(candidate, true); }			
 			else if (inTechniques(candidate, PENETRATE_PRONE, FLIP_SUPINE, RELEASE_PRONE) && target.getStance() != Stance.GROUND_WRESTLE_FACE_DOWN ) { techniques.removeValue(candidate, true); }			
 			else if (inTechniques(candidate, FLIP_PRONE, RELEASE_SUPINE, FLIP_SUPINE, RELEASE_PRONE) && (grappleStatus == GrappleStatus.HOLD && isErect())) { techniques.removeValue(candidate, true); }			
@@ -1565,5 +1566,6 @@ public abstract class AbstractCharacter extends Group {
 	}
 	public int getRange() { return range; }
 	public boolean winsGrapples() { return enemyType == EnemyEnum.SLIME; }
-	public boolean companionAvailable() { return false; }
+	public boolean kyliraAvailable() { return false; }
+	public boolean trudyAvailable() { return false; }
 }

@@ -93,7 +93,7 @@ public class Technique {
 			thisPayload.getTrip(),
 			thisPayload.getBleeding(),
 			thisPayload.getRemovePlug(),
-			technique.getResultingStance() == Stance.DOGGY_OTHER || technique.getUsableStance() == Stance.DOGGY_OTHER,
+			technique.getResultingStance() == Stance.DOGGY_KYLIRA || technique.getUsableStance() == Stance.DOGGY_KYLIRA ? "Kylira" : technique.getResultingStance() == Stance.DOGGY_TRUDY || technique.getUsableStance() == Stance.DOGGY_TRUDY ? "Trudy" : "",
 			technique.getClimaxType(), 
 			getAdvance() + otherTechnique.getAdvance(),
 			technique.getRange(),
@@ -130,7 +130,7 @@ public class Technique {
 				0, // trip
 				(thisPayload.getBasePower() + 2) / 3 + 1, // bleed
 				0, // remove plug,
-				false, // isCompanion
+				"", // isCompanion
 				null, // climax type
 				0, // advance
 				1, // range

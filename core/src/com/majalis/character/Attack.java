@@ -30,7 +30,7 @@ public class Attack {
 	private final int trip;
 	private final int bleeding;
 	private final int plugRemove;
-	private final boolean isCompanion;
+	private final String companion;
 	private final ClimaxType climaxType;
 	private final int advance;
 	private final int range;
@@ -63,7 +63,7 @@ public class Attack {
 	}
 	
 	// this should have all the info for an attack, including damage or effects that were blocked
-	protected Attack(Status status, String name, int rawDamage, int blockAmount, int parryAmount, int evadeAmount, int magicResistance, int force, int rawArmorBreak, int gutcheck, int healing, SexualExperience sex, SexualExperience selfSex, GrappleStatus grapple, int disarm, int trip, int bleeding, int plugRemove, boolean isCompanion, ClimaxType climaxType, int advance, int range, Stance forceStance, SpellEffect spellEffect, Buff selfEffect, Buff enemyEffect, 
+	protected Attack(Status status, String name, int rawDamage, int blockAmount, int parryAmount, int evadeAmount, int magicResistance, int force, int rawArmorBreak, int gutcheck, int healing, SexualExperience sex, SexualExperience selfSex, GrappleStatus grapple, int disarm, int trip, int bleeding, int plugRemove, String companion, ClimaxType climaxType, int advance, int range, Stance forceStance, SpellEffect spellEffect, Buff selfEffect, Buff enemyEffect, 
 					boolean isAttack, AttackHeight height, boolean ignoresArmor, Array<Bonus> bonuses, Item useItem, AbstractCharacter user) {
 		this.status = status;
 		this.name = name;
@@ -83,7 +83,7 @@ public class Attack {
 		this.trip = trip;
 		this.bleeding = bleeding;
 		this.plugRemove = plugRemove;
-		this.isCompanion = isCompanion;
+		this.companion = companion;
 		this.climaxType = climaxType;
 		this.advance = advance;
 		this.range = range;
@@ -188,7 +188,8 @@ public class Attack {
 	public int getClimaxVolume() { return user.getClimaxVolume(); }
 	public int plugRemove() { return plugRemove; }	
 	public boolean isMelee() { return range < 2; }
-	public boolean isCompanion() { return isCompanion; }
+	public boolean isKylira() { return companion.equals("Kylira"); }
+	public boolean isTrudy() { return companion.equals("Trudy"); }
 	
 	public String getDescription() {
 		String description = "";

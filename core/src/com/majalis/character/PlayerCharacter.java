@@ -93,7 +93,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	private boolean stanceTutorial;
 	private boolean kyliraHeal;
 	private boolean trudyBuff;
-	private boolean companionAvailable;
+	private boolean kyliraAvailable;
+	private boolean trudyAvailable;
 	private ObjectMap<String, Boolean> bonuses;
 	
 	@SuppressWarnings("unused")
@@ -316,7 +317,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	public AttackResult receiveAttack(Attack resolvedAttack) {
 		super.receiveAttack(resolvedAttack);
 		
-		if (resolvedAttack.isCompanion()) { companionAvailable = false; }
+		if (resolvedAttack.isKylira()) { kyliraAvailable = false; }
+		if (resolvedAttack.isTrudy()) { trudyAvailable = false; }
 		String result;
 		if (resolvedAttack.isClimax()) {
 			if (oldStance.isAnalReceptive()) { setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_AHEGAO : AssetEnum.PORTRAIT_POUT); }
@@ -415,8 +417,9 @@ public class PlayerCharacter extends AbstractCharacter {
 			weapon = disarmedWeapon;
 			disarmedWeapon = null;
 		}
-		companionAvailable = false;
-
+		kyliraAvailable = false;
+		trudyAvailable = false;
+		
 		setCurrentPortrait(getNeutralFace());
 		int currentBleed = statuses.get(StatusType.BLEEDING.toString(), 0);
 		if (currentBleed != 0) {
@@ -1682,13 +1685,13 @@ public class PlayerCharacter extends AbstractCharacter {
 	public boolean hasKyliraHeal() { 
 		boolean temp = kyliraHeal; 
 		if (getKyliraLevel() > 0) kyliraHeal = false; 
-		if (getKyliraLevel() > 0 && hasKylira() && temp) companionAvailable = true; 
+		if (getKyliraLevel() > 0 && hasKylira() && temp) kyliraAvailable = true; 
 		return temp && getKyliraLevel() > 0 && hasKylira(); 
 	}
 	public boolean hasTrudyBuff() {
 		boolean temp = trudyBuff; 
 		if (getTrudyLevel() > 0) trudyBuff = false; 
-		//if (getTrudyLevel() > 0 && hasTrudy() && temp) companionAvailable = true; 
+		if (getTrudyLevel() > 0 && hasTrudy() && temp) trudyAvailable = true; 
 		return temp && getTrudyLevel() > 0 && hasTrudy(); 
 	}
 	
@@ -1744,5 +1747,7 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public boolean isTight() { return receivedAnal < 15; }
 	@Override
-	public boolean companionAvailable() { return companionAvailable; }
+	public boolean kyliraAvailable() { return kyliraAvailable; }
+	@Override
+	public boolean trudyAvailable() { return trudyAvailable; }
 }
