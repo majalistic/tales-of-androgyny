@@ -75,7 +75,7 @@ public enum Stance {
 	SPREAD(StanceType.ANAL_BOTTOM, AssetEnum.SPREAD),
 	PENETRATED(StanceType.ANAL_BOTTOM, AssetEnum.PENETRATED),
 	
-	DOGGY_OTHER(AssetEnum.DOGGY),
+	DOGGY_OTHER(AssetEnum.DOGGY_OTHER),
 	
 	ERUPT (AssetEnum.ERUPT), 
 	NULL (AssetEnum.NULL_STANCE), 

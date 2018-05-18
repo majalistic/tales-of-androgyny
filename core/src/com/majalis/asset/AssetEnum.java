@@ -347,6 +347,7 @@ public enum AssetEnum {
 	COWGIRL("stances/Cowgirl.png"),
 	DEFENSIVE("stances/Defensive.png"),
 	DOGGY("stances/Doggy.png"),
+	DOGGY_OTHER("stances/NeutralSurprise.png"),
 	ERUPT("stances/Erupt.png"),
 	FACE_SITTING("stances/Facesitting.png"),
 	FELLATIO("stances/Fellatio.png"),
