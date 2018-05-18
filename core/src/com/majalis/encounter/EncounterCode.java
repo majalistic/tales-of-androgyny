@@ -1593,7 +1593,7 @@ public enum EncounterCode {
 					b.branch(Outcome.VICTORY).textScene("MERMAID-VICTORY"),
 					b.branch(Outcome.DEFEAT).textScene("MERMAID-DEFEAT").checkScene(
 						CheckType.FREE_COCK,
-						b.branch(true).textScene("MERMAID-MOUNT").concat(mermaidLossEggfill), 
+						b.branch(true).checkScene(CheckType.USABLE_COCK, b.branch(true).textScene("MERMAID-MOUNT").concat(mermaidLossEggfill), b.branch(false).textScene("MERMAID-FLACCID-FRUSTRATED")), 
 						b.branch(false).textScene("MERMAID-CAGE-FRUSTRATED")
 					),
 					mermaidLossEggfill

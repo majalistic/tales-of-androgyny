@@ -1750,4 +1750,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	public boolean kyliraAvailable() { return kyliraAvailable; }
 	@Override
 	public boolean trudyAvailable() { return trudyAvailable; }
+
+	public boolean isImpotent() { return false; }
 }
