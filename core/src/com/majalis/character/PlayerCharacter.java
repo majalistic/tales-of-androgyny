@@ -402,6 +402,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		a2m = false;
 		ass.fillButtWithCum(-10);
 		mouthful = 0;
+		kyliraHeal = true;
 		if (armor != null) armor.refresh();	
 		if (legwear != null) legwear.refresh();	
 		if (underwear != null) underwear.refresh();	
