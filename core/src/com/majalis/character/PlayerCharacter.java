@@ -1655,6 +1655,7 @@ public class PlayerCharacter extends AbstractCharacter {
 					switch (currentValue) {
 						case 1: return "You've seen the strange manor in the ghost town.";
 						case 2: return "You've visited the strange manor in the ghost town.";
+						case 3: return "You've been made impotent by the dark mage in the ghost town.";
 					}	
 					break;
 				case WITCH:
@@ -1751,5 +1752,5 @@ public class PlayerCharacter extends AbstractCharacter {
 	@Override
 	public boolean trudyAvailable() { return trudyAvailable; }
 	@Override
-	public boolean isImpotent() { return false; }
+	public boolean isImpotent() { return questFlags.get(QuestType.WARLOCK.toString(), 0) == 3; }
 }

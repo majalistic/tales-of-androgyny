@@ -12745,7 +12745,9 @@
 	{
 		"key": "WARLOCK-FEMINIZATION",
 		"scriptLines": [
-			{"text": "\"A single touch... and it's too late to turn back,\" she says, as she approaches you, hand outstretched."},
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "WARLOCK", "value":3}}],
+			"text": "\"A single touch... and it's too late to turn back,\" she says, as she approaches you, hand outstretched."},
 			{
 			"sound": "FIREBALL_SOUND",
 			"text": "She taps your forehead. You feel something happening to your body... or, you think it is, as looking down reveals no visible changes."},
