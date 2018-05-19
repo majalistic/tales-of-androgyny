@@ -12770,12 +12770,20 @@
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex": 1, "other": "WARLOCK"}}],
 			"text": "\"I'm gonna make you jizz without touching your cock - just your prostate. With mine,\" she says, and you believe it... you're already craving a release. From everything."},
 			{
+			"foreground": "WARLOCK_ANAL_SWEAT",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1, "other": "WARLOCK"}}],
 			"text": "In fact, almost immediately, you spurt all over the sheets... unable to contain it any longer."},
 			{"text": "\"Eh, did you... cum? Did you let out some girl goo? Do you even understand that you're not a girl? Hrm. Maybe I'm wrong.\""},
-			{"text": "She takes her time as she roots you, the bed creaking under the weight of your fucking, and you cum again, and again... but your cock doesn't get hard."},
+			{
+			"sound": "FIREBALL_SOUND",
+			"foreground": "WARLOCK_ANAL_CASTING",
+			"text": "You feel a flash of lightning throughout your body, the pit of your stomach sinking... and your cock shrinking."},
+			{
+			"foreground": "WARLOCK_ANAL_SWEAT",
+			"text": "She takes her time as she roots you, the bed creaking under the weight of your fucking, and you cum again, and again... but your cock doesn't get hard."},
 			{"text": "Finally, she grips onto your shoulders, and drives it in all the way, and you lose your breath."},
 			{
+			"foreground": "WARLOCK_ANAL_CUM",
 			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1, "other": "WARLOCK"}}],
 			"text": "It blasts into your bowels, and your eyes roll into the back of your head, your tongue lolling out. Yes. Yes... You finally understand. You need this. Nothing else will do. You hear her laughing, somewhere in the distance."},

@@ -253,7 +253,15 @@ public enum AssetEnum {
 	MOUTH_FIEND_ORAL_COCK_INSIDE_THROAT_WHITEOUT("enemies/Mouth Fiend/MouthFiendOralCockInsideThroatWhiteout.png"),
 	MERMAID("enemies/Mermaid.png"),
 	WARLOCK("enemies/Warlock.png"),
-	WARLOCK_ANAL("enemies/WarlockAnal.jpg"),
+	WARLOCK_ANAL("enemies/warlock/WarlockAnal.jpg"),
+	WARLOCK_ANAL_CASTING("enemies/warlock/WarlockAnalCasting.jpg"),
+	WARLOCK_ANAL_SWEAT("enemies/warlock/WarlockAnalCoitus.jpg"),
+	WARLOCK_ANAL_CUM("enemies/warlock/WarlockAnalCum.jpg"),
+	WARLOCK_ANAL_NAKED("enemies/warlock/WarlockAnalNaked.jpg"),
+	WARLOCK_ANAL_NAKED_CASTING("enemies/warlock/WarlockAnalNakedCasting.jpg"),
+	WARLOCK_ANAL_NAKED_CUM("enemies/warlock/WarlockAnalNakedCum.jpg"),
+	
+	
 	DULLAHAN("enemies/Dullahan.png"),
 	DULLAHAN_HEADLESS("enemies/DullahanHeadless.png"),
 	
