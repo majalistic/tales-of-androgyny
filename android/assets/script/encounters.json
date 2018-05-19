@@ -12787,6 +12787,17 @@
 		]
 	},
 	{
+		"key": "WARLOCK-FEM-REPEAT",
+		"scriptLines": [
+			{
+			"background": "WARLOCK_BG",
+			"text": "You return to the manor. As the dark magician said... you've been unable to get an erection."},
+			{
+			"foreground": "WARLOCK",
+			"text": "\"Back so soon? Are you frustrated, little boy?\""}
+		]
+	},
+	{
 		"key": "WARLOCK-REVISIT",
 		"scriptLines": [
 			{

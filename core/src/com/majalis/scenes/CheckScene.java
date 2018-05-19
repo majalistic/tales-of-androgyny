@@ -558,6 +558,10 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WARLOCK); return check == 1; }  
 		}, 
+		WARLOCK_FEMINIZED("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WARLOCK); return check == 3; }  
+		}, 
 		CENTAUR_FIRST("", "") {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.CENTAUR); return check == 0; }  

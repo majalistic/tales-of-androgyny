@@ -2176,7 +2176,7 @@ public enum EncounterCode {
 							b.branch("Open it with magic").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 4).textScene("WARLOCK-BLAST-DOOR").concat(searchRoom), 
 							b.branch("Leave it alone").concat(afterRoom)
 						),				
-						b.branch(false).textScene("WARLOCK-REVISIT")
+						b.branch(false).checkScene(CheckType.WARLOCK_FEMINIZED, b.branch(true).textScene("WARLOCK-FEM-REPEAT"), b.branch(false).textScene("WARLOCK-REVISIT"))
 					)
 				);
 			case WEAPON_SHOP:
