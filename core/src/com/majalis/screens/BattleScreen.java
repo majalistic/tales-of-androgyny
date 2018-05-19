@@ -141,13 +141,10 @@ public class BattleScreen extends AbstractScreen{
 	public boolean gameExit;
 	private boolean battleOutcomeDecided;
 	private boolean battleOver;
-	
-	private final Battle battle;
-	
+
 	protected BattleScreen(ScreenFactory screenFactory, ScreenElements elements, SaveService saveService, Battle battle) {
 		super(screenFactory, elements, battle.musicPath);
 		this.saveService = saveService;
-		this.battle = battle;
 		this.assetManager = battle.assetManager;
 		this.character = battle.character;
 		this.enemy = battle.enemy;
@@ -318,10 +315,7 @@ public class BattleScreen extends AbstractScreen{
 	}
 
 	@Override
-	public void buildStage() {
-		addActor(battle);
-	}
-	
+	public void buildStage() {}	
 	
 	private void toggleUI() { 
 		uiGroup.addAction(visible(!uiGroup.isVisible()));

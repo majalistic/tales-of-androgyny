@@ -1,7 +1,6 @@
 package com.majalis.battle;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
@@ -11,7 +10,7 @@ import com.majalis.encounter.Background;
 import com.majalis.save.MutationResult;
 import com.majalis.save.SaveService;
 
-public class Battle extends Group{
+public class Battle {
 	public final AssetEnum musicPath;
 	public final Background battleBackground;
 	public final Background battleUI;
