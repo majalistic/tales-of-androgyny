@@ -770,7 +770,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (virgin) {
 			String pioneer = enemy == null ? "" : enemy.toString();
 			String vowels = "aeiou";
-			String article = vowels.indexOf(Character.toLowerCase(pioneer == null ? 'a' : pioneer.charAt(0))) != -1 ? "an" : "a";
+			String article = vowels.indexOf(Character.toLowerCase(pioneer.equals("") ? 'a' : pioneer.charAt(0))) != -1 ? "an" : "a";
 			eventLog.add("You lost your virginity" + (pioneer.equals("") ? "" : " to " + article + " " + pioneer) + " on the " + getTimeDescription() + "!");
 		}
 			
@@ -786,7 +786,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (virgin) {
 			String pioneer = enemy == null ? "" : enemy.toString();
 			String vowels = "aeiou";
-			String article = vowels.indexOf(Character.toLowerCase(pioneer == null ? 'a' : pioneer.charAt(0))) != -1 ? "an" : "a";
+			String article = vowels.indexOf(Character.toLowerCase(pioneer.equals("") ? 'a' : pioneer.charAt(0))) != -1 ? "an" : "a";
 			eventLog.add("You lost your mouth virginity" + (pioneer.equals("") ? "" : " to " + article + " " + pioneer) + " on the " + getTimeDescription() + "!");
 		}
 		
