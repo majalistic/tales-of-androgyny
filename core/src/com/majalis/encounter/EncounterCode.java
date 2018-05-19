@@ -2116,7 +2116,7 @@ public enum EncounterCode {
 					b.branch(Outcome.DEFEAT).textScene("WARLOCK-DEFEAT").choiceScene(
 						"What do you choose?", 
 						b.branch("To love ass-sex").checkScene(Perk.ANAL_ADDICT, b.branch(3).textScene("WARLOCK-ANAL-ADDICT").textScene("WARLOCK-ANAL-BROKEN").gameEnd(), b.branch(0).textScene("WARLOCK-ANAL-ADDICT").textScene("WARLOCK-ANAL-UNBROKEN")), 
-						b.branch("To love dicks").textScene("WARLOCK-COCK-LOVER"), 
+						b.branch("To love the taste of dicks").textScene("WARLOCK-COCK-LOVER"), 
 						b.branch("To be a girl").textScene("WARLOCK-FEMINIZATION")
 					)
 				);

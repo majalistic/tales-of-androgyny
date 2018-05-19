@@ -12640,7 +12640,7 @@
 		"key": "WARLOCK-DEFEAT",
 		"scriptLines": [
 			{"text": "Unable to cope with her powerful magic, you can barely stand, much less continue to fight."},
-			{"text": "\"Taking up arms against me... unforgiveable. You'll need to be punished... but I'll have mercy. So... I'll let you choose... you can be made to love ass-sex, to love dicks, or turn into a girl. Your choice.\""},
+			{"text": "\"Taking up arms against me... unforgiveable. You'll need to be punished... but I'll have mercy. So... I'll let you choose... you can be made to love ass-sex, to love the taste of dicks, or... to turn into a girl. Your choice.\""},
 			{"text": "\"...what?\" you ask, utterly bewildered."},
 			{"text": "She smiles. \"I'm going to leave my mark on you. Permanently. So... what will it be?\""},
 		]
@@ -12674,7 +12674,7 @@
 			"sound": "INCANTATION",
 			"text": "\"There we go... nice and slow... slow... creeping... corruption...\""},
 			{
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":5, "other": "WARLOCK"}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":10, "other": "WARLOCK"}}],
 			"text": "As she says that... you feel it... you're... changing..."},
 			{"text": "\"I may be going overboard... your mind will probably break... if you had any sense, you'd beg for me to cum before then, but you're too far gone, aren't you?\""},
 			{"text": "Your mouth hangs open. You're going to cum. You're going to cum. You're... you feel it... it's standing straight up... it's twitching... she bottoms out again, and throbs, and you feel her thighs against you, her slender fingers gripping your ass and your shoulder..."},
@@ -12719,6 +12719,7 @@
 			{"text": "\"Open wide for me, sweetie,\" she says, dropping you to your knees. You don't open up at first."},
 			{
 			"sound": "INCANTATION",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":10, "other": "WARLOCK"}}],
 			"text": "She touches a finger to your forehead again."},
 			{
 			"sound": "FIREBALL_SOUND",
@@ -12745,9 +12746,11 @@
 	{
 		"key": "WARLOCK-FEMINIZATION",
 		"scriptLines": [
+			{"text": "She blinks in surprise. \"I... thought it might be fun if you refused to answer to use a suggestion spell... but... you're just a masochist, aren't you?\""},
+			{"text": "She closes her eyes, and when she opens them again, they're almost... glowing. She has a wide smile she approaches you slowly and deliberately."},
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "WARLOCK", "value":3}}],
-			"text": "\"A single touch... and it's too late to turn back,\" she says, as she approaches you, hand outstretched."},
+			"text": "\"A single touch... and it's too late to turn back,\" she says, her hand outstretched."},
 			{
 			"sound": "FIREBALL_SOUND",
 			"text": "She taps your forehead. You feel something happening to your body... or, you think it is, as looking down reveals no visible changes."},
@@ -12763,7 +12766,7 @@
 			{"text": ".."},
 			{"text": "."},
 			{"text": "You drift off... and when you awake, you're in a soft bed... and someone is in it with you."},
-			{"text": "\"I'm gonna screw it into your tight little hole and make you spew spew all over the sheets,\" she says, and you see, in her nakedness, that she is... happy that you've awoken."},
+			{"text": "\"I'm gonna screw it into your tight little hole and make you spew spew all over the sheets,\" she says, and you see, in her partial nakedness, that she is... happy that you've awoken."},
 			{"text": "She crawls over you... and you instictively turn over, offering her your back. You press up and back against her, and she hooks her arms underneath you, between your thighs, spreading them. You feel it slipping between your cheeks... and then, it's inside."},
 			{
 			"foreground": "WARLOCK_ANAL",
@@ -12777,16 +12780,51 @@
 			{
 			"sound": "FIREBALL_SOUND",
 			"foreground": "WARLOCK_ANAL_CASTING",
-			"text": "You feel a flash of lightning throughout your body, the pit of your stomach sinking... and your cock shrinking."},
+			"text": "You feel a flash of lightning throughout your body, the pit of your stomach sinking... and your cock shrinking. She hums to herself as she continues to screw it into you."},			
 			{
 			"foreground": "WARLOCK_ANAL_SWEAT",
 			"text": "She takes her time as she roots you, the bed creaking under the weight of your fucking, and you cum again, and again... but your cock doesn't get hard."},
-			{"text": "Finally, she grips onto your shoulders, and drives it in all the way, and you lose your breath."},
+			{"text": "\"Full disclosure... if you let me cum inside you now, the demonic corruption will ensure that you can never defy me... is that okay? For a hero to be unable to stand against an evil warlock?\""},
+			{"text": "She's speaking almostin a whisper, her voice near and intimate and quiet... her thrusts slow, deliberate, gentle pushes as she subtly squeezes your body and fills you up."},
+			{"text": "\"Nice and quiet and slow... just our little secret... no one in the streets outside know that the hero is dressed like a girl so that he can get a nice, fat dick right up the ass...\""},
+			{"text": "It is surprisingly fat - for a mage, she certainly has a... presence. You bite your lip, kneading the sheets, your cock drooling all the precum that it can without remorse."},
+			{"text": "\"Come on, hero... the evil dark mage is right behind you... are you just going to grip the sheets and let her do... whatever she wants?\""},
+			{"text": "You feel her hips suddenly crash against your backside, her entire cock instantaneously spreading your anal walls and driving deep into your waiting ass... and then she does it again, punctuated, full-force thrusts at a walking pace - clear, audible taps as she bottoms out each time."},
+			{"text": "\"If you don't fight her off, she's gonna pound your asshole like a pussy and spew demonic semen in your colon... such a humiliating defeat... come on hero, won't you defeat her?  Why are you just shaking your hips?\""},
+			{"text": "She continues to tease you while her hands roam your body - your ass, your hips, your waist, your chest... her cock exploring the depths of your guts, while you moan and coo in her grasp."},
+			{"text": "\"Is this all part of the hero's plan? Are you trying to lull me into a false sense of security? Is giving up your ass like a two-bit whore part of your strategy? Well, if you don't drop the act soon, you really will... fail...\""},
+			{"text": "You can tell by the way it's twitching that she's not lying... but... you just push your ass back at her..."},
+			{"text": "\"Ooooh... it's coming... I'm gonna nut so hard... time to... nnh... defeat her... hn... just in the nick of time... mmh... before that demon semen... mmgh... fills up your belly!  Mmm... nngh...\""},			
 			{
 			"foreground": "WARLOCK_ANAL_CUM",
 			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1, "other": "WARLOCK"}}],
-			"text": "It blasts into your bowels, and your eyes roll into the back of your head, your tongue lolling out. Yes. Yes... You finally understand. You need this. Nothing else will do. You hear her laughing, somewhere in the distance."},
+			"text": "The thud in your abdomen isn't subtle. She wasn't bluffing about how hard she was about to nut. With each throb, you feel her painting more of your innards in demon white, her hand tensing and running down your back, your body shivering, your cum drooling out."},
+			{"text": "She bites your ear, still ejaculating in your box. \"But you just kept gripping the sheets while she blew a fat wad in your fat ass.  Because the hero's just a pathetic buttslut who gets off on being used. You creamed the sheets, didn't you?\""},
+			{"text": "She reaches under you to check, running her finger over your flaccid dicklet coated in the cum that just drooled out of it."},
+			{"text": "She brings her finger to your lips. \"Suck on my finger while your asshole sucks on my big one.  Whoever knew that a hero could be such a fun fucktoy? Keep that cum inside... momma likes a creampuff.\""},
+			{"text": "When she pulls it out, you make sure to keep her gift inside, knowing full well that it has a demonic influence."},			
+			{
+			"foreground": "WARLOCK",
+			"text": "\"Now the hero's gonna lick up the mess he made.  And if he's lucky, he's gonna get a second helping of dick, which is the only thing he really cares about.\""},
+			{"text": "You do as instructed, licking whatever you spat onto the sheets with your ass in the air, waiting for her to lay claim to it once more."},
+			{"text": "It doesn't take long. She disrobes, and she's already full-mast by the time you finish cleaning the sheets."},
+			{
+			"sound": "ANAL_INSERTION",
+			"foreground": "WARLOCK_ANAL_NAKED",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "other": "WARLOCK"}}],
+			"text": "She lines herself up behind you, and drills it into you once more, this time with quick, pointed thrusts."},
+			{
+			"sound": "THWAPPING",
+			"text": "Any gentleness is gone, as she ravages your ass with her cock, penetrating you at her whim. You whine and groan and moan as she pounds it into you a second time, but your erection never makes an appearance."},			
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1, "other": "WARLOCK"}}],			
+			"text": "Finally, she grips onto your shoulders, and drives it in all the way, and you lose your breath."},
+			{
+			"foreground": "WARLOCK_ANAL_NAKED_CUM",
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1, "other": "WARLOCK"}}],
+			"text": "It blasts into your bowels, and your eyes roll into the back of your head, your tongue lolling out. Yes. Yes... You finally understand. You need this. Nothing else will do. You hear her laughing, somewhere in the distance."},									
 			{"text": "\"That's what you wanted, right? A nice fat wad of infernal spooge up your big, fat ass?\" she says, but you can't even begin to formulate a response."},
 			{"text": "She begins to pull it out, and you're blubbering incoherently."},
 			{"text": "\"Has anybody told you your ass was your best feature?\" she says, extracting her penis from your gaping hole. \"Phew, what a load. Not bad.\""},  	

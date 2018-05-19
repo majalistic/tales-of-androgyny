@@ -261,7 +261,6 @@ public enum AssetEnum {
 	WARLOCK_ANAL_NAKED_CASTING("enemies/warlock/WarlockAnalNakedCasting.jpg"),
 	WARLOCK_ANAL_NAKED_CUM("enemies/warlock/WarlockAnalNakedCum.jpg"),
 	
-	
 	DULLAHAN("enemies/Dullahan.png"),
 	DULLAHAN_HEADLESS("enemies/DullahanHeadless.png"),
 	
