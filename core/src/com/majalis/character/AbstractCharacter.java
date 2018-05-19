@@ -552,7 +552,7 @@ public abstract class AbstractCharacter extends Group {
 		// all climax logic should go here
 		if (resolvedAttack.isClimax()) {
 			resolvedAttack.addMessageToAttacker(new MutationResult(climax()));
-			if (this.cock != null) {
+			if (this.cock != null && !isImpotent()) {
 				this.cock.setAnimation(0, "EdgingToClimax", false);
 				this.cock.addAnimation(0, "ClimaxToFlaccid", false, 4);
 			}
@@ -838,14 +838,17 @@ public abstract class AbstractCharacter extends Group {
 		String oldArousal = arousal.getCurrentState();
 		results.addAll(arousal.increaseArousal(sexes, perks));
 		if (this.cock != null) {
-			if (!oldArousal.equals(arousal.getCurrentState())) {
+			if (isImpotent()) {
+				this.cock.setAnimation(0, "Flaccid", false);
+			}
+			else if (!oldArousal.equals(arousal.getCurrentState())) {
 				this.cock.setAnimation(0, oldArousal + "To" + arousal.getCurrentState(), false);
 			}			
 		}
 		
 		if (arousal.isClimax() && stance.isEroticReceptive()) {
 			spurt = climax();
-			if (this.cock != null && !arousal.isClimax()) {
+			if (this.cock != null && !arousal.isClimax() && !isImpotent()) {
 				this.cock.setAnimation(0, "EdgingToClimax", false);
 				this.cock.addAnimation(0, "ClimaxToFlaccid", false, 4);
 			}
@@ -974,7 +977,7 @@ public abstract class AbstractCharacter extends Group {
 		if (this.cock == null) {
 			this.cock = assetManager.get(AssetEnum.DONG_ANIMATION.getAnimation()).getInstance();
 			this.cock.setSkeletonSkin(isChastitied() ? "Cage" : phallus.getSkin());
-			this.cock.setAnimation(0, arousal.getCurrentState(), false);
+			this.cock.setAnimation(0, isImpotent() ? "Flaccid" : arousal.getCurrentState(), false);
 		}
 		return this.cock;
 	}
@@ -1568,4 +1571,5 @@ public abstract class AbstractCharacter extends Group {
 	public boolean winsGrapples() { return enemyType == EnemyEnum.SLIME; }
 	public boolean kyliraAvailable() { return false; }
 	public boolean trudyAvailable() { return false; }
+	public boolean isImpotent() { return false; }
 }
