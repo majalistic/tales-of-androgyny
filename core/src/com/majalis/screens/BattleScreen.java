@@ -4,12 +4,14 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 import static com.majalis.asset.AssetEnum.*;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -18,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -34,6 +37,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AnimationBuilder;
@@ -103,6 +107,10 @@ public class BattleScreen extends AbstractScreen{
 	private static int[] POSSIBLE_KEYS = new int[]{Keys.A, Keys.S, Keys.D, Keys.F, Keys.G, Keys.H, Keys.J, Keys.K, Keys.L, Keys.Z, Keys.X, Keys.C, Keys.V, Keys.B, Keys.N};
 	private static char[] POSSIBLE_KEYS_CHAR = new char[]{'A','S','D','F','G','H','J','K','L','Z','X','C','V', 'B', 'N'};
 	
+	private final Stage uiStage;
+	private final PerspectiveCamera camera;
+	private final InputMultiplexer multi;
+	
 	private final PlayerCharacter character;
 	private final EnemyCharacter enemy;
 	private final SaveService saveService;
@@ -164,9 +172,20 @@ public class BattleScreen extends AbstractScreen{
 		this.addCharacter(character);
 		this.addCharacter(enemy);
 
-		uiGroup = new Group();		
-		uiGroup.addActor(battle.battleUI);	
+		uiStage = new Stage(new FitViewport(this.getViewport().getWorldWidth(), this.getViewport().getWorldHeight(), getCamera()), batch);
+		uiStage.getCamera().update();
 		
+		camera = new PerspectiveCamera(70, 0, 1000);
+		//this.getViewport().setCamera(camera);
+		
+		multi = new InputMultiplexer();
+		multi.addProcessor(uiStage);
+		multi.addProcessor(this);
+		
+		uiGroup = new Group();		
+		uiStage.addActor(uiGroup);
+		uiGroup.addActor(battle.battleUI);	
+
 		skin = assetManager.get(AssetEnum.BATTLE_SKIN.getSkin());
 		
 		this.font = skin.getFont("default-font");
@@ -249,7 +268,6 @@ public class BattleScreen extends AbstractScreen{
 		slash = (AnimatedImage) initActor(new AnimatedImage(new AnimationBuilder(assetManager.get(AssetEnum.SLASH.getTexture()), 6, 384, 384).build(), Scaling.fit, Align.right), null, 764, 564);
 		slash.setState(1);	
 		
-		this.addActor(uiGroup);
 		this.consoleTable = new Table();		
 		consoleTable.align(Align.top);		
 		consoleContents = battle.consoleText;
@@ -1099,10 +1117,19 @@ public class BattleScreen extends AbstractScreen{
 		}
 	}
 	
-
+	@Override
+	protected void buildMenu() {
+		super.buildMenu();
+		Actor menuGroup = getActors().get(getActors().size - 1);
+		menuGroup.remove();
+		uiStage.addActor(menuGroup);
+	}
+	
 	@Override
 	public void render(float delta) {
 		super.render(delta);
+		uiStage.act();
+		uiStage.draw();
 		battleLoop();
 		if (gameExit) {
 			showScreen(ScreenEnum.MAIN_MENU);
@@ -1117,12 +1144,32 @@ public class BattleScreen extends AbstractScreen{
 	}
 	
 	@Override
+    public void show() {
+        Gdx.input.setInputProcessor(multi);
+        font.setUseIntegerPositions(false);
+    }
+	
+	@Override
+    public void resize(int width, int height) {
+    	super.resize(width, height);
+        uiStage.getViewport().update(width, height, false);
+    }
+    
+    @Override
+	protected void switchFade(ScreenEnum screenRequest, AbstractScreen currentScreen, AssetEnum oldMusicPath, Music oldMusic) { 
+    	super.switchFade(screenRequest, currentScreen, oldMusicPath, oldMusic);
+    	uiStage.addAction(fadeOut(.2f));
+    }
+	
+	@Override
 	public void dispose() {
 		for(AssetDescriptor<?> path: requirementsToDispose) {
 			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName) || path.type == Music.class) continue;
 			assetManager.unload(path.fileName);
 		}
 		requirementsToDispose = new Array<AssetDescriptor<?>>();
+		uiStage.dispose();
+		super.dispose();
 	}
 
 	// this should simply return the battlecode's requirements, rather than use a switch
