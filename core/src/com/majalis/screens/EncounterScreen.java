@@ -79,6 +79,7 @@ public class EncounterScreen extends AbstractScreen {
 			assetManager.unload(path.fileName);
 		}
 		requirementsToDispose = new Array<AssetDescriptor<?>>();
+		super.dispose();
 	}
 	
 	public static Array<AssetDescriptor<?>> getRequirements(Branch encounter) {

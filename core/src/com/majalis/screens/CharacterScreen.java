@@ -339,6 +339,7 @@ public class CharacterScreen extends AbstractScreen {
 			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName) || path.type == Music.class) continue;
 			assetManager.unload(path.fileName);
 		}
+		super.dispose();
 	}
 	
 }

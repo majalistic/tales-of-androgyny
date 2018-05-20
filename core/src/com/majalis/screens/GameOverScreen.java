@@ -95,6 +95,7 @@ public class GameOverScreen extends AbstractScreen {
 			if (path.type == Music.class) continue;
 			assetManager.unload(path.fileName);
 		}
+		super.dispose();
 	}
 	
 }
