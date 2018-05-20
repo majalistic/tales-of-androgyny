@@ -202,10 +202,11 @@ public class WorldMapScreen extends AbstractScreen {
 			public boolean fling(float velocityX, float velocityY, int button){ return false; }
 		});
 		
-		camera = new PerspectiveCamera(70, 0, 1000);
-		this.getViewport().setCamera(camera);
 
 		time = loadService.loadDataValue(SaveEnum.TIME, Integer.class);
+		
+		camera = new PerspectiveCamera(70, 0, 1000);
+		this.getViewport().setCamera(camera);
 		
 		camera.position.set(0, 0, storyMode ? 500 : 750);
 		camera.near = 1f;

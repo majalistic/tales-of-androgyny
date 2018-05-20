@@ -11,6 +11,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -172,11 +173,16 @@ public class BattleScreen extends AbstractScreen{
 		this.addCharacter(character);
 		this.addCharacter(enemy);
 
-		uiStage = new Stage(new FitViewport(this.getViewport().getWorldWidth(), this.getViewport().getWorldHeight(), getCamera()), batch);
-		uiStage.getCamera().update();
+		uiStage = new Stage(new FitViewport(this.getViewport().getWorldWidth(), this.getViewport().getWorldHeight(), new OrthographicCamera()), batch);
 		
 		camera = new PerspectiveCamera(70, 0, 1000);
-		//this.getViewport().setCamera(camera);
+		this.getViewport().setCamera(camera);
+		
+		camera.near = 1f;
+		camera.far = 10000;
+		camera.lookAt(0, 0, 0);
+		camera.translate(960, 540, 771);
+		this.getViewport().setCamera(camera);
 		
 		multi = new InputMultiplexer();
 		multi.addProcessor(uiStage);
