@@ -877,23 +877,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public Integer getMoney() { return money; }
-
-	// this should obviously only accept a Weapon parameter
-	public String setWeapon(Item item) {	
-		Weapon equipWeapon = (Weapon) item;
-		boolean alreadyEquipped = equipWeapon == this.weapon;
-		unequipWeapon();
-		this.weapon = alreadyEquipped ? null : equipWeapon;
-		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + equipWeapon.getName() + ".";
-	}
-	
-	public String setRangedWeapon(Item item) {	
-		Weapon equipWeapon = (Weapon) item;
-		boolean alreadyEquipped = equipWeapon == this.rangedWeapon;
-		unequipRangedWeapon();
-		this.rangedWeapon = alreadyEquipped ? null : equipWeapon;
-		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + equipWeapon.getName() + ".";
-	}
 	
 	private EnemyEnum getEnemyType(SexualExperience sex) { return sex.isBird() ? EnemyEnum.HARPY : sex.isCentaurSex() ? EnemyEnum.CENTAUR : sex.isKnot() ? EnemyEnum.WERESLUT : sex.isOgreSex() ? EnemyEnum.OGRE : sex.getOther(); }
 	

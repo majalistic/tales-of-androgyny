@@ -1105,6 +1105,23 @@ public abstract class AbstractCharacter extends Group {
 
 	protected String properCase(String sample) { return sample.substring(0, 1).toUpperCase() + sample.substring(1); }
 	// need to refactor these generically
+	// this should obviously only accept a Weapon parameter
+	public String setWeapon(Item item) {	
+		Weapon equipWeapon = (Weapon) item;
+		boolean alreadyEquipped = equipWeapon == this.weapon;
+		unequipWeapon();
+		this.weapon = alreadyEquipped ? null : equipWeapon;
+		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + equipWeapon.getName() + ".";
+	}
+	
+	public String setRangedWeapon(Item item) {	
+		Weapon equipWeapon = (Weapon) item;
+		boolean alreadyEquipped = equipWeapon == this.rangedWeapon;
+		unequipRangedWeapon();
+		this.rangedWeapon = alreadyEquipped ? null : equipWeapon;
+		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + equipWeapon.getName() + ".";
+	}
+	
 	public String setArmor(Item armor, boolean newItem) {
 		if (armor == null) {
 			unequipArmor();
