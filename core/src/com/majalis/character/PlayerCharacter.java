@@ -203,9 +203,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		weapon = null;
 		switch (jobClass) { 
 			case WARRIOR: 
-				Weapon sword = new Weapon(WeaponType.Broadsword); 
-				inventory.add(sword);
-				weapon = sword;
+				weapon = new Weapon(WeaponType.Broadsword);
 				skillPoints = 3; 
 				skills.put(BLITZ_ATTACK.toString(), 1); 
 				skills.put(ALL_OUT_BLITZ.toString(), 1); 
@@ -213,9 +211,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				perks.put(Perk.WEAK_TO_ANAL.toString(), 1);
 				break;
 			case PALADIN: 
-				Weapon mace = new Weapon(WeaponType.Club);
-				inventory.add(mace);
-				weapon = mace;
+				weapon = new Weapon(WeaponType.Club);
 				addSkill(COMBAT_HEAL, 1); 
 				setCage(new ChastityCage(), true); 
 				setArmor(new Armor(ArmorType.BREASTPLATE), true);
@@ -223,9 +219,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				setUnderwear(new Armor(ArmorType.UNDERWEAR), true);
 				break;
 			case THIEF: 
-				Weapon dagger = new Weapon(WeaponType.Dagger);
-				inventory.add(dagger);
-				weapon = dagger;
+				weapon = new Weapon(WeaponType.Dagger);
 				skillPoints = 5; 
 				money += 30;
 				break;
@@ -234,18 +228,14 @@ public class PlayerCharacter extends AbstractCharacter {
 				magicPoints = 2; 
 				break;
 			case RANGER: 
-				Weapon bow = new Weapon(WeaponType.Bow); 
-				inventory.add(bow);
-				rangedWeapon = bow;
+				rangedWeapon = new Weapon(WeaponType.Bow);
 				Weapon dagger2 = new Weapon(WeaponType.Dagger);
 				inventory.add(dagger2);
 				weapon = dagger2;
 				food += 40;
 				break;
 			case ENCHANTRESS: 
-				Weapon sword2 = new Weapon(WeaponType.Gladius);
-				inventory.add(sword2);
-				weapon = sword2;
+				weapon = new Weapon(WeaponType.Gladius);
 				magicPoints = 1; 
 				perkPoints = 3; 
 				break;
@@ -873,7 +863,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (cost > money) { return false; }
 		money -= cost;
 		receiveItem(item);
-		if (item instanceof Weapon) { weapon = (Weapon) item; }
+		if (item instanceof Weapon) { setWeapon(item); inventory.removeValue(item, true); }
 		return true;
 	}
 	
@@ -891,94 +881,18 @@ public class PlayerCharacter extends AbstractCharacter {
 	// this should obviously only accept a Weapon parameter
 	public String setWeapon(Item item) {	
 		Weapon equipWeapon = (Weapon) item;
-		boolean alreadyEquipped = equipWeapon.equals(this.weapon);
+		boolean alreadyEquipped = equipWeapon == this.weapon;
+		unequipWeapon();
 		this.weapon = alreadyEquipped ? null : equipWeapon;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + equipWeapon.getName() + ".";
 	}
 	
 	public String setRangedWeapon(Item item) {	
 		Weapon equipWeapon = (Weapon) item;
-		boolean alreadyEquipped = equipWeapon.equals(this.rangedWeapon);
+		boolean alreadyEquipped = equipWeapon == this.rangedWeapon;
+		unequipRangedWeapon();
 		this.rangedWeapon = alreadyEquipped ? null : equipWeapon;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + equipWeapon.getName() + ".";
-	}
-	
-	public String unequipWeapon() {
-		Weapon temp = this.weapon;
-		this.weapon = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipRangedWeapon() {
-		Weapon temp = this.rangedWeapon;
-		this.rangedWeapon = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipShield() {
-		Armor temp = this.shield;
-		this.shield = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipArmor() {
-		Armor temp = this.armor;
-		this.armor = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipLegwear() {
-		Armor temp = this.legwear;
-		this.legwear = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipUnderwear() {
-		Armor temp = this.underwear;
-		this.underwear = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipHeadgear() {
-		Armor temp = this.headgear;
-		this.headgear = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipArmwear() {
-		Armor temp = this.armwear;
-		this.armwear = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipFootwear() {
-		Armor temp = this.footwear;
-		this.footwear = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipAccessory() {
-		Accessory temp = this.firstAccessory;
-		this.firstAccessory = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipPlug() {
-		Plug temp = this.plug;
-		this.plug = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipCage() {
-		ChastityCage temp = this.cage;
-		this.cage = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipMouthwear() {
-		Mouthwear temp = this.mouthwear;
-		this.mouthwear = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
 	}
 	
 	private EnemyEnum getEnemyType(SexualExperience sex) { return sex.isBird() ? EnemyEnum.HARPY : sex.isCentaurSex() ? EnemyEnum.CENTAUR : sex.isKnot() ? EnemyEnum.WERESLUT : sex.isOgreSex() ? EnemyEnum.OGRE : sex.getOther(); }
@@ -1376,7 +1290,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public int getMetabolicRate() { return (hasHungerCharm() ? 1 : 2) + (hasTrudy() ? 1 : 0) + (hasKylira() ? 1 : 0); }
 
-	private boolean hasHungerCharm() { return firstAccessory != null && firstAccessory.equals(new Accessory(AccessoryType.HUNGER_CHARM)); }
+	private boolean hasHungerCharm() { return firstAccessory != null && firstAccessory.getType() == AccessoryType.HUNGER_CHARM; }
 	public boolean hasGem() { return inventory.contains(new Potion(1, EffectType.GEM), false); }	
 	public boolean hasIceCream() { return inventory.contains(new Misc(MiscType.ICE_CREAM), false); }
 	
@@ -1448,6 +1362,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public String equipItem(Item item) {
+		inventory.removeValue(item, true);
 		Armor armor = item instanceof Armor ? (Armor) item : null;
 		return 
 			item instanceof Weapon ? (((Weapon) item).isMelee() ? setWeapon(item) : setRangedWeapon(item)) : 
@@ -1471,7 +1386,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Mouthwear getMouthwear() { return mouthwear; }
 	
 	public boolean isEquipped(Item item) {
-		return item.equals(weapon) || item.equals(rangedWeapon) || item.equals(armor) || item.equals(shield) || item.equals(legwear) || item.equals(underwear) || item.equals(plug) || item.equals(cage) || item.equals(mouthwear) || item.equals(headgear) || item.equals(armwear) || item.equals(footwear) || item.equals(firstAccessory);
+		return item == weapon || item == rangedWeapon || item == armor || item == shield || item == legwear || item == underwear || item == plug || item == cage || item == mouthwear || item == headgear || item == armwear || item == footwear || item == firstAccessory;
 	}
 
 	public int getAnalReceptionCount() { return receivedAnal; }
@@ -1709,24 +1624,24 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 	}
 	private String unequipItem(Item item) {
-		if (item.equals(weapon)) return unequipWeapon();
-		if (item.equals(shield)) return unequipShield();
-		if (item.equals(armor)) return unequipArmor();
-		if (item.equals(legwear)) return unequipLegwear();
-		if (item.equals(underwear)) return unequipUnderwear();
-		if (item.equals(headgear)) return unequipHeadgear();
-		if (item.equals(armwear)) return unequipArmwear();
-		if (item.equals(footwear)) return unequipFootwear();
-		if (item.equals(firstAccessory)) return unequipAccessory();
-		if (item.equals(plug)) return unequipPlug();
-		if (item.equals(cage)) return unequipCage();
+		if (item == weapon) return unequipWeapon();
+		if (item == shield) return unequipShield();
+		if (item == armor) return unequipArmor();
+		if (item == legwear) return unequipLegwear();
+		if (item == underwear) return unequipUnderwear();
+		if (item == headgear) return unequipHeadgear();
+		if (item == armwear) return unequipArmwear();
+		if (item == footwear) return unequipFootwear();
+		if (item == firstAccessory) return unequipAccessory();
+		if (item == plug) return unequipPlug();
+		if (item == cage) return unequipCage();
 		return "";
 	}
 	
 	public String discardItem(Item item) {
 		String result = "";
 		if (isEquipped(item)) {
-			if (item.equals(cage) && !hasKey()) { return "Cannot drop chastity cage without key."; }
+			if (item == cage && !hasKey()) { return "Cannot drop chastity cage without key."; }
 			result += unequipItem(item);
 		}
 		inventory.removeValue(item, true);

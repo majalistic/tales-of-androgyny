@@ -5,7 +5,6 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.Attack.AttackHeight;
 import com.majalis.character.Attack.Status;
 import com.majalis.character.Item.Accessory;
-import com.majalis.character.Item.AccessoryType;
 import com.majalis.character.Item.ChastityCage;
 import com.majalis.character.Item.EffectType;
 import com.majalis.character.Item.EquipEffect;
@@ -294,7 +293,7 @@ public abstract class AbstractCharacter extends Group {
 	
 	public int getLewdCharisma() { return getCharisma() + perks.get(Perk.EROTIC.toString(), 0) * 2; }	
 	
-	protected int itemBonus(Stat stat) { return firstAccessory != null && firstAccessory.equals(new Accessory(AccessoryType.STATBOOSTER, stat)) ? 1 : 0; }
+	protected int itemBonus(Stat stat) { return firstAccessory != null && firstAccessory.getBoostedStat() != null && firstAccessory.getBoostedStat() == stat ? 1 : 0; }
 	
 	protected int getBaseDefense() { return Math.max(baseDefense, 0); }
 	protected int getMagicResistance() { return 0; }
@@ -1108,93 +1107,93 @@ public abstract class AbstractCharacter extends Group {
 	// need to refactor these generically
 	public String setArmor(Item armor, boolean newItem) {
 		if (armor == null) {
-			this.armor = null;
+			unequipArmor();
 			return "You unequipped your armor.";
 		}
-		if (newItem) inventory.add(armor);
 		
 		Armor equipArmor = (Armor) armor;
-		boolean alreadyEquipped = equipArmor.equals(this.armor); 
+		boolean alreadyEquipped = equipArmor == this.armor; 
+		unequipArmor();
 		this.armor = alreadyEquipped ? null : equipArmor;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
 	}
 	
 	public String setLegwear(Item armor, boolean newItem) {
 		if (armor == null) {
-			this.legwear = null;
+			unequipLegwear();
 			return "You unequipped your legwear.";
 		}
-		if (newItem) inventory.add(armor);
 		Armor equipArmor = (Armor) armor;
-		boolean alreadyEquipped = equipArmor.equals(this.legwear); 
+		boolean alreadyEquipped = equipArmor == this.legwear; 
+		unequipLegwear();
 		this.legwear = alreadyEquipped ? null : equipArmor;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
 	}
 	
 	public String setUnderwear(Item armor, boolean newItem) {
 		if (armor == null) {
-			this.underwear = null;
+			unequipUnderwear();
 			return "You unequipped your underwear.";
 		}
-		if (newItem) inventory.add(armor);
 		Armor equipArmor = (Armor) armor;
-		boolean alreadyEquipped = equipArmor.equals(this.underwear); 
+		boolean alreadyEquipped = equipArmor == this.underwear; 
+		unequipUnderwear();
 		this.underwear = alreadyEquipped ? null : equipArmor;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
 	}
 
 	public String setShield(Item armor, boolean newItem) {
 		if (armor == null) {
-			this.shield = null;
+			unequipShield();
 			return "You unequipped your shield.";
 		}
-		if (newItem) inventory.add(armor);
 		Armor equipShield = (Armor) armor;
-		boolean alreadyEquipped = equipShield.equals(this.shield); 
+		boolean alreadyEquipped = equipShield == this.shield;
+		unequipShield();
 		this.shield = alreadyEquipped ? null : equipShield;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
 	}
 	
 	public String setArmwear(Item armor, boolean newItem) {
 		if (armor == null) {
-			this.armwear = null;
+			unequipArmwear();
 			return "You unequipped your armwear.";
 		}
-		if (newItem) inventory.add(armor);
 		Armor equipArmwear = (Armor) armor;
-		boolean alreadyEquipped = equipArmwear.equals(this.armwear); 
+		boolean alreadyEquipped = equipArmwear == this.armwear;
+		unequipArmwear();
 		this.armwear = alreadyEquipped ? null : equipArmwear;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
 	}
 	
 	public String setFootwear(Item armor, boolean newItem) {
 		if (armor == null) {
-			this.footwear = null;
+			unequipFootwear();
 			return "You unequipped your armwear.";
 		}
-		if (newItem) inventory.add(armor);
 		Armor equipFootwear = (Armor) armor;
-		boolean alreadyEquipped = equipFootwear.equals(this.footwear); 
+		boolean alreadyEquipped = equipFootwear == this.footwear;
+		unequipFootwear();
 		this.footwear = alreadyEquipped ? null : equipFootwear;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
 	}
 	
 	public String setHeadgear(Item armor, boolean newItem) {
 		if (armor == null) {
-			this.headgear = null;
+			unequipHeadgear();
 			return "You unequipped your headwear.";
 		}
-		if (newItem) inventory.add(armor);
 		Armor equipHeadgear = (Armor) armor;
-		boolean alreadyEquipped = equipHeadgear.equals(this.headgear); 
+		boolean alreadyEquipped = equipHeadgear == this.headgear; 
+		unequipHeadgear();
 		this.headgear = alreadyEquipped ? null : equipHeadgear;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
 	}
 	
 	public String setAccessory(Item accessory, boolean newItem) {
-		if (newItem) inventory.add(accessory);
 		Accessory equipAccessory = (Accessory) accessory;
-		boolean alreadyEquipped = equipAccessory.equals(this.firstAccessory); 
+		boolean alreadyEquipped = equipAccessory == this.firstAccessory; 
+		unequipAccessory();
 		this.firstAccessory = alreadyEquipped ? null : equipAccessory;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + accessory.getName() + ".";
 	}
@@ -1204,9 +1203,9 @@ public abstract class AbstractCharacter extends Group {
 	protected boolean hasKey() { return inventory.contains(new Misc(MiscType.KEY), false); }
 	
 	public String setPlug(Item plug, boolean newItem) {
-		if (newItem) inventory.add(plug);
 		Plug equipPlug = (Plug) plug;
-		boolean alreadyEquipped = equipPlug.equals(this.plug); 
+		boolean alreadyEquipped = equipPlug == this.plug; 
+		unequipPlug();
 		this.plug = alreadyEquipped ? null : equipPlug;
 		if (equipPlug.isPlug()) { ass.togglePlug();	}
 		
@@ -1215,10 +1214,10 @@ public abstract class AbstractCharacter extends Group {
 		
 	// possibly rethink this - maybe equipped items shouldn't be "in" inventory?
 	public String setCage(Item cage, boolean newItem) {
-		if (newItem) inventory.add(cage);
 		if (this.cage != null && !hasKey()) return "You cannot remove your chastity cage without a key!";
 		ChastityCage equipCage = (ChastityCage) cage;
-		boolean alreadyEquipped = equipCage.equals(this.cage); 
+		boolean alreadyEquipped = equipCage == this.cage; 
+		unequipCage();
 		this.cage = alreadyEquipped ? null : equipCage;
 		if (this.cock != null) {
 			this.cock.setSkeletonSkin(isChastitied() ? "Cage" : phallus.getSkin());
@@ -1227,11 +1226,102 @@ public abstract class AbstractCharacter extends Group {
 	}
 	
 	public String setMouthwear(Item mouthwear, boolean newItem) {
-		if (newItem) inventory.add(mouthwear);
 		Mouthwear equipMouthwear = (Mouthwear) mouthwear;
-		boolean alreadyEquipped = equipMouthwear.equals(this.mouthwear); 
+		boolean alreadyEquipped = equipMouthwear == this.mouthwear; 
+		unequipMouthwear();
 		this.mouthwear = alreadyEquipped ? null : equipMouthwear;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + mouthwear.getName() + ".";
+	}
+	
+	public String unequipWeapon() {
+		Weapon temp = this.weapon;
+		if (temp != null) inventory.add(temp);
+		this.weapon = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipRangedWeapon() {
+		Weapon temp = this.rangedWeapon;
+		if (temp != null) inventory.add(temp);
+		this.rangedWeapon = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipShield() {
+		Armor temp = this.shield;
+		if (temp != null) inventory.add(temp);
+		this.shield = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipArmor() {
+		Armor temp = this.armor;
+		if (temp != null) inventory.add(temp);
+		this.armor = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipLegwear() {
+		Armor temp = this.legwear;
+		if (temp != null) inventory.add(temp);
+		this.legwear = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipUnderwear() {
+		Armor temp = this.underwear;
+		if (temp != null) inventory.add(temp);
+		this.underwear = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipHeadgear() {
+		Armor temp = this.headgear;
+		if (temp != null) inventory.add(temp);
+		this.headgear = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipArmwear() {
+		Armor temp = this.armwear;
+		if (temp != null) inventory.add(temp);
+		this.armwear = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipFootwear() {
+		Armor temp = this.footwear;
+		if (temp != null) inventory.add(temp);
+		this.footwear = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipAccessory() {
+		Accessory temp = this.firstAccessory;
+		if (temp != null) inventory.add(temp);
+		this.firstAccessory = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipPlug() {
+		Plug temp = this.plug;
+		if (temp != null) inventory.add(temp);
+		this.plug = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipCage() {
+		ChastityCage temp = this.cage;
+		if (temp != null) inventory.add(temp);
+		this.cage = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipMouthwear() {
+		Mouthwear temp = this.mouthwear;
+		if (temp != null) inventory.add(temp);
+		this.mouthwear = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
 	}
 	
 	public Technique getEmptyTechnique(AbstractCharacter target) { return new Technique(Techniques.DO_NOTHING.getTrait(), getCurrentState(target), 1); }

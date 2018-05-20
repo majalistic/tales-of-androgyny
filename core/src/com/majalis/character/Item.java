@@ -262,6 +262,7 @@ public abstract class Item {
 			this.stat = stat;
 		}
 		
+		public Stat getBoostedStat() { return stat; }
 		public EquipEffect getEquipEffect() { return EquipEffect.NULL; }
 		public AccessoryType getType() { return type; }
 		@Override

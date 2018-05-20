@@ -173,7 +173,7 @@ public class InventoryScreen extends AbstractScreen {
 		
 		int xBuffer = 160;
 		
-		equipmentTable.setPosition(50, 1075);
+		equipmentTable.setPosition(50, 1065);
 		this.addActor(equipmentTable);
 		equipmentTable.add(getLabel("Weapon:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
 		equipmentTable.add(weaponText).align(Align.left).row();
