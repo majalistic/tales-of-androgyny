@@ -1131,11 +1131,28 @@ public class BattleScreen extends AbstractScreen{
 		uiStage.addActor(menuGroup);
 	}
 	
+	private int cameraOffset = 0;
+	private boolean zoomIn = true;
+	private boolean cameraShake = false;
+	
 	@Override
 	public void render(float delta) {
 		super.render(delta);
 		uiStage.act();
 		uiStage.draw();
+		
+		if (cameraShake) {
+			if (cameraOffset % 2 == 0) {
+				camera.translate(0, 0, zoomIn ? -1 : 1);
+				if (cameraOffset >= 100) {
+					cameraOffset = 0;
+					zoomIn = !zoomIn;
+				}
+			}
+			cameraOffset++;
+		}
+		
+		
 		battleLoop();
 		if (gameExit) {
 			showScreen(ScreenEnum.MAIN_MENU);
