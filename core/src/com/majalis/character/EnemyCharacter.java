@@ -54,12 +54,12 @@ public class EnemyCharacter extends AbstractCharacter {
 		climaxCounters = new ObjectMap<String, Integer>();
 		currentFrame = 0;		
 		random = new RandomXS128((int)(Math.random() * 10000) % 10000);
-		weapon = enemyType.getWeaponType() != null && enemyType.getWeaponType().isMelee() ? new Weapon(enemyType.getWeaponType()): null;
-		rangedWeapon = enemyType.getWeaponType() != null && !enemyType.getWeaponType().isMelee() ? new Weapon(enemyType.getWeaponType()): null;
-		armor = enemyType.getArmorType() != null ? new Armor(enemyType.getArmorType()): null;
-		legwear = enemyType.getLegwearType() != null ? new Armor(enemyType.getLegwearType()): null;
-		underwear = enemyType.getUnderwearType() != null ? new Armor(enemyType.getUnderwearType()): null;
-		shield = enemyType.getShieldType() != null ? new Armor(enemyType.getShieldType()): null;		
+		equip(enemyType.getWeaponType() != null && enemyType.getWeaponType().isMelee() ? new Weapon(enemyType.getWeaponType()): null);
+		equip(enemyType.getWeaponType() != null && !enemyType.getWeaponType().isMelee() ? new Weapon(enemyType.getWeaponType()): null);
+		equip(enemyType.getArmorType() != null ? new Armor(enemyType.getArmorType()): null);
+		equip(enemyType.getLegwearType() != null ? new Armor(enemyType.getLegwearType()): null);
+		equip(enemyType.getUnderwearType() != null ? new Armor(enemyType.getUnderwearType()): null);
+		equip(enemyType.getShieldType() != null ? new Armor(enemyType.getShieldType()): null);
 		baseStrength = enemyType.getStrength();
 		baseAgility = enemyType.getAgility();
 		baseEndurance = enemyType.getEndurance();
@@ -843,7 +843,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (enemyType == EnemyEnum.HARPY && stance != Stance.AIRBORNE) {
 				possibleTechniques.add(FLY);
 			}
-			else if (target.stance.receivesMediumAttacks() && enemyType == EnemyEnum.BRIGAND || (enemyType == EnemyEnum.SPIDER && !target.fullOfEggs()) || (enemyType == EnemyEnum.ORC && weapon == null) && currentStamina > 10) {
+			else if (target.stance.receivesMediumAttacks() && enemyType == EnemyEnum.BRIGAND || (enemyType == EnemyEnum.SPIDER && !target.fullOfEggs()) || (enemyType == EnemyEnum.ORC && getWeapon() == null) && currentStamina > 10) {
 				possibleTechniques.add(FULL_NELSON);
 			}
 			else if (target.kyliraAvailable() && enemyType.willPounceKylira()) {
@@ -857,7 +857,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		Array<Techniques> toRemove = new Array<Techniques>();
 		for (Techniques technique : possibleTechniques) {
 			// this should be seperate checks for plugged and bottom covered - bottom covered should pull down the outermost pants item if possible - otherwise need to think through the unremoveable cover case
-			if (enemyType.isCorporeal() && technique.getTrait().getResultingStance().isAnalPenetration() && (target.isPlugged() || (target.getLegwearScore() > 0 && target.legwear.coversAnus()) || (target.getUnderwearScore() > 0 && target.underwear.coversAnus()))) {
+			if (enemyType.isCorporeal() && technique.getTrait().getResultingStance().isAnalPenetration() && (target.isPlugged() || (target.getLegwearScore() > 0 && target.getLegwear().coversAnus()) || (target.getUnderwearScore() > 0 && target.getUnderwear().coversAnus()))) {
 				possibleTechniques.add(technique.getPluggedAlternate());
 				toRemove.add(technique);
 			}
@@ -1130,7 +1130,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					return getTechniques(RIP);	
 				}
 			}
-			if (weapon != null) {
+			if (getWeapon() != null) {
 				if (stance == Stance.OFFENSIVE) {
 					return getTechniques(SMASH);
 				}

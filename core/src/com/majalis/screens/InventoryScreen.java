@@ -26,6 +26,7 @@ import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Item;
+import com.majalis.character.Item.Equipment;
 import com.majalis.character.Item.Weapon;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.save.SaveEnum;
@@ -154,7 +155,7 @@ public class InventoryScreen extends AbstractScreen {
 		if (character.getWeapon() != null && !character.getWeapon().isMelee()) {
 			Weapon temp = character.getWeapon();
 			character.unequipWeapon();
-			character.equipItem(temp);
+			character.equip(temp);
 		}
 		
 		weaponText = getLabel(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed", skin, character.getWeapon() != null ? Color.GOLD : Color.BROWN);
@@ -288,7 +289,6 @@ public class InventoryScreen extends AbstractScreen {
 			else if (item.isEquippable()) { // this needs to properly equip the item in the correct slot
 				itemButton.addListener(getWeaponListener(item));
 				toss.addListener(getWeaponTossListener(item));
-				if (character.isEquipped(item)) {itemButton.setColor(Color.GOLD); }
 				weaponTable.add(itemButton).size(400, 40);
 				weaponTable.add(toss).size(40, 40);
 				if (equipmentColumn) weaponTable.row();
@@ -379,9 +379,6 @@ public class InventoryScreen extends AbstractScreen {
 			final TextButton newItemButton = new TextButton(newItem.getName(), skin);
 			if (newItem.isEquippable()) {
 				newItemButton.addListener(getWeaponListener(newItem));
-				if (character.isEquipped(newItem)) {
-					newItemButton.setColor(Color.GOLD);
-				}
 				weaponTable.add(newItemButton).size(400, 40);
 				final Button toss = getTossButton();
 				toss.addListener(getWeaponTossListener(newItem));
@@ -443,7 +440,7 @@ public class InventoryScreen extends AbstractScreen {
 		return new ClickListener() {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
-				resetWeaponTable(character.equipItem(item));
+				resetWeaponTable(character.equip((Equipment)item));
 	        }
 			@Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {

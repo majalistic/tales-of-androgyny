@@ -13,14 +13,12 @@ import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.Armor.ArmorType;
 import com.majalis.character.Arousal.ArousalType;
-import com.majalis.character.Item.Accessory;
 import com.majalis.character.Item.AccessoryType;
 import com.majalis.character.Item.ChastityCage;
 import com.majalis.character.Item.EffectType;
+import com.majalis.character.Item.Equipment;
 import com.majalis.character.Item.Misc;
 import com.majalis.character.Item.MiscType;
-import com.majalis.character.Item.Mouthwear;
-import com.majalis.character.Item.Plug;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
@@ -120,6 +118,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			money = 40;
 			debt = 0;
 			inventory = new Array<Item>();
+			equipment = new Array<Equipment>(); 
 			initInventory();
 			setCharacterName("Hiro");
 			questFlags = new ObjectMap<String, Integer>();
@@ -186,24 +185,24 @@ public class PlayerCharacter extends AbstractCharacter {
 		perkPoints = 2; 
 		magicPoints = 0;
 		food = 60; 
+		
+		unequipWeapon();
+		unequipRangedWeapon();
+		unequipShield();
+		unequipArmor();
+		unequipLegwear();
+		unequipUnderwear();
+		unequipCage();
 		initInventory();
-		
-		setShield(null, false);
-		setArmor(null, false);
-		setLegwear(null, false);
-		setUnderwear(null, false);	
-		
 		skills.remove(COMBAT_HEAL.toString());
 		skills.remove(INCANTATION.toString());
 		skills.remove(BLITZ_ATTACK.toString());
 		skills.remove(ALL_OUT_BLITZ.toString());
 		skills.remove(HOLD_BACK.toString());
 		perks.remove(Perk.WEAK_TO_ANAL.toString());
-		cage = null;
-		weapon = null;
 		switch (jobClass) { 
 			case WARRIOR: 
-				weapon = new Weapon(WeaponType.Broadsword);
+				equip(new Weapon(WeaponType.Broadsword));
 				skillPoints = 3; 
 				skills.put(BLITZ_ATTACK.toString(), 1); 
 				skills.put(ALL_OUT_BLITZ.toString(), 1); 
@@ -211,43 +210,41 @@ public class PlayerCharacter extends AbstractCharacter {
 				perks.put(Perk.WEAK_TO_ANAL.toString(), 1);
 				break;
 			case PALADIN: 
-				weapon = new Weapon(WeaponType.Club);
+				equip(new Weapon(WeaponType.Club));
 				addSkill(COMBAT_HEAL, 1); 
-				setCage(new ChastityCage(), true); 
-				setArmor(new Armor(ArmorType.BREASTPLATE), true);
-				setLegwear(new Armor(ArmorType.BATTLE_SKIRT), true);
-				setUnderwear(new Armor(ArmorType.UNDERWEAR), true);
+				equip(new ChastityCage()); 
+				equip(new Armor(ArmorType.BREASTPLATE));
+				equip(new Armor(ArmorType.BATTLE_SKIRT));
+				equip(new Armor(ArmorType.UNDERWEAR));
 				break;
 			case THIEF: 
-				weapon = new Weapon(WeaponType.Dagger);
+				equip(new Weapon(WeaponType.Dagger));
 				skillPoints = 5; 
 				money += 30;
 				break;
 			case MAGE: 
-				setUnderwear(new Armor(ArmorType.UNDERWEAR), true);
+				equip(new Armor(ArmorType.UNDERWEAR));
 				magicPoints = 2; 
 				break;
 			case RANGER: 
-				rangedWeapon = new Weapon(WeaponType.Bow);
-				Weapon dagger2 = new Weapon(WeaponType.Dagger);
-				inventory.add(dagger2);
-				weapon = dagger2;
+				equip(new Weapon(WeaponType.Bow));
+				equip(new Weapon(WeaponType.Dagger));
 				food += 40;
 				break;
 			case ENCHANTRESS: 
-				weapon = new Weapon(WeaponType.Gladius);
+				equip(new Weapon(WeaponType.Gladius));
 				magicPoints = 1; 
 				perkPoints = 3; 
 				break;
 			default:
 		}
 		if (jobClass != JobClass.PALADIN && jobClass != JobClass.MAGE) {
-			setArmor(new Armor(ArmorType.CLOTH_TOP), true);
-			setLegwear(new Armor(ArmorType.SKIRT), true);
-			setUnderwear(new Armor(ArmorType.UNDERWEAR), true);
+			equip(new Armor(ArmorType.CLOTH_TOP));
+			equip(new Armor(ArmorType.SKIRT));
+			equip(new Armor(ArmorType.UNDERWEAR));
 		}
 		
-		setShield(new Armor(ArmorType.SHIELD), true);
+		equip(new Armor(ArmorType.SHIELD));
 		if (bonuses.get("Bonus Food", false)) food += 20;
 		if (bonuses.get("Bonus Skill Points", false)) skillPoints += 2;
 		if (bonuses.get("Bonus Perk Points", false)) perkPoints += 2;
@@ -359,7 +356,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		else if (stance == Stance.SIXTY_NINE) { resolvedAttack.addMessageToDefender(new MutationResult("She shoves her cock down your throat while swallowing yours!")); }
 		if (ass.getFullnessAmount() > 15) { 
-			if (armor != null && armor.isTight()) { resolvedAttack.addMessageToDefender(new MutationResult("Your belly is squished by your armor and gurgles uncomfortably!")); }
+			if (getArmor() != null && getArmor().isTight()) { resolvedAttack.addMessageToDefender(new MutationResult("Your belly is squished by your armor and gurgles uncomfortably!")); }
 			else { resolvedAttack.addMessageToDefender(new MutationResult("Your belly gurgles uncomfortably!")); }
 		}
 		return new AttackResult(resolvedAttack.getToAttackerMessages(), resolvedAttack.getToDefenderMessages(), resolvedAttack.getDialog(), resolvedAttack.getAttackerResults(), resolvedAttack.getDefenderResults());	
@@ -399,12 +396,12 @@ public class PlayerCharacter extends AbstractCharacter {
 		mouthful = 0;
 		kyliraHeal = true;
 		trudyBuff = true;
-		if (armor != null) armor.refresh();	
-		if (legwear != null) legwear.refresh();	
-		if (underwear != null) underwear.refresh();	
-		if (shield != null) shield.refresh();
+		if (getArmor() != null) getArmor().refresh();	
+		if (getLegwear() != null) getLegwear().refresh();	
+		if (getUnderwear() != null) getUnderwear().refresh();	
+		if (getShield() != null) getShield().refresh();
 		if (disarmedWeapon != null) {
-			weapon = disarmedWeapon;
+			equip(disarmedWeapon);
 			disarmedWeapon = null;
 		}
 		kyliraAvailable = false;
@@ -744,8 +741,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 				
 		if (isPlugged()) {
-			result += isPlugged() ? plug.getName() + " removed! " : "";
-			plug = null;
+			result += isPlugged() ? getPlug().getName() + " removed! " : "";
+			unequipPlug();
 		}
 		
 		receivedAnal++;
@@ -854,7 +851,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public Array<MutationResult> receiveItem(Item item) {
 		if (item.instantUse()) { consumeItem(item); }
-		else if (item instanceof ChastityCage) { setCage(item, true); }
+		else if (item instanceof ChastityCage) { equip((Equipment)item); }
 		else { inventory.add(item); }
 		return getResult("You have received a(n) " + item.getName() + "!");
 	}
@@ -863,7 +860,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (cost > money) { return false; }
 		money -= cost;
 		receiveItem(item);
-		if (item instanceof Weapon) { setWeapon(item); inventory.removeValue(item, true); }
+		if (item instanceof Weapon) { equip((Equipment)item); }
 		return true;
 	}
 	
@@ -1273,7 +1270,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public int getMetabolicRate() { return (hasHungerCharm() ? 1 : 2) + (hasTrudy() ? 1 : 0) + (hasKylira() ? 1 : 0); }
 
-	private boolean hasHungerCharm() { return firstAccessory != null && firstAccessory.getType() == AccessoryType.HUNGER_CHARM; }
+	private boolean hasHungerCharm() { return getFirstAccessory() != null && getFirstAccessory().getType() == AccessoryType.HUNGER_CHARM; }
 	public boolean hasGem() { return inventory.contains(new Potion(1, EffectType.GEM), false); }	
 	public boolean hasIceCream() { return inventory.contains(new Misc(MiscType.ICE_CREAM), false); }
 	
@@ -1343,34 +1340,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		return needsRestock;
 	}
-
-	public String equipItem(Item item) {
-		inventory.removeValue(item, true);
-		Armor armor = item instanceof Armor ? (Armor) item : null;
-		return 
-			item instanceof Weapon ? (((Weapon) item).isMelee() ? setWeapon(item) : setRangedWeapon(item)) : 
-			armor != null ? 
-				(armor.isFootwear() ? setFootwear(item, false) : armor.isArmwear() ? setArmwear(item, false) : armor.isHeadgear() ? setHeadgear(item, false) : armor.isShield() ? setShield(item, false) : armor.coversTop() ? setArmor(item, false) : armor.coversBottom() ? setLegwear(item, false) : setUnderwear(item, false)) : 
-			item instanceof Accessory ? setAccessory(item, false) :
-			item instanceof ChastityCage ? setCage(item, false) :
-			item instanceof Mouthwear ? setMouthwear(item, false) :
-			setPlug(item, false);
-	}
-
-	public Plug getPlug() { return plug; }
 	
-	@Override
-	public String setPlug(Item plug, boolean newItem) {
-		if (receivedAnal == 0) receivedAnal++;
-		return super.setPlug(plug, newItem);
-	}
-	
-	public ChastityCage getCage() { return cage; }
-	public Mouthwear getMouthwear() { return mouthwear; }
-	
-	public boolean isEquipped(Item item) {
-		return item == weapon || item == rangedWeapon || item == armor || item == shield || item == legwear || item == underwear || item == plug || item == cage || item == mouthwear || item == headgear || item == armwear || item == footwear || item == firstAccessory;
-	}
+	public boolean isEquipped(Equipment item) { return equipment.contains(item, true); }
 
 	public int getAnalReceptionCount() { return receivedAnal; }
 	public int getOralReceptionCount() { return receivedOral; }
@@ -1606,27 +1577,9 @@ public class PlayerCharacter extends AbstractCharacter {
 			default: return "";
 		}
 	}
-	private String unequipItem(Item item) {
-		if (item == weapon) return unequipWeapon();
-		if (item == shield) return unequipShield();
-		if (item == armor) return unequipArmor();
-		if (item == legwear) return unequipLegwear();
-		if (item == underwear) return unequipUnderwear();
-		if (item == headgear) return unequipHeadgear();
-		if (item == armwear) return unequipArmwear();
-		if (item == footwear) return unequipFootwear();
-		if (item == firstAccessory) return unequipAccessory();
-		if (item == plug) return unequipPlug();
-		if (item == cage) return unequipCage();
-		return "";
-	}
 	
 	public String discardItem(Item item) {
 		String result = "";
-		if (isEquipped(item)) {
-			if (item == cage && !hasKey()) { return "Cannot drop chastity cage without key."; }
-			result += unequipItem(item);
-		}
 		inventory.removeValue(item, true);
 		result += " " + "You throw away the " + item.getName() + "."; 
 		return result;

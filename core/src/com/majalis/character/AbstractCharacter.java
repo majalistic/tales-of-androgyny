@@ -8,6 +8,7 @@ import com.majalis.character.Item.Accessory;
 import com.majalis.character.Item.ChastityCage;
 import com.majalis.character.Item.EffectType;
 import com.majalis.character.Item.EquipEffect;
+import com.majalis.character.Item.Equipment;
 import com.majalis.character.Item.ItemEffect;
 import com.majalis.character.Item.Misc;
 import com.majalis.character.Item.MiscType;
@@ -83,22 +84,13 @@ public abstract class AbstractCharacter extends Group {
 	protected int lust; // legacy
 	protected int knotInflate;
 	
-	protected Weapon weapon;
-	protected Weapon rangedWeapon;
-	public Armor shield;
-	protected Armor armor;
-	protected Armor legwear;
-	protected Armor underwear;
-	protected Armor headgear;
-	protected Armor armwear;
-	protected Armor footwear;
-
-	public Accessory firstAccessory;
-	// public Accessory secondAccessory;
-	
-	protected Plug plug;
-	protected ChastityCage cage;
-	protected Mouthwear mouthwear;
+	// deprecated fields
+	private Weapon weapon, rangedWeapon;
+	private Armor shield, armor, legwear, underwear, headgear, armwear, footwear;
+	private Accessory firstAccessory;
+	private Plug plug;
+	private ChastityCage cage;
+	private Mouthwear mouthwear;
 	
 	protected Weapon disarmedWeapon;
 	
@@ -117,6 +109,7 @@ public abstract class AbstractCharacter extends Group {
 	protected ObjectMap<String, Integer> statuses; // status effects will be represented by a map of Enum to Status object
 	
 	protected Array<Item> inventory;
+	protected Array<Equipment> equipment;
 	protected int food;
 	protected int range;
 
@@ -126,7 +119,7 @@ public abstract class AbstractCharacter extends Group {
 	private transient AnimatedActor cock;
 	
 	/* Constructors */
-	protected AbstractCharacter() { ass = new Ass(new Sphincter(), new Rectum(), new Colon()); }
+	protected AbstractCharacter() { equipment = new Array<Equipment>(); ass = new Ass(new Sphincter(), new Rectum(), new Colon()); }
 	protected AbstractCharacter(boolean defaultValues) {
 		if (defaultValues) {
 			secondPerson = false;
@@ -268,10 +261,10 @@ public abstract class AbstractCharacter extends Group {
 	protected int getStrength() { return Math.max(((baseStrength + itemBonus(Stat.STRENGTH) + getStrengthBuff()) - (getHealthDegradation() / 2 + getStaminaDegradation() / 2 + getLustDegradation() / 2))/(strengthDebuffed() ? 2 : 1), 0); }
 	
 	// all the item-related buffs need to move into item bonus
-	protected int getStrengthBuff() { return (armwear != null && armwear.getEquipEffect() == EquipEffect.STR_BONUS ? 1 : 0) + statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
+	protected int getStrengthBuff() { return (getArmwear() != null && getArmwear().getEquipEffect() == EquipEffect.STR_BONUS ? 1 : 0) + statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
 	protected int getEnduranceBuff() { return statuses.get(StatusType.ENDURANCE_BUFF.toString(), 0); }
-	protected int getAgilityBuff() { return (footwear != null && footwear.getEquipEffect() == EquipEffect.AGI_BONUS ? 1 : 0) + statuses.get(StatusType.AGILITY_BUFF.toString(), 0); }
-	protected int getPerceptionBuff() { return (headgear != null && headgear.getEquipEffect() == EquipEffect.PER_BONUS ? 1 : 0); }
+	protected int getAgilityBuff() { return (getFootwear() != null && getFootwear().getEquipEffect() == EquipEffect.AGI_BONUS ? 1 : 0) + statuses.get(StatusType.AGILITY_BUFF.toString(), 0); }
+	protected int getPerceptionBuff() { return (getHeadgear() != null && getHeadgear().getEquipEffect() == EquipEffect.PER_BONUS ? 1 : 0); }
 	
 	protected boolean strengthDebuffed() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
 	protected boolean isGravitied() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
@@ -293,16 +286,16 @@ public abstract class AbstractCharacter extends Group {
 	
 	public int getLewdCharisma() { return getCharisma() + perks.get(Perk.EROTIC.toString(), 0) * 2; }	
 	
-	protected int itemBonus(Stat stat) { return firstAccessory != null && firstAccessory.getBoostedStat() != null && firstAccessory.getBoostedStat() == stat ? 1 : 0; }
+	protected int itemBonus(Stat stat) { return getFirstAccessory() != null && getFirstAccessory().getBoostedStat() != null && getFirstAccessory().getBoostedStat() == stat ? 1 : 0; }
 	
 	protected int getBaseDefense() { return Math.max(baseDefense, 0); }
 	protected int getMagicResistance() { return 0; }
 	protected int getTraction() { return 2; }
 	
 	// temporary for battle coherence
-	public int getArmorScore() { return armor != null && armor.getDurability() > 0 ? armor.getShockAbsorption(): 0; }
-	public int getLegwearScore() { 	return legwear != null ? legwear.getShockAbsorption() : 0; }
-	public int getUnderwearScore() { 	return underwear != null ? underwear.getShockAbsorption() : 0; }
+	public int getArmorScore() { return getArmor() != null && getArmor().getDurability() > 0 ? getArmor().getShockAbsorption(): 0; }
+	public int getLegwearScore() { 	return getLegwear() != null ? getLegwear().getShockAbsorption() : 0; }
+	public int getUnderwearScore() { 	return getUnderwear() != null ? getUnderwear().getShockAbsorption() : 0; }
 	
 	public int getHealthDegradation() { return getDegradation(healthTiers, currentHealth); }
 	public int getStaminaDegradation() { return getDegradation(staminaTiers, currentStamina); }
@@ -349,14 +342,43 @@ public abstract class AbstractCharacter extends Group {
 		
 		return blurb;
 	}
-	public Armor getArmor() { return armor; }
-	public Armor getLegwear() { return legwear; }
-	public Armor getUnderwear() { return underwear; }
-	public Armor getShield() { return shield; }
-	public Armor getHeadgear() { return headgear; }
-	public Armor getArmwear() { return armwear; }
-	public Armor getFootwear() { return footwear; }
-	public Accessory getFirstAccessory() { return firstAccessory; }
+	public Weapon getWeapon() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Weapon && ((Weapon) item).isMelee()) return (Weapon)item; } return null; }
+	public Weapon getRangedWeapon() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Weapon && !((Weapon) item).isMelee()) return (Weapon)item; } return null; }
+	public Armor getArmor() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Armor && ((Armor) item).coversTop()) return (Armor)item; } return null; }
+	public Armor getLegwear() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Armor && ((Armor) item).coversBottom()) return (Armor)item; } return null; }
+	public Armor getUnderwear() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Armor && ((Armor) item).isUnderwear()) return (Armor)item; } return null; }
+	public Armor getShield() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Armor && ((Armor) item).isShield()) return (Armor)item; } return null; }
+	public Armor getHeadgear() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Armor && ((Armor) item).isHeadgear()) return (Armor)item; } return null; }
+	public Armor getArmwear() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Armor && ((Armor) item).isArmwear()) return (Armor)item; } return null; }
+	public Armor getFootwear() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Armor && ((Armor) item).isFootwear()) return (Armor)item; } return null; }
+	public Accessory getFirstAccessory() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Accessory) return (Accessory)item; } return null; }
+	public Plug getPlug() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Plug) return (Plug)item; } return null; }
+	public ChastityCage getCage() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof ChastityCage) return (ChastityCage)item; } return null; }
+	public Mouthwear getMouthwear() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Mouthwear) return (Mouthwear)item; } return null; }
+	
+	public void cleanEquipment() {
+		if (weapon == null && rangedWeapon == null && shield == null && armor == null && legwear == null && underwear == null && headgear == null && armwear == null && footwear == null && firstAccessory == null && plug == null && cage == null && mouthwear == null) return;	
+		Equipment weapon = this.weapon;
+		Equipment rangedWeapon = this.rangedWeapon;
+		Equipment shield = this.shield;
+		Equipment armor = this.armor;
+		Equipment legwear = this.legwear;
+		Equipment underwear = this.underwear;
+		Equipment headgear = this.headgear;
+		Equipment armwear = this.armwear;
+		Equipment footwear = this.footwear;
+		Equipment firstAccessory = this.firstAccessory;
+		Equipment plug = this.plug;
+		Equipment cage = this.cage;
+		Equipment mouthwear = this.mouthwear;
+		this.weapon = this.rangedWeapon = null;
+		this.shield = this.armor = this.legwear = this.underwear = this.headgear = this.armwear = this.footwear = null;
+		this.firstAccessory = null;
+		this.plug = null;
+		this.cage = null;
+		this.mouthwear = null;
+		equip(weapon); equip(rangedWeapon); equip(shield); equip(armor); equip(legwear); equip(underwear); equip(headgear); equip(armwear); equip(footwear); equip(firstAccessory); equip(plug); equip(cage); equip(mouthwear);
+	}
 	
 	public String getArmorStatus(Armor armor) { return armor == null ? "" : armor.getName() + "\nCurrent damage absorption provided: " + armor.getShockAbsorption() + "\nCurrent durability: " + armor.getDurability() + "\n\n" + armor.getDescription(); }
 	
@@ -418,7 +440,7 @@ public abstract class AbstractCharacter extends Group {
 	}
 	
 	protected CharacterState getCurrentState(AbstractCharacter target) {		
-		return new CharacterState(getStats(), getRawStats(), weapon, rangedWeapon, shield, stability.lowBalance(), currentMana, enemyType == null ? true : enemyType.isCorporeal(), this, target);
+		return new CharacterState(getStats(), getRawStats(), getWeapon(), getRangedWeapon(), getShield(), stability.lowBalance(), currentMana, enemyType == null ? true : enemyType.isCorporeal(), this, target);
 	}
 	
 	protected boolean alreadyIncapacitated() { return stance.isIncapacitatingOrErotic(); }
@@ -430,13 +452,13 @@ public abstract class AbstractCharacter extends Group {
 	private MutationResult repairArmor(int power) {
 		String result = "";
 
-		if (armor != null) {
-			armor.modDurability(power);
-			result += armor.getName() + " durability improved by " + power + "!";
+		if (getArmor() != null) {
+			getArmor().modDurability(power);
+			result += getArmor().getName() + " durability improved by " + power + "!";
 		}
-		if (legwear != null) {
-			legwear.modDurability(power);
-			result += legwear.getName() + " durability improved by " + power + "!";
+		if (getLegwear() != null) {
+			getLegwear().modDurability(power);
+			result += getLegwear().getName() + " durability improved by " + power + "!";
 		}
 		
 		return new MutationResult(result, power, MutationType.ARMOR);
@@ -567,7 +589,7 @@ public abstract class AbstractCharacter extends Group {
 		return resolvedAttack;
 	}
 	private Armor getArmorHit(AttackHeight height) {
-		return height != AttackHeight.LOW ? armor : legwear != null && legwear.getShockAbsorption() > 0 ? legwear : underwear;
+		return height != AttackHeight.LOW ? getArmor() : getLegwear() != null && getLegwear().getShockAbsorption() > 0 ? getLegwear() : getUnderwear();
 	}
 	
 	private int getShockAbsorption(Armor armor) {
@@ -623,10 +645,10 @@ public abstract class AbstractCharacter extends Group {
 			
 			int blockMod = attack.getBlockAmount();
 			if (blockMod > 0) {				
-				if (shield != null && shield.getDurability() > 0) {
+				if (getShield() != null && getShield().getDurability() > 0) {
 					resultToDefender.add(new MutationResult((blockMod >= 4 ? "The blow strikes off the shield!" : blockMod >= 3 ? "The blow is mostly blocked by the shield!" : blockMod >= 2 ? "The blow is half-blocked by the shield!" : "The blow is barely blocked by the shield!") + "\nIt deals " + shieldDamage + " damage to it!", shieldDamage, MutationType.ARMOR_DESTROY));
-					shield.modDurability(-shieldDamage);
-					if (shield.getDurability() == 0) resultToDefender.add(new MutationResult("The shield is broken!"));
+					getShield().modDurability(-shieldDamage);
+					if (getShield().getDurability() == 0) resultToDefender.add(new MutationResult("The shield is broken!"));
 				}
 			}
 			
@@ -668,17 +690,17 @@ public abstract class AbstractCharacter extends Group {
 			
 			int plugRemove = attack.plugRemove();
 			if (plugRemove > 0) {
-				if (legwear != null && legwear.getShockAbsorption() > 0 && legwear.coversAnus()) {
-					resultToDefender.add(new MutationResult("They pull down your " + legwear.getName() + "!"));
-					setLegwear(legwear, false);
+				if (getLegwear() != null && getLegwear().getShockAbsorption() > 0 && getLegwear().coversAnus()) {
+					resultToDefender.add(new MutationResult("They pull down your " + getLegwear().getName() + "!"));
+					unequipLegwear();
 				}
-				else if (underwear != null && underwear.getShockAbsorption() > 0 && underwear.coversAnus()) {
-					resultToDefender.add(new MutationResult("They pull down your " + underwear.getName() + "!"));
-					setUnderwear(underwear, false);
+				else if (getUnderwear() != null && getUnderwear().getShockAbsorption() > 0 && getUnderwear().coversAnus()) {
+					resultToDefender.add(new MutationResult("They pull down your " + getUnderwear().getName() + "!"));
+					unequipUnderwear();
 				}
 				else {
-					resultToDefender.add(new MutationResult("They pull out your " + plug.getName() + "!"));
-					setPlug(plug, false); // unequip your plug
+					resultToDefender.add(new MutationResult("They pull out your " + getPlug().getName() + "!"));
+					unequipPlug();
 				}
 			}
 			
@@ -941,9 +963,9 @@ public abstract class AbstractCharacter extends Group {
 	}
 	
 	public boolean disarm() {
-		if (weapon != null && weapon.isDisarmable()) {
-			disarmedWeapon = weapon;
-			weapon = null;
+		if (getWeapon() != null && getWeapon().isDisarmable()) {
+			disarmedWeapon = getWeapon();
+			equipment.removeValue(getWeapon(), true);
 			return true;
 		}
 		return false;
@@ -1035,9 +1057,6 @@ public abstract class AbstractCharacter extends Group {
 	private int getBaseMagic() { return baseMagic; }
 	private int getBaseCharisma() { return baseCharisma; }
 
-	public Weapon getWeapon() { return weapon; }
-	public Weapon getRangedWeapon() { return rangedWeapon; }
-	
 	public MutationResult getStanceTransform(Technique firstTechnique) {
 		Stance newStance = firstTechnique.getStance();
 		if (newStance.isNull() || (stance != null && stance == newStance)) {
@@ -1104,243 +1123,71 @@ public abstract class AbstractCharacter extends Group {
 	protected int getClimaxVolume() { return 3; }
 
 	protected String properCase(String sample) { return sample.substring(0, 1).toUpperCase() + sample.substring(1); }
-	// need to refactor these generically
-	// this should obviously only accept a Weapon parameter
-	public String setWeapon(Item item) {	
-		Weapon equipWeapon = (Weapon) item;
-		boolean alreadyEquipped = equipWeapon == this.weapon;
-		unequipWeapon();
-		this.weapon = alreadyEquipped ? null : equipWeapon;
-		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + equipWeapon.getName() + ".";
-	}
 	
-	public String setRangedWeapon(Item item) {	
-		Weapon equipWeapon = (Weapon) item;
-		boolean alreadyEquipped = equipWeapon == this.rangedWeapon;
-		unequipRangedWeapon();
-		this.rangedWeapon = alreadyEquipped ? null : equipWeapon;
-		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + equipWeapon.getName() + ".";
-	}
-	
-	public String setArmor(Item armor, boolean newItem) {
-		if (armor == null) {
-			unequipArmor();
-			return "You unequipped your armor.";
+	public String equip(Equipment item) {
+		if (item == null) return "";
+		if (item instanceof ChastityCage && getCage() != null && !hasKey()) return "You cannot remove your chastity cage without a key!";
+		String result = "You equipped the " + item.getName() + ".\n";
+		if (item instanceof Weapon) {
+			if (((Weapon)item).isMelee()) result += unequip(getWeapon());
+			else result += unequip(getRangedWeapon());
 		}
+		if (item instanceof Armor) {
+			Armor armor = (Armor) item;
+			if (armor.coversTop()) result += unequip(getArmor());
+			if (armor.coversBottom()) result += unequip(getLegwear());
+			if (armor.isUnderwear()) result += unequip(getUnderwear());
+			if (armor.isShield()) result += unequip(getShield());
+			if (armor.isHeadgear()) result += unequip(getHeadgear());
+			if (armor.isArmwear()) result += unequip(getArmwear());
+			if (armor.isFootwear()) result += unequip(getFootwear());
+		}
+		if (item instanceof Accessory) { result += unequip(getFirstAccessory()); }
+		if (item instanceof Plug) {
+			Plug plug = (Plug) item;
+			if (plug.isPlug()) { ass.togglePlug();	}
+			result += unequip(getPlug());
+		}
+		if (item instanceof ChastityCage) {
+			if (this.cock != null) {
+				this.cock.setSkeletonSkin(isChastitied() ? "Cage" : phallus.getSkin());
+			}
+			result += unequip(getCage());
+		}
+		if (item instanceof Mouthwear) { result += unequip(getMouthwear()); }
 		
-		Armor equipArmor = (Armor) armor;
-		boolean alreadyEquipped = equipArmor == this.armor; 
-		unequipArmor();
-		this.armor = alreadyEquipped ? null : equipArmor;
-		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
+		equipment.add(item);
+		inventory.removeValue(item, true);		
+		return result;
 	}
 	
-	public String setLegwear(Item armor, boolean newItem) {
-		if (armor == null) {
-			unequipLegwear();
-			return "You unequipped your legwear.";
-		}
-		Armor equipArmor = (Armor) armor;
-		boolean alreadyEquipped = equipArmor == this.legwear; 
-		unequipLegwear();
-		this.legwear = alreadyEquipped ? null : equipArmor;
-		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
+	public String unequip(Equipment item) {
+		if (item == null) return "";
+		if (item instanceof ChastityCage && getCage() != null && !hasKey()) return "You cannot remove your chastity cage without a key!";
+		String result = equipment.contains(item, true) ? "You unequipped the " + item.getName() + "." : ""; 
+		equipment.removeValue(item, true);		
+		inventory.add(item);
+		return result + "\n";
 	}
 	
-	public String setUnderwear(Item armor, boolean newItem) {
-		if (armor == null) {
-			unequipUnderwear();
-			return "You unequipped your underwear.";
-		}
-		Armor equipArmor = (Armor) armor;
-		boolean alreadyEquipped = equipArmor == this.underwear; 
-		unequipUnderwear();
-		this.underwear = alreadyEquipped ? null : equipArmor;
-		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
-	}
-
-	public String setShield(Item armor, boolean newItem) {
-		if (armor == null) {
-			unequipShield();
-			return "You unequipped your shield.";
-		}
-		Armor equipShield = (Armor) armor;
-		boolean alreadyEquipped = equipShield == this.shield;
-		unequipShield();
-		this.shield = alreadyEquipped ? null : equipShield;
-		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
-	}
+	public String unequipWeapon() { return unequip(getWeapon()); }
+	public String unequipRangedWeapon()  { return unequip(getRangedWeapon()); }
+	public String unequipShield() { return unequip(getShield()); }
+	public String unequipArmor() { return unequip(getArmor()); }
+	public String unequipLegwear() { return unequip(getLegwear()); }	
+	public String unequipUnderwear() { return unequip(getUnderwear()); }	
+	public String unequipHeadgear() { return unequip(getHeadgear()); }
+	public String unequipArmwear() { return unequip(getArmwear()); }	
+	public String unequipFootwear() { return unequip(getFootwear()); }
+	public String unequipAccessory() { return unequip(getFirstAccessory()); }
+	public String unequipPlug() { return unequip(getPlug()); }
+	public String unequipCage() { return unequip(getCage()); }
+	public String unequipMouthwear() { return unequip(getMouthwear()); }
 	
-	public String setArmwear(Item armor, boolean newItem) {
-		if (armor == null) {
-			unequipArmwear();
-			return "You unequipped your armwear.";
-		}
-		Armor equipArmwear = (Armor) armor;
-		boolean alreadyEquipped = equipArmwear == this.armwear;
-		unequipArmwear();
-		this.armwear = alreadyEquipped ? null : equipArmwear;
-		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
-	}
-	
-	public String setFootwear(Item armor, boolean newItem) {
-		if (armor == null) {
-			unequipFootwear();
-			return "You unequipped your armwear.";
-		}
-		Armor equipFootwear = (Armor) armor;
-		boolean alreadyEquipped = equipFootwear == this.footwear;
-		unequipFootwear();
-		this.footwear = alreadyEquipped ? null : equipFootwear;
-		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
-	}
-	
-	public String setHeadgear(Item armor, boolean newItem) {
-		if (armor == null) {
-			unequipHeadgear();
-			return "You unequipped your headwear.";
-		}
-		Armor equipHeadgear = (Armor) armor;
-		boolean alreadyEquipped = equipHeadgear == this.headgear; 
-		unequipHeadgear();
-		this.headgear = alreadyEquipped ? null : equipHeadgear;
-		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
-	}
-	
-	public String setAccessory(Item accessory, boolean newItem) {
-		Accessory equipAccessory = (Accessory) accessory;
-		boolean alreadyEquipped = equipAccessory == this.firstAccessory; 
-		unequipAccessory();
-		this.firstAccessory = alreadyEquipped ? null : equipAccessory;
-		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + accessory.getName() + ".";
-	}
-	
-	public boolean isPlugged() { return plug != null && plug.isPlug(); }
-	public boolean isChastitied() { return cage != null; }
+	public boolean isPlugged() { return getPlug() != null && getPlug().isPlug(); }
+	public boolean isChastitied() { return getCage() != null; }
 	protected boolean hasKey() { return inventory.contains(new Misc(MiscType.KEY), false); }
-	
-	public String setPlug(Item plug, boolean newItem) {
-		Plug equipPlug = (Plug) plug;
-		boolean alreadyEquipped = equipPlug == this.plug; 
-		unequipPlug();
-		this.plug = alreadyEquipped ? null : equipPlug;
-		if (equipPlug.isPlug()) { ass.togglePlug();	}
 		
-		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + plug.getName() + ".";
-	}
-		
-	// possibly rethink this - maybe equipped items shouldn't be "in" inventory?
-	public String setCage(Item cage, boolean newItem) {
-		if (this.cage != null && !hasKey()) return "You cannot remove your chastity cage without a key!";
-		ChastityCage equipCage = (ChastityCage) cage;
-		boolean alreadyEquipped = equipCage == this.cage; 
-		unequipCage();
-		this.cage = alreadyEquipped ? null : equipCage;
-		if (this.cock != null) {
-			this.cock.setSkeletonSkin(isChastitied() ? "Cage" : phallus.getSkin());
-		}
-		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + cage.getName() + ".";
-	}
-	
-	public String setMouthwear(Item mouthwear, boolean newItem) {
-		Mouthwear equipMouthwear = (Mouthwear) mouthwear;
-		boolean alreadyEquipped = equipMouthwear == this.mouthwear; 
-		unequipMouthwear();
-		this.mouthwear = alreadyEquipped ? null : equipMouthwear;
-		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + mouthwear.getName() + ".";
-	}
-	
-	public String unequipWeapon() {
-		Weapon temp = this.weapon;
-		if (temp != null) inventory.add(temp);
-		this.weapon = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipRangedWeapon() {
-		Weapon temp = this.rangedWeapon;
-		if (temp != null) inventory.add(temp);
-		this.rangedWeapon = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipShield() {
-		Armor temp = this.shield;
-		if (temp != null) inventory.add(temp);
-		this.shield = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipArmor() {
-		Armor temp = this.armor;
-		if (temp != null) inventory.add(temp);
-		this.armor = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipLegwear() {
-		Armor temp = this.legwear;
-		if (temp != null) inventory.add(temp);
-		this.legwear = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipUnderwear() {
-		Armor temp = this.underwear;
-		if (temp != null) inventory.add(temp);
-		this.underwear = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipHeadgear() {
-		Armor temp = this.headgear;
-		if (temp != null) inventory.add(temp);
-		this.headgear = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipArmwear() {
-		Armor temp = this.armwear;
-		if (temp != null) inventory.add(temp);
-		this.armwear = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipFootwear() {
-		Armor temp = this.footwear;
-		if (temp != null) inventory.add(temp);
-		this.footwear = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipAccessory() {
-		Accessory temp = this.firstAccessory;
-		if (temp != null) inventory.add(temp);
-		this.firstAccessory = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipPlug() {
-		Plug temp = this.plug;
-		if (temp != null) inventory.add(temp);
-		this.plug = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipCage() {
-		ChastityCage temp = this.cage;
-		if (temp != null) inventory.add(temp);
-		this.cage = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
-	public String unequipMouthwear() {
-		Mouthwear temp = this.mouthwear;
-		if (temp != null) inventory.add(temp);
-		this.mouthwear = null;
-		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
-	}
-	
 	public Technique getEmptyTechnique(AbstractCharacter target) { return new Technique(Techniques.DO_NOTHING.getTrait(), getCurrentState(target), 1); }
 	public String getPhallusLabel() { return phallus.getLabel(); }	
 
@@ -1533,7 +1380,7 @@ public abstract class AbstractCharacter extends Group {
 			else if (candidate == SQUEEZE_RELEASE && (currentStamina > 0 && !grappleStatus.isDisadvantage())) { techniques.removeValue(candidate, true); }
 			else if (candidate == SQUEEZE_CRUSH && grappleStatus != GrappleStatus.HOLD) { techniques.removeValue(candidate, true); }
 			else if (candidate == MOUTH_KNOT && enemyType != EnemyEnum.WERESLUT) { techniques.removeValue(candidate, true); }
-			else if (candidate == DRAW_ARROW && (rangedWeapon == null || range <= 1)) { techniques.removeValue(candidate, true); }
+			else if (candidate == DRAW_ARROW && (getRangedWeapon() == null || range <= 1)) { techniques.removeValue(candidate, true); }
 		}		
 		return techniques; 
 	}
