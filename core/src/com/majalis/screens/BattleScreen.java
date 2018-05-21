@@ -980,7 +980,7 @@ public class BattleScreen extends AbstractScreen{
 		private final Texture armorTexture;
 		private final Texture armorBrokenTexture;
 		private int value;
-		public ArmorDisplay (AbstractCharacter character, Armor armor,Texture armorTexture, Texture armorBrokenTexture) {
+		public ArmorDisplay (AbstractCharacter character, Armor armor, Texture armorTexture, Texture armorBrokenTexture) {
 			this.armor = armor;
 			this.armorBrokenTexture = armorBrokenTexture;
 			this.armorTexture = armorTexture;
@@ -999,7 +999,7 @@ public class BattleScreen extends AbstractScreen{
 				this.addListener(new ClickListener() {
 			        @Override
 			        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-						skillDisplay.setText(character.getArmorStatus(armor).trim());
+						skillDisplay.setText((armor == null ? "" : armor.getName() + "\nCurrent damage absorption provided: " + armor.getShockAbsorption() + "\nCurrent durability: " + armor.getDurability() + "\n\n" + armor.getDescription()).trim());
 						bonusDisplay.setText("");
 						penaltyDisplay.setText("");
 						showHoverGroup();

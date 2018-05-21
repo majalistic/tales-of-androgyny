@@ -105,7 +105,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			secondPerson = true;
 			pronouns = PronounSet.SECOND_PERSON;
 			healthTiers = new IntArray(new int[]{15, 15, 15, 15});
-			currentHealth = getMaxHealth();	
+			setHealthToMax();
 			setStaminaToMax();
 			setStabilityToMax();
 			setManaToMax();
@@ -579,7 +579,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		String spurt = "";
 		String result = null;
 		boolean weakToAnal = perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0;
-		currentStamina -= 10;
+		modStamina(-10);
 		
 		switch (stance) {
 			case PENETRATED:

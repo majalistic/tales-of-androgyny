@@ -68,40 +68,25 @@ public abstract class AbstractCharacter extends Group {
 	protected IntArray healthTiers; // total these to receive maxHealth, maybe cache it when this changes
 	protected IntArray staminaTiers; // total these to receive maxStamina, maybe cache it when this changes
 	protected IntArray manaTiers; // total these to receive maxMana, maybe cache it when this changes
-	
 	protected ObjectMap<String, Integer> perks;
 	
 	/* morphic stats */
-	protected int currentHealth;
-	protected int currentStamina;
-	protected int currentMana; // mana might be replaced with spell slots that get refreshed
+	private int currentHealth;
+	private int currentStamina;
+	private int currentMana; // mana might be replaced with spell slots that get refreshed
 	
 	protected Stability stability;
 	protected int focus;
 	protected int fortune;
 	
 	protected Arousal arousal;
-	protected int lust; // legacy
-	protected int knotInflate;
-	
-	// deprecated fields
-	private Weapon weapon, rangedWeapon;
-	private Armor shield, armor, legwear, underwear, headgear, armwear, footwear;
-	private Accessory firstAccessory;
-	private Plug plug;
-	private ChastityCage cage;
-	private Mouthwear mouthwear;
-	
-	protected Weapon disarmedWeapon;
 	
 	protected Ass ass;
-	
 	// public Mouth mouth; 
 	protected PhallusType phallus;	
-	
-	protected int mouthful;
-	
 	protected Bootyliciousness bootyliciousness;
+	protected int mouthful;
+	protected int knotInflate;
 	
 	protected Stance stance;
 	protected Stance oldStance;
@@ -118,6 +103,17 @@ public abstract class AbstractCharacter extends Group {
 	private transient AnimatedActor belly;
 	private transient AnimatedActor cock;
 	
+	protected Weapon disarmedWeapon;
+	
+	// deprecated fields
+	private Weapon weapon, rangedWeapon;
+	private Armor shield, armor, legwear, underwear, headgear, armwear, footwear;
+	private Accessory firstAccessory;
+	private Plug plug;
+	private ChastityCage cage;
+	private Mouthwear mouthwear;
+	@SuppressWarnings("unused")	private int lust; // legacy
+
 	/* Constructors */
 	protected AbstractCharacter() { inventory = new Array<Item>(); equipment = new Array<Equipment>(); ass = new Ass(new Sphincter(), new Rectum(), new Colon()); }
 	protected AbstractCharacter(boolean defaultValues) {
@@ -152,49 +148,43 @@ public abstract class AbstractCharacter extends Group {
 	}
 	
 	public String getLabel() { return label; }
+	public String getPhallusLabel() { return phallus.getLabel(); }	
+	protected Boolean getSecondPerson() { return secondPerson; }
 	public Sphincter getSphincter() { return ass.getSphincter(); }
 	public Rectum getRectum() { return ass.getRectum(); }
 	public Colon getColon() { return ass.getColon(); }
-	
-	protected IntArray getDefaultHealthTiers() { return new IntArray(new int[]{10, 10, 10, 10}); }
-	protected IntArray getDefaultStaminaTiers() { return new IntArray(new int[]{5, 5, 5, 5}); }
-	protected IntArray getDefaultManaTiers() { return new IntArray(new int[]{0}); }
-	
-	public ObjectMap<String, Integer> getStatuses() { return statuses; }
-	
 	public int getMaxHealth() { return getMax(healthTiers); }
 	public int getMaxStamina() { return getMax(staminaTiers); }
 	public int getMaxMana() { return getMax(manaTiers); }
-	public int getMaxStability() { return getAgility() * 3 + 9; }
-	private int getMax(IntArray tiers) {
-		int max = 0;
-		for (int ii = 0; ii < tiers.size; ii++) {
-			max += tiers.get(ii);
-		}
-		return max;
-	}
 	
-	public Stance getStance() { return stance; }
-	public void setStance(Stance stance) { this.stance = stance; }
-	public GrappleStatus getGrappleStatus() { return grappleStatus; } // should be passed into character state
-	public void setGrappleStatus(GrappleStatus status) { grappleStatus = status; } // for battle factory	
+	public int getRange() { return range; }
+	public boolean winsGrapples() { return enemyType == EnemyEnum.SLIME; }
+	public boolean kyliraAvailable() { return false; }
+	public boolean trudyAvailable() { return false; }
+	public boolean isImpotent() { return false; }
+	
 	public int getCurrentHealth() { return currentHealth; }
-	public int getCurrentStamina() { return currentStamina; }
-	public int getCurrentMana() { return currentMana; }
+	protected int getCurrentStamina() { return currentStamina; }
+	protected int getCurrentMana() { return currentMana; }
 	public float getHealthPercent() { return currentHealth / (getMaxHealth() * 1.0f); }
-	public float getStaminaPercent() { return currentStamina / (getMaxStamina() * 1.0f); }
-	public float getBalancePercent() { return stability.getPercent(); }
-	public float getManaPercent() { return currentMana / (getMaxMana() * 1.0f); }
-	public Stability getStability() { return stability; }
+	protected float getStaminaPercent() { return currentStamina / (getMaxStamina() * 1.0f); }
+	protected float getBalancePercent() { return stability.getPercent(); }
+	public AssetDescriptor<Texture> getBalanceDisplay() { return stability.getDisplay(); }
+	protected float getManaPercent() { return currentMana / (getMaxMana() * 1.0f); }
+	protected Stability getStability() { return stability; }
+	public Stance getStance() { return stance; }
+	public GrappleStatus getGrappleStatus() { return grappleStatus; } // should be passed into character state
+	public ObjectMap<String, Integer> getStatuses() { return statuses; }
+		
+	protected IntArray getDefaultHealthTiers() { return new IntArray(new int[]{10, 10, 10, 10}); }
+	protected IntArray getDefaultStaminaTiers() { return new IntArray(new int[]{5, 5, 5, 5}); }
+	protected IntArray getDefaultManaTiers() { return new IntArray(new int[]{0}); }
 	
 	public AssetDescriptor<Texture> getHealthDisplay() { 
 		switch (getHealthDegradation()) {
 			case 0: return AssetEnum.HEALTH_ICON_0.getTexture();
 			case 1: return AssetEnum.HEALTH_ICON_1.getTexture();
 			case 2: return AssetEnum.HEALTH_ICON_2.getTexture();
-			case 3: return AssetEnum.HEALTH_ICON_3.getTexture();
-			case 4: return AssetEnum.HEALTH_ICON_3.getTexture();
-			case 5: return AssetEnum.HEALTH_ICON_3.getTexture();
 			default: return AssetEnum.HEALTH_ICON_3.getTexture();
 		}
 	}
@@ -204,26 +194,23 @@ public abstract class AbstractCharacter extends Group {
 			case 0: return AssetEnum.STAMINA_ICON_0.getTexture();
 			case 1: return AssetEnum.STAMINA_ICON_1.getTexture();
 			case 2: return AssetEnum.STAMINA_ICON_2.getTexture();
-			case 3: return AssetEnum.STAMINA_ICON_3.getTexture();
-			case 4: return AssetEnum.STAMINA_ICON_3.getTexture();
 			default: return AssetEnum.STAMINA_ICON_3.getTexture();
 		}
 	}
-	
-	public AssetDescriptor<Texture> getBalanceDisplay() { return stability.getDisplay(); }
 	
 	public AssetDescriptor<Texture> getManaDisplay() {  
 		switch (4 - (int)(getManaPercent() * 100)/ 25) {
 			case 0: return AssetEnum.MANA_ICON_0.getTexture();
 			case 1: return AssetEnum.MANA_ICON_1.getTexture();
 			case 2: return AssetEnum.MANA_ICON_2.getTexture();
-			case 3: return AssetEnum.MANA_ICON_3.getTexture();
 			default: return AssetEnum.MANA_ICON_3.getTexture();
 		}
 	}
 	
+	public void setStance(Stance stance) { this.stance = stance; }
+	public void setGrappleStatus(GrappleStatus status) { grappleStatus = status; } // for battle factory	
+	public void setRange(int range) { this.range = range; }
 	public Array<MutationResult> modHealth(int healthMod) { return modHealth(healthMod, ""); }
-	
 	public Array<MutationResult> modHealth(int healthMod, String cause) { 
 		int healthChange = this.currentHealth;
 		this.currentHealth += healthMod; 
@@ -239,83 +226,79 @@ public abstract class AbstractCharacter extends Group {
 	
 	protected int getHealthRegen() { return getEndurance() / 3; }
 	protected int getStaminaRegen() { return Math.max(getEndurance() / (isGravitied() ? 4 : 2), 0); }
-	
 	protected int getStabilityRegen() { return getAgility() / (isOily() ? 4 : 2) + perks.get(Perk.QUICKFOOTED.toString(), 0); }
-	
-	protected Boolean getSecondPerson() { return secondPerson; }
-	
-	protected void setHealthToMax() { currentHealth = getMaxHealth(); }
-	
-	protected void setStaminaToMax() { currentStamina = getMaxStamina(); }
-	
+	protected void setHealthToMax() { currentHealth = getMaxHealth(); }	
+	protected void setStaminaToMax() { currentStamina = getMaxStamina(); }	
 	protected void modStamina(int staminaMod) { this.currentStamina += staminaMod; if (currentStamina > getMaxStamina()) currentStamina = getMaxStamina(); }
-	
 	protected void setStabilityToMax() { stability = Stability.Surefooted; }
-	
 	protected void setStabilityToMin() { stability = Stability.Dazed; }
-	
 	protected void modStability(int stabilityMod) { stability = stability.shift(stabilityMod); if (stance.isIncapacitating() && !stability.isDown()) stability = Stability.Down; }
-	
 	protected void setManaToMax() { currentMana = getMaxMana(); }
-	
 	protected void modMana(int manaMod) { this.currentMana += manaMod; if (currentMana > getMaxMana()) currentMana = getMaxMana(); if (currentMana < 0) currentMana = 0; }
-
 	protected int getStrength() { return Math.max(((baseStrength + itemBonus(Stat.STRENGTH) + getStrengthBuff()) - (getHealthDegradation() / 2 + getStaminaDegradation() / 2 + getLustDegradation() / 2))/(strengthDebuffed() ? 2 : 1), 0); }
+	protected int getEndurance() { return Math.max((baseEndurance + itemBonus(Stat.ENDURANCE) + getEnduranceBuff()) - (getHealthDegradation()), 0); }
+	protected int getAgility() { return Math.max((baseAgility + itemBonus(Stat.AGILITY) + getAgilityBuff()) - (getHealthDegradation() + getStaminaDegradation() + getCumInflation()), 0); }
+	protected int getPerception() { return Math.max(basePerception + itemBonus(Stat.PERCEPTION), 0) + getPerceptionBuff(); }
+	protected int getMagic() { return Math.max(baseMagic + itemBonus(Stat.MAGIC), 0); }
+	protected int getCharisma() { return Math.max(baseCharisma + itemBonus(Stat.CHARISMA), 0); }
+	public int getLewdCharisma() { return getCharisma() + perks.get(Perk.EROTIC.toString(), 0) * 2; }	
+	protected int stepDown(int value) { if (value < 3) return value; else if (value < 7) return 3 + (value - 3)/2; else return 5 + (value - 7)/3; } 
+	protected int getStat(Stat stat) { return stepDown(getRawStat(stat)); }
+	public int getRawStat(Stat stat) {
+		switch(stat) {
+			case STRENGTH: return getStrength();
+			case ENDURANCE: return getEndurance();
+			case AGILITY: return getAgility();
+			case PERCEPTION: return getPerception();
+			case MAGIC: return getMagic();
+			case CHARISMA: return getCharisma();
+			default: return -1;
+		}
+	}
 	
+	public int getBaseStat(Stat stat) {
+		switch(stat) {
+			case STRENGTH: return baseStrength;
+			case ENDURANCE: return baseEndurance;
+			case AGILITY: return baseAgility;
+			case PERCEPTION: return basePerception;
+			case MAGIC: return baseMagic;
+			case CHARISMA: return baseCharisma;
+			default: return -1;
+		}
+	}
 	// all the item-related buffs need to move into item bonus
 	protected int getStrengthBuff() { return (getArmwear() != null && getArmwear().getEquipEffect() == EquipEffect.STR_BONUS ? 1 : 0) + statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
 	protected int getEnduranceBuff() { return statuses.get(StatusType.ENDURANCE_BUFF.toString(), 0); }
 	protected int getAgilityBuff() { return (getFootwear() != null && getFootwear().getEquipEffect() == EquipEffect.AGI_BONUS ? 1 : 0) + statuses.get(StatusType.AGILITY_BUFF.toString(), 0); }
 	protected int getPerceptionBuff() { return (getHeadgear() != null && getHeadgear().getEquipEffect() == EquipEffect.PER_BONUS ? 1 : 0); }
-	
 	protected boolean strengthDebuffed() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
 	protected boolean isGravitied() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
 	protected boolean isOily() { return statuses.get(StatusType.OIL.toString(), 0) > 0; }
 	protected boolean isParalyzed() { return statuses.get(StatusType.PARALYSIS.toString(), 0) > 0; }
 	protected boolean isHypnotized() { return statuses.get(StatusType.HYPNOSIS.toString(), 0) > 0; }
-	
-	protected int stepDown(int value) { if (value < 3) return value; else if (value < 7) return 3 + (value - 3)/2; else return 5 + (value - 7)/3; } 
-	
-	protected int getEndurance() { return Math.max((baseEndurance + itemBonus(Stat.ENDURANCE) + getEnduranceBuff()) - (getHealthDegradation()), 0); }
-	
-	protected int getAgility() { return Math.max((baseAgility + itemBonus(Stat.AGILITY) + getAgilityBuff()) - (getHealthDegradation() + getStaminaDegradation() + getCumInflation()), 0); }
-
-	protected int getPerception() { return Math.max(basePerception + itemBonus(Stat.PERCEPTION), 0) + getPerceptionBuff(); }
-
-	protected int getMagic() { return Math.max(baseMagic + itemBonus(Stat.MAGIC), 0); }
-
-	protected int getCharisma() { return Math.max(baseCharisma + itemBonus(Stat.CHARISMA), 0); }
-	
-	public int getLewdCharisma() { return getCharisma() + perks.get(Perk.EROTIC.toString(), 0) * 2; }	
-	
 	protected int itemBonus(Stat stat) { return getFirstAccessory() != null && getFirstAccessory().getBoostedStat() != null && getFirstAccessory().getBoostedStat() == stat ? 1 : 0; }
-	
 	protected int getBaseDefense() { return Math.max(baseDefense, 0); }
 	protected int getMagicResistance() { return 0; }
 	protected int getTraction() { return 2; }
-	
 	// temporary for battle coherence
-	public int getArmorScore() { return getArmor() != null && getArmor().getDurability() > 0 ? getArmor().getShockAbsorption(): 0; }
-	public int getLegwearScore() { 	return getLegwear() != null ? getLegwear().getShockAbsorption() : 0; }
-	public int getUnderwearScore() { 	return getUnderwear() != null ? getUnderwear().getShockAbsorption() : 0; }
-	
+	protected int getArmorScore() { return getArmor() != null && getArmor().getDurability() > 0 ? getArmor().getShockAbsorption(): 0; }
+	protected int getLegwearScore() { return getLegwear() != null ? getLegwear().getShockAbsorption() : 0; }
+	protected int getUnderwearScore() { return getUnderwear() != null ? getUnderwear().getShockAbsorption() : 0; }
 	public int getHealthDegradation() { return getDegradation(healthTiers, currentHealth); }
 	public int getStaminaDegradation() { return getDegradation(staminaTiers, currentStamina); }
 	public int getLustDegradation() { return arousal.getLust() >= 100 ? 4 : arousal.getLust() >= 75 ? 3 : arousal.getLust() >= 50 ? 2 : arousal.getLust() >= 25 ? 1 : 0; }
-	public int getCumInflation() { return ass.getFullnessAmount() >= 20 || mouthful >= 20 ? 2 : ass.getFullnessAmount() >= 10 || mouthful >= 10 || fullOfEggs() ? 1 : 0; } 
-	
-	private Color getValueColor(int value) {
-		switch (value) {
-			case 0: return Color.WHITE;
-			case 1: return Color.ORANGE;
-			case 2: return Color.CORAL;
-			default: return Color.RED;
-		}
-	}
+	protected int getCumInflation() { return ass.getFullnessAmount() >= 20 || mouthful >= 20 ? 2 : ass.getFullnessAmount() >= 10 || mouthful >= 10 || fullOfEggs() ? 1 : 0; } 
+	public boolean isLewd() { return perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_ADDICT.toString(), 0) > 2 || perks.get(Perk.COCK_LOVER.toString(), 0) > 7 || arousal.getLust() >= 75; }
 	
 	public Color getHealthColor() { return getValueColor(getHealthDegradation()); } 
 	public Color getStaminaColor() { return getValueColor(getStaminaDegradation()); }
 	public Color getStabilityColor() { return getValueColor(stability == Stability.Perfect ? 0 : stability.isGood() ? 1 : stability.isDown() || stability == Stability.Tripping ? 3 : 2); }
+	
+	protected CharacterState getCurrentState(AbstractCharacter target) { return new CharacterState(getStats(), getRawStats(), getWeapon(), getRangedWeapon(), getShield(), stability.lowBalance(), currentMana, enemyType == null ? true : enemyType.isCorporeal(), this, target); }
+	protected boolean alreadyIncapacitated() { return stance.isIncapacitatingOrErotic(); }
+	protected boolean wasIncapacitated() { return oldStance != null ? oldStance.isIncapacitatingOrErotic() : false; }
+	protected boolean hasGrappleAdvantage() { return grappleStatus.isAdvantage(); }
 	
 	public String getStatusBlurb() {
 		String blurb = "";
@@ -344,6 +327,38 @@ public abstract class AbstractCharacter extends Group {
 		
 		return blurb;
 	}
+	
+	public boolean outOfStamina(Technique technique) { return getStaminaMod(technique) >= currentStamina; }	
+	public boolean outOfStability(Technique technique) { return checkStability(getStabilityChange(technique)).isDown(); }
+	public boolean outOfStaminaOrStability(Technique technique) { return outOfStamina(technique) || outOfStability(technique); }
+	public boolean lowStaminaOrStability(Technique technique) {	return getStaminaMod(technique) >= currentStamina - 5 || checkStability(getStabilityChange(technique)).lowBalance(); }
+	protected boolean lowStability() { return stability.lowBalance(); }
+	protected boolean isErect() { return arousal.isErect() && !isChastitied() && phallus != PhallusType.NONE; }
+	public int getCurrentLust() { return arousal.getLust(); }	
+	public String getDefeatMessage() { return label + (secondPerson ? " are " : " is ") + "defeated!"; }
+	
+	public Array<MutationResult> modFood(Integer foodMod) {
+		int foodChange = food;
+		food += foodMod; 
+		Array<MutationResult> result = new Array<MutationResult>();
+		Array<MutationResult> starve = new Array<MutationResult>();
+		if (food < 0) {
+			starve.addAll(modHealth(5 * food, "from starvation"));
+			food = 0; 
+		}
+
+		foodChange = food - foodChange;
+		
+		if (foodChange != 0) {
+			result.add(new MutationResult(foodChange > 0 ? "+" + foodChange + " fullness!" : "Hunger increases by " + -foodChange + "!", foodChange, MutationType.FOOD));
+		}
+		result.addAll(starve);
+		return result;
+	}
+	
+	public int getBleed() { return statuses.get(StatusType.BLEEDING.toString(), 0); }
+	protected int getClimaxVolume() { return 3; }
+	
 	public Weapon getWeapon() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Weapon && ((Weapon) item).isMelee()) return (Weapon)item; } return null; }
 	public Weapon getRangedWeapon() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Weapon && !((Weapon) item).isMelee()) return (Weapon)item; } return null; }
 	public Armor getArmor() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Armor && ((Armor) item).coversTop()) return (Armor)item; } return null; }
@@ -357,32 +372,70 @@ public abstract class AbstractCharacter extends Group {
 	public Plug getPlug() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Plug) return (Plug)item; } return null; }
 	public ChastityCage getCage() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof ChastityCage) return (ChastityCage)item; } return null; }
 	public Mouthwear getMouthwear() { cleanEquipment(); for (Equipment item : equipment) { if(item instanceof Mouthwear) return (Mouthwear)item; } return null; }
-	
-	public void cleanEquipment() {
-		if (weapon == null && rangedWeapon == null && shield == null && armor == null && legwear == null && underwear == null && headgear == null && armwear == null && footwear == null && firstAccessory == null && plug == null && cage == null && mouthwear == null) return;	
-		Equipment weapon = this.weapon;
-		Equipment rangedWeapon = this.rangedWeapon;
-		Equipment shield = this.shield;
-		Equipment armor = this.armor;
-		Equipment legwear = this.legwear;
-		Equipment underwear = this.underwear;
-		Equipment headgear = this.headgear;
-		Equipment armwear = this.armwear;
-		Equipment footwear = this.footwear;
-		Equipment firstAccessory = this.firstAccessory;
-		Equipment plug = this.plug;
-		Equipment cage = this.cage;
-		Equipment mouthwear = this.mouthwear;
-		this.weapon = this.rangedWeapon = null;
-		this.shield = this.armor = this.legwear = this.underwear = this.headgear = this.armwear = this.footwear = null;
-		this.firstAccessory = null;
-		this.plug = null;
-		this.cage = null;
-		this.mouthwear = null;
-		equip(weapon); equip(rangedWeapon); equip(shield); equip(armor); equip(legwear); equip(underwear); equip(headgear); equip(armwear); equip(footwear); equip(firstAccessory); equip(plug); equip(cage); equip(mouthwear);
+
+	public String equip(Equipment item) {
+		if (item == null) return "";
+		if (item instanceof ChastityCage && getCage() != null && !hasKey()) return "You cannot remove your chastity cage without a key!";
+		String result = "You equipped the " + item.getName() + ".\n";
+		if (item instanceof Weapon) {
+			if (((Weapon)item).isMelee()) result += unequip(getWeapon());
+			else result += unequip(getRangedWeapon());
+		}
+		if (item instanceof Armor) {
+			Armor armor = (Armor) item;
+			if (armor.coversTop()) result += unequip(getArmor());
+			if (armor.coversBottom()) result += unequip(getLegwear());
+			if (armor.isUnderwear()) result += unequip(getUnderwear());
+			if (armor.isShield()) result += unequip(getShield());
+			if (armor.isHeadgear()) result += unequip(getHeadgear());
+			if (armor.isArmwear()) result += unequip(getArmwear());
+			if (armor.isFootwear()) result += unequip(getFootwear());
+		}
+		if (item instanceof Accessory) { result += unequip(getFirstAccessory()); }
+		if (item instanceof Plug) {
+			Plug plug = (Plug) item;
+			if (plug.isPlug()) { ass.togglePlug();	}
+			result += unequip(getPlug());
+		}
+		if (item instanceof ChastityCage) {
+			if (this.cock != null) {
+				this.cock.setSkeletonSkin(isChastitied() ? "Cage" : phallus.getSkin());
+			}
+			result += unequip(getCage());
+		}
+		if (item instanceof Mouthwear) { result += unequip(getMouthwear()); }
+		
+		equipment.add(item);
+		inventory.removeValue(item, true);		
+		return result;
 	}
 	
-	public String getArmorStatus(Armor armor) { return armor == null ? "" : armor.getName() + "\nCurrent damage absorption provided: " + armor.getShockAbsorption() + "\nCurrent durability: " + armor.getDurability() + "\n\n" + armor.getDescription(); }
+	public String unequip(Equipment item) {
+		if (item == null) return "";
+		if (item instanceof ChastityCage && getCage() != null && !hasKey()) return "You cannot remove your chastity cage without a key!";
+		String result = equipment.contains(item, true) ? "You unequipped the " + item.getName() + "." : ""; 
+		equipment.removeValue(item, true);		
+		inventory.add(item);
+		return result + "\n";
+	}
+	
+	public String unequipWeapon() { return unequip(getWeapon()); }
+	public String unequipRangedWeapon()  { return unequip(getRangedWeapon()); }
+	public String unequipShield() { return unequip(getShield()); }
+	public String unequipArmor() { return unequip(getArmor()); }
+	public String unequipLegwear() { return unequip(getLegwear()); }	
+	public String unequipUnderwear() { return unequip(getUnderwear()); }	
+	public String unequipHeadgear() { return unequip(getHeadgear()); }
+	public String unequipArmwear() { return unequip(getArmwear()); }	
+	public String unequipFootwear() { return unequip(getFootwear()); }
+	public String unequipAccessory() { return unequip(getFirstAccessory()); }
+	public String unequipPlug() { return unequip(getPlug()); }
+	public String unequipCage() { return unequip(getCage()); }
+	public String unequipMouthwear() { return unequip(getMouthwear()); }
+	
+	public boolean isPlugged() { return getPlug() != null && getPlug().isPlug(); }
+	public boolean isChastitied() { return getCage() != null; }
+	protected boolean hasKey() { return inventory.contains(new Misc(MiscType.KEY), false); }
 	
 	protected int getDegradation(IntArray tiers, int currentValue) {
 		int numTiers = tiers.size;
@@ -436,36 +489,7 @@ public abstract class AbstractCharacter extends Group {
 			statuses.remove(key);
 		}
 	}
-	
-	private int getBloodLossDamage() {
-		return Math.max(0, (statuses.get(StatusType.BLEEDING.toString(), 0) - getEndurance()) / 3);
-	}
-	
-	protected CharacterState getCurrentState(AbstractCharacter target) {		
-		return new CharacterState(getStats(), getRawStats(), getWeapon(), getRangedWeapon(), getShield(), stability.lowBalance(), currentMana, enemyType == null ? true : enemyType.isCorporeal(), this, target);
-	}
-	
-	protected boolean alreadyIncapacitated() { return stance.isIncapacitatingOrErotic(); }
-	
-	protected boolean wasIncapacitated() { return oldStance != null ? oldStance.isIncapacitatingOrErotic() : false; }
-	
-	protected boolean hasGrappleAdvantage() { return grappleStatus.isAdvantage(); }
-	
-	private MutationResult repairArmor(int power) {
-		String result = "";
-
-		if (getArmor() != null) {
-			getArmor().modDurability(power);
-			result += getArmor().getName() + " durability improved by " + power + "!";
-		}
-		if (getLegwear() != null) {
-			getLegwear().modDurability(power);
-			result += getLegwear().getName() + " durability improved by " + power + "!";
-		}
 		
-		return new MutationResult(result, power, MutationType.ARMOR);
-	}
-	
 	public Attack doAttack(Attack resolvedAttack) {
 		heartbeat++;
 		int bleedDamage = getBloodLossDamage();
@@ -558,13 +582,7 @@ public abstract class AbstractCharacter extends Group {
 				knotInflate++;
 			}
 			else if (resolvedAttack.getForceStance() == Stance.OVIPOSITION_BOTTOM) {
-				if (knotInflate == 0) {
-					
-				}
-				else if (knotInflate < 3) {
-									
-				}
-				else {
+				if (knotInflate >= 3) {
 					resolvedAttack.addMessageToDefender(new MutationResult("The battle is over, but your ordeal has just begun!"));
 					resolvedAttack.addMessageToDefender(new MutationResult("You are full of " + pronouns.getPossessive() + " eggs!"));
 				}
@@ -592,32 +610,6 @@ public abstract class AbstractCharacter extends Group {
 	}
 	private Armor getArmorHit(AttackHeight height) {
 		return height == AttackHeight.HEAD ? getHeadgear() : height == AttackHeight.FOOT ? getFootwear() : height == AttackHeight.ARM ? getArmwear() : height != AttackHeight.LOW ? getArmor() : getLegwear() != null && getLegwear().getShockAbsorption() > 0 ? getLegwear() : getUnderwear();
-	}
-	
-	private int getShockAbsorption(Armor armor) {
-		return armor != null ? armor.getShockAbsorption() : 0;
-	}
-	
-	public static class AttackResult {
-		private final Array<MutationResult> toAttackerMessages;
-		private final Array<MutationResult> toDefenderMessages;
-		private final Array<String> dialog;
-		private final Array<MutationResult> attackerResults;
-		private final Array<MutationResult> defenderResults;
-		
-		protected AttackResult(Array<MutationResult> toAttackerMessages, Array<MutationResult> toDefenderMessages, Array<String> dialog, Array<MutationResult> attackerResults, Array<MutationResult> defenderResults) {
-			this.toAttackerMessages = toAttackerMessages;
-			this.toDefenderMessages = toDefenderMessages;
-			this.dialog = dialog;
-			this.attackerResults = attackerResults;
-			this.defenderResults = defenderResults;
-		}
-		
-		public Array<MutationResult> getToAttackerMessages() { return toAttackerMessages; }
-		public Array<MutationResult> getToDefenderMessages() { return toDefenderMessages; }
-		public Array<String> getDialog() { return dialog; }
-		public Array<MutationResult> getAttackerResults() { return attackerResults; }
-		public Array<MutationResult> getDefenderResults() { return defenderResults; }
 	}
 	
 	// return an array of array of strings and mutation results packaged together, save the mutation results into the battle results but that doesn't work either because doAttack can also cause mutations
@@ -657,9 +649,7 @@ public abstract class AbstractCharacter extends Group {
 			int parryMod = attack.getParryAmount();
 			// ICON: should display amount of damage parried (getParryReduction) with parry icon
 			if (parryMod > 0) { resultToDefender.add(new MutationResult((parryMod >= 4 ? "The blow is parried away!" : parryMod >= 3 ? "The blow is mostly deflected by a parry!" : parryMod >= 2 ? "The blow is half-deflected by a parry!" : "The blow is barely blocked by a parry!"))); }
-			
 			// ICON: should display amount of damage evaded (getDodgeReduction) with evade icon
-			
 			boolean oilyFire = attack.isSpell() && attack.getSpellEffect() == SpellEffect.FIRE_DAMAGE && isOily();
 			if (oilyFire) statuses.put(StatusType.OIL.toString(), 0); 
 			int damage = attack.getDamage() * (oilyFire ? 2 : 1);
@@ -667,7 +657,7 @@ public abstract class AbstractCharacter extends Group {
 			if (!attack.ignoresArmor() && damage > 0) {
 				if (getBaseDefense() > 0) resultToDefender.add(new MutationResult("Damage reduced by " + Math.min(damage, getBaseDefense()) + "!"));
 				// ICON: should display amount of damage that hits armor along with in-tact armor icon				
-				damage -= getBaseDefense() + getShockAbsorption(hitArmor);
+				damage -= getBaseDefense() + (hitArmor != null ? hitArmor.getShockAbsorption() : 0);
 			}
 			if (attack.getMagicDamageReduction() > 0) { resultToDefender.add(new MutationResult("Magic resistance reduced damage by " + attack.getMagicDamageReduction() + "!")); }
 			
@@ -848,13 +838,6 @@ public abstract class AbstractCharacter extends Group {
 	
 	protected void updateDisplay() {}
 	
-	public void setRange(int range) { this.range = range; }
-	
-	private void modRange(int rangeMod) {
-		range += rangeMod;
-		if (range < 0) range = 0;
-	}
-	
 	protected Array<MutationResult> increaseLust(SexualExperience ... sexes) {
 		Array<MutationResult> results = new Array<MutationResult>();
 		String spurt = "";
@@ -885,18 +868,6 @@ public abstract class AbstractCharacter extends Group {
 	
 	protected Array<MutationResult> getResult(String text) { return new Array<MutationResult>(new MutationResult[]{new MutationResult(text)}); }
 	protected Array<MutationResult> getResult(String text, int mod, MutationType type) { return new Array<MutationResult>(new MutationResult[]{new MutationResult(text, mod, type)}); }
-	
-	public class UseItemEffect {
-		private final String resultDisplay;
-		private final Array<MutationResult> results;
-		private UseItemEffect(String resultDisplay, Array<MutationResult> results) {
-			this.resultDisplay = resultDisplay;
-			this.results = results;
-		}
-		
-		public String getResult() { return resultDisplay; }
-		
-	}
 	
 	public UseItemEffect consumeItem(Item item) { return consumeItem(item, false); }
 	public UseItemEffect consumeItem(Item item, boolean combatUse) {
@@ -983,9 +954,9 @@ public abstract class AbstractCharacter extends Group {
 	}
 	
 	protected void drainMouth() { mouthful = 0; }
-	
 	protected void drainButt() { ass.fillButtWithCum(-1); }
-
+	protected abstract String getLeakMessage();
+	protected abstract String getDroolMessage();
 	protected boolean fullOfEggs() { return false; }
 	
 	public AnimatedActor getBelly(AssetManager assetManager) {
@@ -1005,9 +976,6 @@ public abstract class AbstractCharacter extends Group {
 		return this.cock;
 	}
 	
-	protected abstract String getLeakMessage();
-	protected abstract String getDroolMessage();
-	
 	protected OrderedMap<Stat, Integer> getStats() {
 		OrderedMap<Stat, Integer> stats = new OrderedMap<Stat, Integer>();
 		for (Stat stat: Stat.values()) {
@@ -1024,41 +992,6 @@ public abstract class AbstractCharacter extends Group {
 		return stats;
 	}
 	
-	protected int getStat(Stat stat) {
-		return stepDown(getRawStat(stat));
-	}
-
-	public int getRawStat(Stat stat) {
-		switch(stat) {
-			case STRENGTH: return getStrength();
-			case ENDURANCE: return getEndurance();
-			case AGILITY: return getAgility();
-			case PERCEPTION: return getPerception();
-			case MAGIC: return getMagic();
-			case CHARISMA: return getCharisma();
-			default: return -1;
-		}
-	}
-	
-	public int getBaseStat(Stat stat) {
-		switch(stat) {
-			case STRENGTH: return getBaseStrength();
-			case ENDURANCE: return getBaseEndurance();
-			case AGILITY: return getBaseAgility();
-			case PERCEPTION: return getBasePerception();
-			case MAGIC: return getBaseMagic();
-			case CHARISMA: return getBaseCharisma();
-			default: return -1;
-		}
-	}
-
-	private int getBaseStrength() { return baseStrength; }
-	private int getBaseEndurance() { return baseEndurance; }
-	private int getBaseAgility() { return baseAgility; }
-	private int getBasePerception() { return basePerception; }
-	private int getBaseMagic() { return baseMagic; }
-	private int getBaseCharisma() { return baseCharisma; }
-
 	public MutationResult getStanceTransform(Technique firstTechnique) {
 		Stance newStance = firstTechnique.getStance();
 		if (newStance.isNull() || (stance != null && stance == newStance)) {
@@ -1070,144 +1003,7 @@ public abstract class AbstractCharacter extends Group {
 		return new MutationResult(label + " adopt" + (secondPerson ? "" : "s") + " " + article + " " + stanceTransform + " stance! ", newStance);
  	}
 	
-	public boolean outOfStamina(Technique technique) { return getStaminaMod(technique) >= currentStamina; }
-	
-	private Stability checkStability(int stabilityModifier) {
-		Stability currentStability = stability;
-		modStability(stabilityModifier);
-		Stability resultingStability = stability;
-		stability = currentStability;
-		return resultingStability;
-	}
-	
-	private int getStabilityChange(Technique technique) { 
-		int possibleCost = getStabilityRegen() - technique.getStabilityCost();
-		if (technique.getStabilityCost() > 0) possibleCost = Math.min(possibleCost, -1);
-		else if (technique.getStabilityCost() < 0) possibleCost = Math.max(possibleCost, 1);
-		else possibleCost = 0;
-		return possibleCost;
-	}
-	
-	public boolean outOfStability(Technique technique) { return checkStability(getStabilityChange(technique)).isDown(); }
-	
-	public boolean outOfStaminaOrStability(Technique technique) { return outOfStamina(technique) || outOfStability(technique); }
-
-	public boolean lowStaminaOrStability(Technique technique) {	return getStaminaMod(technique) >= currentStamina - 5 || checkStability(getStabilityChange(technique)).lowBalance(); }
-	
-	protected boolean lowStability() { return stability.lowBalance(); }
-	
-	protected boolean isErect() { return arousal.isErect() && !isChastitied() && phallus != PhallusType.NONE; }
-	
-	public int getCurrentLust() { return arousal.getLust(); }
-	
-	public String getDefeatMessage() { return label + (secondPerson ? " are " : " is ") + "defeated!"; }
-	
-	public Array<MutationResult> modFood(Integer foodMod) {
-		int foodChange = food;
-		food += foodMod; 
-		Array<MutationResult> result = new Array<MutationResult>();
-		Array<MutationResult> starve = new Array<MutationResult>();
-		if (food < 0) {
-			starve.addAll(modHealth(5 * food, "from starvation"));
-			food = 0; 
-		}
-
-		foodChange = food - foodChange;
-		
-		if (foodChange != 0) {
-			result.add(new MutationResult(foodChange > 0 ? "+" + foodChange + " fullness!" : "Hunger increases by " + -foodChange + "!", foodChange, MutationType.FOOD));
-		}
-		result.addAll(starve);
-		return result;
-	}
-	
-	public int getBleed() { return statuses.get(StatusType.BLEEDING.toString(), 0); }
-	protected int getClimaxVolume() { return 3; }
-
-	protected String properCase(String sample) { return sample.substring(0, 1).toUpperCase() + sample.substring(1); }
-	
-	public String equip(Equipment item) {
-		if (item == null) return "";
-		if (item instanceof ChastityCage && getCage() != null && !hasKey()) return "You cannot remove your chastity cage without a key!";
-		String result = "You equipped the " + item.getName() + ".\n";
-		if (item instanceof Weapon) {
-			if (((Weapon)item).isMelee()) result += unequip(getWeapon());
-			else result += unequip(getRangedWeapon());
-		}
-		if (item instanceof Armor) {
-			Armor armor = (Armor) item;
-			if (armor.coversTop()) result += unequip(getArmor());
-			if (armor.coversBottom()) result += unequip(getLegwear());
-			if (armor.isUnderwear()) result += unequip(getUnderwear());
-			if (armor.isShield()) result += unequip(getShield());
-			if (armor.isHeadgear()) result += unequip(getHeadgear());
-			if (armor.isArmwear()) result += unequip(getArmwear());
-			if (armor.isFootwear()) result += unequip(getFootwear());
-		}
-		if (item instanceof Accessory) { result += unequip(getFirstAccessory()); }
-		if (item instanceof Plug) {
-			Plug plug = (Plug) item;
-			if (plug.isPlug()) { ass.togglePlug();	}
-			result += unequip(getPlug());
-		}
-		if (item instanceof ChastityCage) {
-			if (this.cock != null) {
-				this.cock.setSkeletonSkin(isChastitied() ? "Cage" : phallus.getSkin());
-			}
-			result += unequip(getCage());
-		}
-		if (item instanceof Mouthwear) { result += unequip(getMouthwear()); }
-		
-		equipment.add(item);
-		inventory.removeValue(item, true);		
-		return result;
-	}
-	
-	public String unequip(Equipment item) {
-		if (item == null) return "";
-		if (item instanceof ChastityCage && getCage() != null && !hasKey()) return "You cannot remove your chastity cage without a key!";
-		String result = equipment.contains(item, true) ? "You unequipped the " + item.getName() + "." : ""; 
-		equipment.removeValue(item, true);		
-		inventory.add(item);
-		return result + "\n";
-	}
-	
-	public String unequipWeapon() { return unequip(getWeapon()); }
-	public String unequipRangedWeapon()  { return unequip(getRangedWeapon()); }
-	public String unequipShield() { return unequip(getShield()); }
-	public String unequipArmor() { return unequip(getArmor()); }
-	public String unequipLegwear() { return unequip(getLegwear()); }	
-	public String unequipUnderwear() { return unequip(getUnderwear()); }	
-	public String unequipHeadgear() { return unequip(getHeadgear()); }
-	public String unequipArmwear() { return unequip(getArmwear()); }	
-	public String unequipFootwear() { return unequip(getFootwear()); }
-	public String unequipAccessory() { return unequip(getFirstAccessory()); }
-	public String unequipPlug() { return unequip(getPlug()); }
-	public String unequipCage() { return unequip(getCage()); }
-	public String unequipMouthwear() { return unequip(getMouthwear()); }
-	
-	public boolean isPlugged() { return getPlug() != null && getPlug().isPlug(); }
-	public boolean isChastitied() { return getCage() != null; }
-	protected boolean hasKey() { return inventory.contains(new Misc(MiscType.KEY), false); }
-		
 	public Technique getEmptyTechnique(AbstractCharacter target) { return new Technique(Techniques.DO_NOTHING.getTrait(), getCurrentState(target), 1); }
-	public String getPhallusLabel() { return phallus.getLabel(); }	
-
-	public boolean isLewd() { return perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_ADDICT.toString(), 0) > 2 || perks.get(Perk.COCK_LOVER.toString(), 0) > 7 || arousal.getLust() >= 75; }
-	private boolean canSitOn(AbstractCharacter target) { return isLewd() && target.getStance() == Stance.SUPINE && target.isErect() && targetRideable(target); }
-	private boolean targetPouncable(AbstractCharacter target) { return (this.enemyType == null || this.enemyType.willPounce()) && (target.enemyType == null || target.enemyType.isPounceable()); }
-	private boolean targetWrestlable(AbstractCharacter target) { return target.enemyType == null || target.enemyType.canWrestle(); }
-	private boolean targetRideable(AbstractCharacter target) { return target.enemyType == null || target.enemyType.canBeRidden(); }
-	private boolean hasItemsToUse() {
-		if (inventory != null) {
-			for (Item item : inventory) {
-				if (item.isConsumable()) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
 	
 	protected Array<Techniques> getHypnotizedTechniqueOptions(AbstractCharacter target) {
 		Array<Techniques> possibles = new Array<Techniques>();
@@ -1394,6 +1190,134 @@ public abstract class AbstractCharacter extends Group {
 		return false;
 	}
 	
+	protected String properCase(String sample) { return sample.substring(0, 1).toUpperCase() + sample.substring(1); }
+	
+	private Stability checkStability(int stabilityModifier) {
+		Stability currentStability = stability;
+		modStability(stabilityModifier);
+		Stability resultingStability = stability;
+		stability = currentStability;
+		return resultingStability;
+	}
+	
+	private int getStabilityChange(Technique technique) { 
+		int possibleCost = getStabilityRegen() - technique.getStabilityCost();
+		if (technique.getStabilityCost() > 0) possibleCost = Math.min(possibleCost, -1);
+		else if (technique.getStabilityCost() < 0) possibleCost = Math.max(possibleCost, 1);
+		else possibleCost = 0;
+		return possibleCost;
+	}
+
+	private boolean canSitOn(AbstractCharacter target) { return isLewd() && target.getStance() == Stance.SUPINE && target.isErect() && targetRideable(target); }
+	private boolean targetPouncable(AbstractCharacter target) { return (this.enemyType == null || this.enemyType.willPounce()) && (target.enemyType == null || target.enemyType.isPounceable()); }
+	private boolean targetWrestlable(AbstractCharacter target) { return target.enemyType == null || target.enemyType.canWrestle(); }
+	private boolean targetRideable(AbstractCharacter target) { return target.enemyType == null || target.enemyType.canBeRidden(); }
+	private boolean hasItemsToUse() {
+		if (inventory != null) {
+			for (Item item : inventory) {
+				if (item.isConsumable()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private void modRange(int rangeMod) {
+		range += rangeMod;
+		if (range < 0) range = 0;
+	}
+	
+	private int getMax(IntArray tiers) {
+		int max = 0;
+		for (int ii = 0; ii < tiers.size; ii++) {
+			max += tiers.get(ii);
+		}
+		return max;
+	}
+	
+	private Color getValueColor(int value) {
+		switch (value) {
+			case 0: return Color.WHITE;
+			case 1: return Color.ORANGE;
+			case 2: return Color.CORAL;
+			default: return Color.RED;
+		}
+	}
+	
+	private void cleanEquipment() {
+		if (weapon == null && rangedWeapon == null && shield == null && armor == null && legwear == null && underwear == null && headgear == null && armwear == null && footwear == null && firstAccessory == null && plug == null && cage == null && mouthwear == null) return;	
+		Equipment weapon = this.weapon;
+		Equipment rangedWeapon = this.rangedWeapon;
+		Equipment shield = this.shield;
+		Equipment armor = this.armor;
+		Equipment legwear = this.legwear;
+		Equipment underwear = this.underwear;
+		Equipment headgear = this.headgear;
+		Equipment armwear = this.armwear;
+		Equipment footwear = this.footwear;
+		Equipment firstAccessory = this.firstAccessory;
+		Equipment plug = this.plug;
+		Equipment cage = this.cage;
+		Equipment mouthwear = this.mouthwear;
+		this.weapon = this.rangedWeapon = null;
+		this.shield = this.armor = this.legwear = this.underwear = this.headgear = this.armwear = this.footwear = null;
+		this.firstAccessory = null;
+		this.plug = null;
+		this.cage = null;
+		this.mouthwear = null;
+		equip(weapon); equip(rangedWeapon); equip(shield); equip(armor); equip(legwear); equip(underwear); equip(headgear); equip(armwear); equip(footwear); equip(firstAccessory); equip(plug); equip(cage); equip(mouthwear);
+	}
+	private int getBloodLossDamage() { return Math.max(0, (statuses.get(StatusType.BLEEDING.toString(), 0) - getEndurance()) / 3); }
+	private MutationResult repairArmor(int power) {
+		String result = "";
+
+		if (getArmor() != null) {
+			getArmor().modDurability(power);
+			result += getArmor().getName() + " durability improved by " + power + "!";
+		}
+		if (getLegwear() != null) {
+			getLegwear().modDurability(power);
+			result += getLegwear().getName() + " durability improved by " + power + "!";
+		}
+		
+		return new MutationResult(result, power, MutationType.ARMOR);
+	}
+	
+	public class UseItemEffect {
+		private final String resultDisplay;
+		private final Array<MutationResult> results;
+		private UseItemEffect(String resultDisplay, Array<MutationResult> results) {
+			this.resultDisplay = resultDisplay;
+			this.results = results;
+		}
+		
+		public String getResult() { return resultDisplay; }
+		
+	}
+	
+	public static class AttackResult {
+		private final Array<MutationResult> toAttackerMessages;
+		private final Array<MutationResult> toDefenderMessages;
+		private final Array<String> dialog;
+		private final Array<MutationResult> attackerResults;
+		private final Array<MutationResult> defenderResults;
+		
+		protected AttackResult(Array<MutationResult> toAttackerMessages, Array<MutationResult> toDefenderMessages, Array<String> dialog, Array<MutationResult> attackerResults, Array<MutationResult> defenderResults) {
+			this.toAttackerMessages = toAttackerMessages;
+			this.toDefenderMessages = toDefenderMessages;
+			this.dialog = dialog;
+			this.attackerResults = attackerResults;
+			this.defenderResults = defenderResults;
+		}
+		
+		public Array<MutationResult> getToAttackerMessages() { return toAttackerMessages; }
+		public Array<MutationResult> getToDefenderMessages() { return toDefenderMessages; }
+		public Array<String> getDialog() { return dialog; }
+		public Array<MutationResult> getAttackerResults() { return attackerResults; }
+		public Array<MutationResult> getDefenderResults() { return defenderResults; }
+	}
+	
 	public enum PhallusType {
 		CUTE("MCCock"),
 		TINY("MCCock"),
@@ -1523,9 +1447,4 @@ public abstract class AbstractCharacter extends Group {
 		}
 		return tempPerks;
 	}
-	public int getRange() { return range; }
-	public boolean winsGrapples() { return enemyType == EnemyEnum.SLIME; }
-	public boolean kyliraAvailable() { return false; }
-	public boolean trudyAvailable() { return false; }
-	public boolean isImpotent() { return false; }
 }

@@ -76,9 +76,9 @@ public class EnemyCharacter extends AbstractCharacter {
 		selfRessurect = enemyType == EnemyEnum.ANGEL ? 1 : 0;
 		staminaTiers.removeIndex(staminaTiers.size - 1);
 		staminaTiers.add(10);
+		setHealthToMax();
 		setStaminaToMax();
 		setManaToMax();		
-		this.currentHealth = getMaxHealth();
 		disposition = enemyType == EnemyEnum.ANGEL ? Disposition.PEACEFUL : Disposition.HAPPY;
 	}
 	
@@ -317,7 +317,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	public Outcome getOutcome(AbstractCharacter enemy) {
-		if (currentHealth <= 0 && (enemyType != EnemyEnum.ANGEL || selfRessurect == 3)) return Outcome.VICTORY;
+		if (getCurrentHealth() <= 0 && (enemyType != EnemyEnum.ANGEL || selfRessurect == 3)) return Outcome.VICTORY;
 		else if (enemy.getCurrentHealth() <= 0 && (enemyType != EnemyEnum.NAGA || stance != Stance.WRAPPED)) return Outcome.DEFEAT;
 		switch(enemyType) {
 			case BRIGAND:
@@ -390,7 +390,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				break;
 			case ANGEL:
 				if (stance == Stance.FACE_SITTING && oldStance == Stance.FACE_SITTING) return Outcome.SUBMISSION;
-				if (arousal.isErect() && currentHealth == getMaxHealth() && selfRessurect == 1) return Outcome.SATISFIED_ANAL;
+				if (arousal.isErect() && getCurrentHealth() == getMaxHealth() && selfRessurect == 1) return Outcome.SATISFIED_ANAL;
 				break;
 			case NAGA:
 				if (enemy.getCurrentHealth() <= 0 && stance == Stance.WRAPPED) return Outcome.DEATH;
@@ -842,7 +842,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (enemyType == EnemyEnum.HARPY && stance != Stance.AIRBORNE) {
 				possibleTechniques.add(FLY);
 			}
-			else if (target.stance.receivesMediumAttacks() && enemyType == EnemyEnum.BRIGAND || (enemyType == EnemyEnum.SPIDER && !target.fullOfEggs()) || (enemyType == EnemyEnum.ORC && getWeapon() == null) && currentStamina > 10) {
+			else if (target.stance.receivesMediumAttacks() && enemyType == EnemyEnum.BRIGAND || (enemyType == EnemyEnum.SPIDER && !target.fullOfEggs()) || (enemyType == EnemyEnum.ORC && getWeapon() == null) && getCurrentStamina() > 10) {
 				possibleTechniques.add(FULL_NELSON);
 			}
 			else if (target.kyliraAvailable() && enemyType.willPounceKylira()) {
@@ -1027,7 +1027,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	protected String climax() {
 		Array<String> results = new Array<String>();	
 		arousal.climax(stance.getClimaxType(), perks);
-		currentStamina -= enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE ? 2 : enemyType == EnemyEnum.GOLEM || enemyType == EnemyEnum.QUETZAL ? 0 : 10;
+		modStamina(-(enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE ? 2 : enemyType == EnemyEnum.GOLEM || enemyType == EnemyEnum.QUETZAL ? 0 : 10));
 		switch (oldStance) {
 			case ANAL:
 				results.add("The " + getLabel() + "'s lovemaking reaches a climax!");
@@ -1143,7 +1143,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		else if (enemyType == EnemyEnum.GHOST) {
 			if (stance == Stance.CASTING) {
-				return currentMana > 10 ? getTechniques(COMBAT_FIRE) : getTechniques(FOCUS_ENERGY);
+				return getCurrentMana() > 10 ? getTechniques(COMBAT_FIRE) : getTechniques(FOCUS_ENERGY);
 			}
 			else {
 				return getTechniques(INCANTATION);
@@ -1151,7 +1151,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		else if (enemyType == EnemyEnum.ANGEL && !alreadyIncapacitated()) {
 			if (selfRessurect == 2) selfRessurect = 3;
-			if (currentHealth == 0 && selfRessurect == 1) {
+			if (getCurrentHealth() == 0 && selfRessurect == 1) {
 				selfRessurect = 2;
 				return getTechniques(ANGELIC_GRACE);
 			}
@@ -1159,7 +1159,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				return getTechniques(HEAL);
 			}
 			else if (disposition != Disposition.PEACEFUL) {
-				if (currentHealth < 40 && currentMana > 10) {
+				if (getCurrentHealth() < 40 && getCurrentMana() > 10) {
 					return getTechniques(INCANTATION);
 				}
 				return getTechniques(TRUMPET);
@@ -1222,13 +1222,13 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	private Array<Techniques> getTechniques(Techniques ... techniques) { return new Array<Techniques>(techniques); }
 	private boolean isSpellCaster() { return enemyType == EnemyEnum.GOLEM || enemyType == EnemyEnum.ADVENTURER || enemyType == EnemyEnum.WARLOCK; } // currently Ghost and Angel have custom move pools, so do not count in this
-	private boolean canIncant() { return (isEnragedGolem() && currentMana > 3) || (enemyType == EnemyEnum.WARLOCK && currentMana >= 3) || mustIncant(); }
+	private boolean canIncant() { return (isEnragedGolem() && getCurrentMana() > 3) || (enemyType == EnemyEnum.WARLOCK && getCurrentMana() >= 3) || mustIncant(); }
 	private boolean mustIncant() { 
-		return (enemyType == EnemyEnum.GOLEM && !isEnragedGolem() && currentHealth <= 30) || // activate
+		return (enemyType == EnemyEnum.GOLEM && !isEnragedGolem() && getCurrentHealth() <= 30) || // activate
 			(enemyType == EnemyEnum.ADVENTURER && (((mustCastHealing()) || mustCastTitanStrength()))); // cast heal or titan strength
 	}
-	private boolean mustCastHealing() { return enemyType != EnemyEnum.GOLEM && currentHealth < 30 && currentMana >= 10; }
-	private boolean mustCastTitanStrength() { return enemyType != EnemyEnum.GOLEM && currentMana % 10 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0; }
+	private boolean mustCastHealing() { return enemyType != EnemyEnum.GOLEM && getCurrentHealth() < 30 && getCurrentMana() >= 10; }
+	private boolean mustCastTitanStrength() { return enemyType != EnemyEnum.GOLEM && getCurrentMana() % 10 != 0 && getCurrentMana() > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0; }
 	private boolean willPounce() { return enemyType.willPounce() && arousal.isErect() && !stance.isIncapacitatingOrErotic() && grappleStatus == GrappleStatus.NULL && ((enemyType != EnemyEnum.BRIGAND && enemyType != EnemyEnum.WERESLUT) || !storyMode); }	
 	private Technique getTechnique(AbstractCharacter target, Techniques technique) { return new Technique(technique.getTrait(), getCurrentState(target), enemyType == EnemyEnum.BRIGAND && technique == Techniques.PARRY ? 3 : 1); }
 	private int getRandomWeighting(int size) {
