@@ -44,7 +44,7 @@ public enum Techniques {
 	/* Balanced Techniques */
 	RESERVED_ATTACK		(new GuardTechnique	(Stance.OFFENSIVE, Stance.BALANCED, "Combat Guard", 0, 0, 2, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).build()),	
 	REVERSAL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, Stance.BALANCED, "Reversal Attack", -2, 2, 2, TechniqueHeight.LOW).build()),
-	NEUTRAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Low Attack", -1, 0, 1, TechniqueHeight.LOW).addBonus(BonusCondition.ENEMY_LOW_STABILITY, BonusType.TRIP, 60).addBonus(BonusCondition.OUTMANEUVER, BonusType.TRIP, 10).build()),
+	NEUTRAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Low Attack", -1, 0, 1, TechniqueHeight.LOW).build()),
 	USE_ITEM		  	(new NonAttackTechnique(Stance.BALANCED, Stance.ITEM, "Use Item", 0, 0).build(), false),
 	ITEM_OR_CANCEL		(new NonAttackTechnique(Stance.ITEM, Stance.BALANCED, "Cancel", 0, 0).setBlockable(false).setParryable(false).build(), false),
 	KICK_OVER_FACE_UP	(new NonAttackTechnique(Stance.BALANCED, Stance.BALANCED, "Kick Over", 0, 3, Stance.SUPINE).build(), false),
@@ -345,10 +345,9 @@ public enum Techniques {
 	HYPNOSIS			(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Hypnosis", -2, 12, SpellEffect.NONE, null, StatusType.HYPNOSIS).build(), 1),
 	FOCUS_ENERGY	  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Focus Energy", 4, -5, SpellEffect.NONE, StatusType.ENDURANCE_BUFF).build(), 3, false),
 	
-	FOOTSHOT			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Footshot", -1, 3, 5, TechniqueHeight.FOOT).build()),
+	FOOTSHOT			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Footshot", -1, 3, 5, TechniqueHeight.FOOT).addBonus(BonusCondition.ENEMY_LOW_STABILITY, BonusType.TRIP, 60).addBonus(BonusCondition.OUTMANEUVER, BonusType.TRIP, 10).build()),
 	HEADSHOT			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Headshot", -1, 3, 5, TechniqueHeight.HEAD).build()),
-	WRISTSHOT			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Wristshot", -1, 3, 5, TechniqueHeight.ARM).build()),
-	
+	WRISTSHOT			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Wristshot", -1, 3, 5, TechniqueHeight.ARM).addBonus(BonusCondition.ENEMY_BLOODY, BonusType.DISARM, 60).addBonus(BonusCondition.OUTMANEUVER, BonusType.DISARM, 10).build()),	
 	;
 	
 	private final TechniquePrototype trait;

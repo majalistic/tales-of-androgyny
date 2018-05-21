@@ -658,6 +658,7 @@ public abstract class AbstractCharacter extends Group {
 				if (getBaseDefense() > 0) resultToDefender.add(new MutationResult("Damage reduced by " + Math.min(damage, getBaseDefense()) + "!"));
 				// ICON: should display amount of damage that hits armor along with in-tact armor icon				
 				damage -= getBaseDefense() + (hitArmor != null ? hitArmor.getShockAbsorption() : 0);
+				// add daze (status effect that reduces perception and agility)
 			}
 			if (attack.getMagicDamageReduction() > 0) { resultToDefender.add(new MutationResult("Magic resistance reduced damage by " + attack.getMagicDamageReduction() + "!")); }
 			
