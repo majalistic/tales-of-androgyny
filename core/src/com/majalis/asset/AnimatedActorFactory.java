@@ -17,7 +17,5 @@ public class AnimatedActorFactory {
 		this.enemy = enemy;
 	}
 	
-	public AnimatedActor getInstance() {
-		return new AnimatedActor(renderer, skeletonData, timeScale, enemy);
-	}
+	public AnimatedActor getInstance() { return new AnimatedActor(renderer, skeletonData, timeScale, enemy); }
 }

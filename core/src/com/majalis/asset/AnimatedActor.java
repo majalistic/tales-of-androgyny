@@ -17,11 +17,8 @@ public class AnimatedActor extends Actor {
 	
 	public AnimatedActor(SkeletonMeshRenderer renderer, SkeletonData skeletonData, float timeScale, boolean enemy) {
 		this.renderer = renderer;
-		
 		skeleton = new Skeleton(skeletonData); // Skeleton holds skeleton state (bone positions, slot attachments, etc).
-		
 		AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
-
 		state = new AnimationState(stateData); // Holds the animation state for a skeleton (current animation, time, etc).
 		state.setTimeScale(timeScale); 
 		if (!enemy) {
@@ -47,7 +44,6 @@ public class AnimatedActor extends Actor {
 		int blendSrc = batch.getBlendSrcFunc();
 		int blendDst = batch.getBlendDstFunc();
 		renderer.draw((PolygonSpriteBatch)batch, skeleton);
-		
 		batch.setBlendFunction(blendSrc, blendDst);
 	}
 	
