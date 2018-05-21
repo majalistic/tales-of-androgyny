@@ -119,7 +119,7 @@ public abstract class AbstractCharacter extends Group {
 	private transient AnimatedActor cock;
 	
 	/* Constructors */
-	protected AbstractCharacter() { equipment = new Array<Equipment>(); ass = new Ass(new Sphincter(), new Rectum(), new Colon()); }
+	protected AbstractCharacter() { inventory = new Array<Item>(); equipment = new Array<Equipment>(); ass = new Ass(new Sphincter(), new Rectum(), new Colon()); }
 	protected AbstractCharacter(boolean defaultValues) {
 		if (defaultValues) {
 			secondPerson = false;
@@ -146,7 +146,9 @@ public abstract class AbstractCharacter extends Group {
 			statuses = new ObjectMap<String, Integer>();
 			grappleStatus = GrappleStatus.NULL;
 			ass = new Ass(new Sphincter(), new Rectum(), new Colon());
-		}
+			inventory = new Array<Item>();
+			equipment = new Array<Equipment>();
+		}		
 	}
 	
 	public String getLabel() { return label; }
