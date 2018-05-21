@@ -1,6 +1,7 @@
 package com.majalis.technique;
 
 import com.badlogic.gdx.utils.ObjectMap;
+import com.majalis.character.Attack.AttackHeight;
 import com.majalis.character.GrappleType;
 import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.character.Stance;
@@ -134,6 +135,14 @@ public class TechniquePrototype {
 		HIGH,
 		MEDIUM,
 		LOW,
-		NONE
+		HEAD,
+		ARM,
+		FOOT,
+		NONE;
+		
+		public AttackHeight getAttackHeight() { return AttackHeight.valueOf(this.toString()); }
+		public boolean isHigh() { return this == HIGH || this == HEAD; }
+		public boolean isMedium() { return this == MEDIUM || this == ARM; }
+		public boolean isLow() { return this == LOW || this == FOOT; }
 	}
 }

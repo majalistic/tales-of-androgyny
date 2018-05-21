@@ -38,9 +38,9 @@ public class Technique {
 	private boolean validTarget(Technique otherTechnique) { return technique.isSpell() || (useItem != null ? (useItem.getUseEffect().getType() == EffectType.MAGIC || useItem.getUseEffect().getType() == EffectType.ARMOR_SUNDER) : false) || otherTechnique.isCorporeal(); }
 	private boolean validTechniqueHeight(Technique otherTechnique) { 
 		return technique.getTechniqueHeight() == TechniqueHeight.NONE ||
-			(technique.getTechniqueHeight() == TechniqueHeight.HIGH && otherTechnique.getStance().receivesHighAttacks()) || 
-			(technique.getTechniqueHeight() == TechniqueHeight.MEDIUM && otherTechnique.getStance().receivesMediumAttacks()) || 
-			(technique.getTechniqueHeight() == TechniqueHeight.LOW && otherTechnique.getStance().receivesLowAttacks());
+			(technique.getTechniqueHeight().isHigh() && otherTechnique.getStance().receivesHighAttacks()) || 
+			(technique.getTechniqueHeight().isMedium() && otherTechnique.getStance().receivesMediumAttacks()) || 
+			(technique.getTechniqueHeight().isLow() && otherTechnique.getStance().receivesLowAttacks());
 	}
 	private boolean validRange() { return !technique.isMelee() || currentState.getRange() < 2; }
 	
@@ -102,7 +102,7 @@ public class Technique {
 			new Buff(technique.getSelfEffect(), thisPayload.getTotalPower()),
 			new Buff(technique.getEnemyEffect(), thisPayload.getTotalPower()),
 			technique.isDamaging() && !technique.doesSetDamage(), // is attack,
-			technique.getTechniqueHeight() == TechniqueHeight.HIGH ? AttackHeight.HIGH : technique.getTechniqueHeight() == TechniqueHeight.MEDIUM ? AttackHeight.MEDIUM : technique.getTechniqueHeight() == TechniqueHeight.LOW ? AttackHeight.LOW : AttackHeight.NONE,
+			technique.getTechniqueHeight().getAttackHeight(),
 			technique.ignoresArmor() || ((useItem != null && useItem.getUseEffect() != null) ? (useItem.getUseEffect().getType() == EffectType.MAGIC || useItem.getUseEffect().getType() == EffectType.ARMOR_SUNDER) : false) || (technique.isDamaging() && technique.isSpell()) || technique.doesSetDamage(), // ignores armor
 			thisPayload.getBonuses(),
 			useItem, // only works for self item use

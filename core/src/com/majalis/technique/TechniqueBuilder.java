@@ -65,7 +65,6 @@ public class TechniqueBuilder {
 		knockdown = 0;
 		armorSunder = 0;
 		gutCheck = 0;
-		height = null;
 		guardMod = 0;
 		parryMod = 0;
 		evadeMod = 0;
