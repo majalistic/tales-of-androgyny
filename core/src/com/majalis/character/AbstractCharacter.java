@@ -591,7 +591,7 @@ public abstract class AbstractCharacter extends Group {
 		return resolvedAttack;
 	}
 	private Armor getArmorHit(AttackHeight height) {
-		return height != AttackHeight.LOW ? getArmor() : getLegwear() != null && getLegwear().getShockAbsorption() > 0 ? getLegwear() : getUnderwear();
+		return height == AttackHeight.HEAD ? getHeadgear() : height == AttackHeight.FOOT ? getFootwear() : height == AttackHeight.ARM ? getArmwear() : height != AttackHeight.LOW ? getArmor() : getLegwear() != null && getLegwear().getShockAbsorption() > 0 ? getLegwear() : getUnderwear();
 	}
 	
 	private int getShockAbsorption(Armor armor) {
@@ -1270,7 +1270,7 @@ public abstract class AbstractCharacter extends Group {
 			case BLITZ: return getTechniques(target, ALL_OUT_BLITZ, HOLD_BACK);
 			case BERSERK: return getTechniques(target, RAGE);
 			case COUNTER: return getTechniques(target, RIPOSTE, EN_GARDE);
-			case OFFENSIVE: return getTechniques(target, BLITZ_ATTACK, BERSERK, REEL_BACK, POWER_ATTACK, GUT_CHECK, ARMOR_SUNDER, RECKLESS_ATTACK, KNOCK_DOWN, VAULT, FEINT_AND_STRIKE, TEMPO_ATTACK, RESERVED_ATTACK, FACE_SIT, SIT_ON_IT, TURN_AND_SIT, POUNCE_DOGGY, WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, MOUNT_FACE, SAY_AHH, FULL_NELSON);
+			case OFFENSIVE: return getTechniques(target, BLITZ_ATTACK, BERSERK, REEL_BACK, POWER_ATTACK, GUT_CHECK, ARMOR_SUNDER, RECKLESS_ATTACK, KNOCK_DOWN, VAULT, FEINT_AND_STRIKE, TEMPO_ATTACK, RESERVED_ATTACK, HEADSHOT, WRISTSHOT, FOOTSHOT, FACE_SIT, SIT_ON_IT, TURN_AND_SIT, POUNCE_DOGGY, WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, MOUNT_FACE, SAY_AHH, FULL_NELSON);
 			case BALANCED: return getTechniques(target, DRAW_ARROW, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, SLIDE, DUCK, HIT_THE_DECK, USE_ITEM, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, POUNCE_DOGGY, WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, MOUNT_FACE, SAY_AHH, FULL_NELSON);
 			case DEFENSIVE: return getTechniques(target, REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, STONEWALL, CENTER, PARRY, TAUNT, SECOND_WIND,  SUDDEN_ADVANCE, INCANTATION, DUCK);
 			case STONEWALL: return getTechniques(target, ABSOLUTE_GUARD, LOWER_GUARD);

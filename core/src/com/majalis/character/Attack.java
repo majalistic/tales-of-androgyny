@@ -203,9 +203,12 @@ public class Attack {
 	}
 
 	public enum AttackHeight {
-		NONE,
-		LOW,
+		HIGH,
 		MEDIUM,
-		HIGH
+		LOW,
+		HEAD,
+		ARM,
+		FOOT,
+		NONE;
 	}
 }

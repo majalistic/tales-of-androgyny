@@ -27,7 +27,7 @@ public enum Techniques {
 	POWER_ATTACK 		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Power Attack", 3, 3, 4, TechniqueHeight.LOW).addBonus(BonusCondition.ENEMY_ON_GROUND, BonusType.POWER_MOD, 4).build()),
 	TEMPO_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Tempo Attack", 2, 2, 3, TechniqueHeight.MEDIUM).build()),
 	SPRING_ATTACK  		(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Spring Attack", 1, 4, 3, TechniqueHeight.MEDIUM).addBonus(BonusCondition.OUTMANEUVER, BonusType.BLEEDING, 1).build(), 5),
-	
+
 	/* Blitz Techniques */
 	BLITZ_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.BLITZ, "Blitz Attack", 4, 4, 5, TechniqueHeight.MEDIUM).addBonus(BonusCondition.OUTMANEUVER, BonusType.BLEEDING, 1).build(), false),
 	ALL_OUT_BLITZ		(new AttackTechnique(Stance.BLITZ, Stance.BLITZ, "All-Out Blitz", 5, 4, 7, 1.5).build(), 3),
@@ -343,7 +343,12 @@ public enum Techniques {
 	OIL					(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Oil", 8, 3, SpellEffect.NONE, null, StatusType.OIL).build(), 1),
 	PARALYZE			(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Paralyze", -2, 8, SpellEffect.NONE, null, StatusType.PARALYSIS).build(), 1),
 	HYPNOSIS			(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Hypnosis", -2, 12, SpellEffect.NONE, null, StatusType.HYPNOSIS).build(), 1),
-	FOCUS_ENERGY	  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Focus Energy", 4, -5, SpellEffect.NONE, StatusType.ENDURANCE_BUFF).build(), 3, false)
+	FOCUS_ENERGY	  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Focus Energy", 4, -5, SpellEffect.NONE, StatusType.ENDURANCE_BUFF).build(), 3, false),
+	
+	FOOTSHOT			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Footshot", -1, 3, 5, TechniqueHeight.FOOT).build()),
+	HEADSHOT			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Headshot", -1, 3, 5, TechniqueHeight.HEAD).build()),
+	WRISTSHOT			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Wristshot", -1, 3, 5, TechniqueHeight.ARM).build()),
+	
 	;
 	
 	private final TechniquePrototype trait;
