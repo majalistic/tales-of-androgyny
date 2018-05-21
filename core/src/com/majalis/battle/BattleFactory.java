@@ -52,7 +52,6 @@ public class BattleFactory {
 			enemy.setDelay(battleAttributes.getDelay());
 			playerCharacter.setRange(battleAttributes.getRange());
 			playerCharacter.setStance(battleAttributes.getPlayerStance());	
-			
 		}
 		// loading old enemy
 		else {

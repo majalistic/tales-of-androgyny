@@ -68,11 +68,6 @@ public enum BattleCode {
 		return copiedRequirements;
 	}
 
-	private boolean isStoryMode() {
-		return this == GOBLIN_STORY || this == HARPY_STORY || this == BRIGAND_STORY || this == OGRE_STORY || this == ORC_STORY || this == WEREWOLF_STORY;
-	}
-	
-	public EnemyCharacter getEnemy(AssetManager assetManager, Stance stance) {
-		return enemy.getInstance(assetManager, stance, isStoryMode());
-	}
+	private boolean isStoryMode() { return this == GOBLIN_STORY || this == HARPY_STORY || this == BRIGAND_STORY || this == OGRE_STORY || this == ORC_STORY || this == WEREWOLF_STORY; }
+	public EnemyCharacter getEnemy(AssetManager assetManager, Stance stance) { return enemy.getInstance(assetManager, stance, isStoryMode()); }
 }
