@@ -84,6 +84,7 @@ public class Armor extends Equipment {
 		CLOTH_TOP ("Cloth Armor", 10, new int[]{12, 12}, new int[]{3, 1}),
 		BREASTPLATE ("Breastplate", 50, new int[]{32, 32}, new int[]{6, 2}),
 		DIAMOND_PLATE ("Diamond Plate", 200, new int[]{20, 20}, new int[]{8, 4}),
+		FULL_PLATE ("Full Plate", 400, new int[]{40, 40}, new int[]{8, 4}),
 		SKIRT ("Skirt", 10, new int[]{12, 12}, new int[]{3, 1}),
 		BATTLE_SKIRT ("Battle Skirt", 50, new int[]{24, 24}, new int[]{6, 2}),
 		SHORTS ("Shorts", 10, new int[]{12, 12}, new int[]{3, 1}),
@@ -137,17 +138,17 @@ public class Armor extends Equipment {
 		private boolean isFootwear() { return this == SHOES || this == SHOES_OF_RUNNING || this == SABATONS; }
 		private boolean isHeadgear() { return this == HELMET || this == HELM_OF_WISDOM; }
 		private boolean isShield() { return this == SHIELD || this == REINFORCED_SHIELD; }
-		private boolean coversTop() { return this == NO_TOP || this == CLOTH_TOP || this == BREASTPLATE || this == DIAMOND_PLATE || this == LIGHT_ENEMY_ARMOR || this == MEDIUM_ENEMY_ARMOR || this == HEAVY_ENEMY_ARMOR;  }
-		private boolean coversBottom() { return this == NO_BOTTOM || this == SKIRT || this == BATTLE_SKIRT || this == SHORTS ||  this == LIGHT_ENEMY_LEGWEAR || this == MEDIUM_ENEMY_LEGWEAR; }
+		private boolean coversTop() { return this == NO_TOP || this == CLOTH_TOP || this == BREASTPLATE || this == DIAMOND_PLATE || this == LIGHT_ENEMY_ARMOR || this == MEDIUM_ENEMY_ARMOR || this == HEAVY_ENEMY_ARMOR || this == FULL_PLATE;  }
+		private boolean coversBottom() { return this == NO_BOTTOM || this == SKIRT || this == BATTLE_SKIRT || this == SHORTS ||  this == LIGHT_ENEMY_LEGWEAR || this == MEDIUM_ENEMY_LEGWEAR || this == HEAVY_ENEMY_ARMOR || this == FULL_PLATE; }
 		private boolean isUnderwear() { return this == UNDERWEAR; }
 		private ChastityCage getCage() { return null; }
 		private Plug getPlug() { return null; }
 		private IntArray getDurability() { return durability; }
 		private IntArray getShockAbsorption() { return shockAbsorption; }
-		private boolean coversNipples() { return this == CLOTH_TOP || this == BREASTPLATE || this == DIAMOND_PLATE; }
+		private boolean coversNipples() { return this == CLOTH_TOP || this == BREASTPLATE || this == DIAMOND_PLATE || this == FULL_PLATE; }
 		private boolean isPorous() { return this != BREASTPLATE && this != SHIELD && this != REINFORCED_SHIELD; }
 		private boolean isHeatResistant() { return false; }
-		private boolean isFlameRetardant() { return this == BREASTPLATE || this == DIAMOND_PLATE; }
+		private boolean isFlameRetardant() { return this == BREASTPLATE || this == DIAMOND_PLATE || this == FULL_PLATE; }
 		private boolean isAcidResistant() { return false; }
 		private boolean isAlive() { return false; }
 		private boolean coversAnus() { return this == SHORTS || this == UNDERWEAR; }

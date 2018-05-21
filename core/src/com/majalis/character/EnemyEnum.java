@@ -42,7 +42,7 @@ public enum EnemyEnum {
 	MERMAID (new EnemyTemplate(WeaponType.Glaive).setHealth(new IntArray(new int[]{15, 15, 15, 15})).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(null).setUnderwear(ArmorType.UNDERWEAR).setStrength(5).setAgility(6).setEndurance(5), "Mermaid", AssetEnum.MERMAID.getTexture()), 
 	WARLOCK (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5).setMagic(9).setMana(40), "Warlock", AssetEnum.WARLOCK.getTexture()), 
 	GIANTESS (new EnemyTemplate(WeaponType.Club).setHealth(new IntArray(new int[]{10000})).setStrength(10000).setEndurance(10000).setAgility(10), "Giantess", AssetEnum.GIANTESS_FUTA.getTexture()), 
-	DULLAHAN (new EnemyTemplate(WeaponType.Bonewhip, 8, 6, 3, 5, 5, 5).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(20), "Dullahan", AssetEnum.DULLAHAN.getTexture()), 
+	DULLAHAN (new EnemyTemplate(WeaponType.Bonewhip, 8, 6, 3, 5, 5, 5).setArmor(ArmorType.HEAVY_ENEMY_ARMOR).setLegwear(null).addHealth(20), "Dullahan", AssetEnum.DULLAHAN.getTexture()), 
 	;
 	private final String text;
 	private final Array<AssetDescriptor<Texture>> texturePaths;
