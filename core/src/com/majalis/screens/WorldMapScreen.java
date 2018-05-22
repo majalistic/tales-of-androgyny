@@ -1216,17 +1216,20 @@ public class WorldMapScreen extends AbstractScreen {
 			Array<Image> reflections = world.getReflections();
 			Array<Shadow> shadows = world.getShadows();
 			Array<Doodad> doodads = world.getDoodads();
+			boolean fastWorldMap = Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("fastWorldMap", false);
 			
 			Texture groundSheet = assetManager.get(AssetEnum.GROUND_SHEET.getTexture());	
 			try {
 				// draw (add drawings as actors) ground layer
 				drawLayer(ground, groundSheet, false);
-							
-				// draw (add reflections as actors) reflections
-				for (AnimatedImage lily :lilies) { worldGroup.addActorAt(0, lily); }
+					
+				if (!fastWorldMap) {
+					// draw (add reflections as actors) reflections
+					for (AnimatedImage lily :lilies) { worldGroup.addActorAt(0, lily); }
+					
+					for (Image reflection : reflections) { worldGroup.addActorAt(0, reflection); }
+				}
 				
-				for (Image reflection : reflections) { worldGroup.addActorAt(0, reflection); }
-			
 				// draw (add drawings as actors) water layer
 				drawLayer(ground, groundSheet, true);
 			}
@@ -1253,8 +1256,10 @@ public class WorldMapScreen extends AbstractScreen {
 			
 			addWorldActors();
 			
-			for (Shadow shadow : shadows) { shadowGroup.addActor(shadow); }
-			
+			if (!fastWorldMap) {
+				for (Shadow shadow : shadows) { shadowGroup.addActor(shadow); }
+			}
+
 			for (Doodad doodad : doodads) { worldGroup.addActor(doodad); }	
 			Group tempGroup = new Group();
 			tempGroup.addActor(currentImageGhost);
