@@ -26,7 +26,6 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Item;
 import com.majalis.character.Item.Equipment;
-import com.majalis.character.Item.Weapon;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager.GameContext;
@@ -41,6 +40,7 @@ public class InventoryScreen extends AbstractScreen {
 	static {
 		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
 		resourceRequirements.add(AssetEnum.CLICK_SOUND.getSound());
+		resourceRequirements.add(AssetEnum.EQUIP.getSound());
 		resourceRequirements.add(AssetEnum.WORLD_MAP_MUSIC.getMusic());
 	
 		AssetEnum[] assets = new AssetEnum[]{ DESTROY_UP, DESTROY_DOWN, DESTROY_HIGHLIGHT, MINUS, MINUS_DOWN, MINUS_HIGHLIGHT, ARROW, CHARACTER_SCREEN, WARRIOR, PALADIN, THIEF, RANGER, MAGE, ENCHANTRESS };
@@ -54,6 +54,7 @@ public class InventoryScreen extends AbstractScreen {
 	private final PlayerCharacter character;
 	private final Skin skin;
 	private final Sound buttonSound;
+	private final Sound equipSound;
 	private final Label consoleText;
 	private final Label hoverText;
 	private final Table inventoryTable;
@@ -67,6 +68,7 @@ public class InventoryScreen extends AbstractScreen {
 		this.character = character;
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getSound()); 
+		equipSound = assetManager.get(AssetEnum.EQUIP.getSound()); 
 		final TextButton done = new TextButton("Done", skin);
 		
 		Image characterImage = new Image(assetManager.get(character.getJobClass().getTexture()));
@@ -106,8 +108,8 @@ public class InventoryScreen extends AbstractScreen {
 		inventoryTable.align(Align.topLeft);
 		this.addActor(inventoryTable);
 		weaponTable = new Table();
-		weaponTable.setPosition(950, 1000);
-		weaponTable.align(Align.top);
+		weaponTable.setPosition(450, 950);
+		weaponTable.align(Align.topLeft);
 		this.addActor(weaponTable);
 		equipmentTable = new Table();
 		equipmentTable.align(Align.topLeft);
@@ -119,23 +121,17 @@ public class InventoryScreen extends AbstractScreen {
 		consoleText.setColor(Color.BROWN);
 		this.addActor(consoleText);
 		hoverText = new Label("", skin);
-		hoverText.setPosition(900, 1075);
+		hoverText.setPosition(800, 1075);
 		hoverText.setAlignment(Align.topLeft);
 		hoverText.setColor(Color.GOLDENROD);
 		this.addActor(hoverText);
-
-		if (character.getWeapon() != null && !character.getWeapon().isMelee()) {
-			Weapon temp = character.getWeapon();
-			character.unequip(character.getWeapon());
-			character.equip(temp);
-		}
-		
-		setItemTable("");
-		setWeaponTable("");
 	}
 	
 	@Override
-	public void buildStage() {}
+	public void buildStage() {
+		setItemTable("");
+		setWeaponTable("");
+	}
 	
 	private void setItemTable(String result) {
 		consoleText.setText(result);
@@ -166,10 +162,10 @@ public class InventoryScreen extends AbstractScreen {
 	private class ItemSlot extends Table {
 		private ItemSlot(String slotName, String emptyName, Equipment item) {
 			this.add(getLabel(slotName, skin, Color.DARK_GRAY)).width(160).align(Align.left);
-			this.add(getLabel(item != null ? item.getName() : emptyName, skin, item != null ? Color.GOLD : Color.BROWN)).align(Align.left);
+			this.add(getLabel(item != null ? item.getName() : emptyName, skin, item != null ? Color.GOLD : Color.BROWN)).width(160).align(Align.left);
 			if (item != null) {
 				this.add(getTossButton()).size(32, 32);
-				this.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); setWeaponTable(character.unequip(item)); }});
+				this.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { equipSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); setWeaponTable(character.unequip(item)); }});
 			}
 		}
 	}
@@ -192,7 +188,7 @@ public class InventoryScreen extends AbstractScreen {
 		equipmentTable.add(new ItemSlot("Dickwear:", "None", character.getCage())).align(Align.left).row();
 		equipmentTable.add(new ItemSlot("Mouthwear:", "None", character.getMouthwear())).align(Align.left).row();	
 		weaponTable.clear();
-		weaponTable.add(getLabel("Equipment", skin, Color.BLACK)).row();
+		weaponTable.add(getLabel("Equipment", skin, Color.BLACK)).align(Align.left).padLeft(150).row();
 		
 		boolean equipmentColumn = false;
 		for (Item newItem : character.getInventory()) {
@@ -262,7 +258,7 @@ public class InventoryScreen extends AbstractScreen {
 		return new ClickListener() {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
-				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+				equipSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 				setWeaponTable(character.equip((Equipment)item));
 	        }
 			@Override
