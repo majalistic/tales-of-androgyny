@@ -27,14 +27,16 @@ public class Zone {
 	private final int difficulty;
 	private final int repeats;
 	private final ObjectSet<EncounterCode> unspawnedEncounters;
+	private final int mapCode;
 	private GameWorldNode startNode;
 	public int nodeCode;
 	
-	protected Zone(LoadService loadService, AssetManager assetManager, RandomXS128 random, Array<GameWorldNode> nodes, IntMap<GameWorldNode> nodeMap, ObjectSet<EncounterCode> unspawnedEncounters, int difficulty, int repeats) {
+	protected Zone(LoadService loadService, AssetManager assetManager, RandomXS128 random, Array<GameWorldNode> nodes, IntMap<GameWorldNode> nodeMap, ObjectSet<EncounterCode> unspawnedEncounters, int difficulty, int repeats, int mapCode) {
 		this.assetManager = assetManager;
 		this.random = random;
 		this.difficulty = difficulty;
 		this.repeats = repeats;
+		this.mapCode = mapCode;
 		visitedInfo = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntMap.class);
 		character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 
@@ -224,7 +226,7 @@ public class Zone {
 		nodeMap.put(nodeCode, newNode);
 	}
 	private VisitInfo getFreshVisitInfo() { return getFreshVisitInfo(false); }
-	private VisitInfo getFreshVisitInfo(boolean canBeHidden) { return new VisitInfo(0, 0, (int) ((Math.random() * 1000) % 1000), 0, -1, canBeHidden && random.nextInt(10) == 0); }
+	private VisitInfo getFreshVisitInfo(boolean canBeHidden) { return new VisitInfo(0, 0, (int) ((Math.random() * 1000) % 1000), 0, -1, mapCode, canBeHidden && random.nextInt(10) == 0); }
 	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y, VisitInfo visitInfo) { return getNode(nodeCode, initialEncounter, defaultEncounter, new Array<EncounterCode>(), x, y, visitInfo); }
 	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Array<EncounterCode> raandomEncounters, int x, int y, VisitInfo visitInfo) {
 		return new GameWorldNode(nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter, raandomEncounters), x, y, visitInfo, character, assetManager);

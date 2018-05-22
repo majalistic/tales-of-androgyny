@@ -95,6 +95,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case CONTEXT: 			if (object == null) save.context = save.returnContext; else save.context = (GameContext) object; break;
 	    	case RETURN_CONTEXT: 	save.returnContext = (GameContext) object; break;
 	    	case NODE_CODE: 		save.nodeCode = (Integer) object; break;
+	    	case MAP_CODE: 			save.mapCode = (Integer) object; break; 
 	    	case ENCOUNTER_CODE:	save.encounterCode = (EncounterCode) object; break;
 	    	case VISITED_LIST:		VisitInfo visitedNode = (VisitInfo) object; save.visitedNodeList.put(visitedNode.nodeCode, visitedNode); break;
 	    	case BATTLE_CODE:		save.battleAttributes = (BattleAttributes) object; break;
@@ -146,6 +147,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case CONTEXT: 			return (T) save.context;
 	    	case RETURN_CONTEXT: 	return (T) save.returnContext;
 	    	case NODE_CODE: 		return (T) (Integer)save.nodeCode;
+	    	case MAP_CODE:			return (T) (Integer)save.mapCode;
 	    	case ENCOUNTER_CODE:	return (T) save.encounterCode;
 	    	case VISITED_LIST:		return (T) save.visitedNodeList;
 	    	case BATTLE_CODE:		return (T) save.battleAttributes;
@@ -321,13 +323,14 @@ public class SaveManager implements SaveService, LoadService {
     	public int randomVal;
     	public int visibility;
     	public int nodeCode;
+    	public int mapCode;
 		public boolean isHidden;
     	
     	@SuppressWarnings("unused")
 		private VisitInfo() {}
     	
-    	public VisitInfo(int numberOfEncounters, int lastEncounterTime, int randomVal, int visibility, int nodeCode) { this(numberOfEncounters, lastEncounterTime, randomVal, visibility, nodeCode, false); }   	
-    	public VisitInfo(int numberOfEncounters, int lastEncounterTime, int randomVal, int visibility, int nodeCode, boolean isHidden) {
+    	public VisitInfo(int numberOfEncounters, int lastEncounterTime, int randomVal, int visibility, int nodeCode, int mapCode) { this(numberOfEncounters, lastEncounterTime, randomVal, visibility, nodeCode, mapCode, false); }   	
+    	public VisitInfo(int numberOfEncounters, int lastEncounterTime, int randomVal, int visibility, int nodeCode, int mapCode, boolean isHidden) {
     		this.numberOfEncounters = numberOfEncounters;
     		this.lastEncounterTime = lastEncounterTime;
     		this.randomVal = randomVal;
@@ -349,6 +352,7 @@ public class SaveManager implements SaveService, LoadService {
     	private IntArray sceneCode;
     	private EncounterCode encounterCode;
     	private int nodeCode;
+    	private int mapCode;
     	private Array<Array<MutationResult>> battleConsole;
     	private IntMap<VisitInfo> visitedNodeList;
     	private TownCode town;
@@ -370,7 +374,7 @@ public class SaveManager implements SaveService, LoadService {
 		@SuppressWarnings("unused")
 		private GameSave() { 
 			visitedNodeList = new IntMap<VisitInfo>();
-			visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 0, 1)); 
+			visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 0, 1, 0)); 
 			town = TownCode.TOWN_STORY;
 			battleResults = new Array<MutationResult>();
 			timestamp = "";
@@ -386,11 +390,12 @@ public class SaveManager implements SaveService, LoadService {
     			encounterCode = EncounterCode.INITIAL;
     			returnContext = GameContext.WORLD_MAP;
         		nodeCode = 1;
+        		mapCode = 0;
         		console = new Array<String>();
         		battleConsole = new Array<Array<MutationResult>>();
         		shops = new ObjectMap<String, Shop>();
         		visitedNodeList = new IntMap<VisitInfo>();
-        		visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 0, 1));
+        		visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 0, 1, 0));
         		kylira = 5;
         		trudy = 14; // these should be set with an actual automatic value (or based on the initial gen)
         		player = new PlayerCharacter(true);

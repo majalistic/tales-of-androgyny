@@ -8,7 +8,8 @@ public enum SaveEnum {
 	SCENE_CODE,
 	CONTEXT,
 	NODE_CODE,
-	ENCOUNTER_CODE,
+	MAP_CODE,  
+	ENCOUNTER_CODE,	
 	VISITED_LIST,
 	BATTLE_CODE,
 	CLASS, 
@@ -43,5 +44,5 @@ public enum SaveEnum {
 	TRUDY,
 	KYLIRA,
 	TIME_STAMP,
-	GAME_OVER,  
+	GAME_OVER, 
 }

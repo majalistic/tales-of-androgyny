@@ -1105,6 +1105,10 @@ public class WorldMapScreen extends AbstractScreen {
 		else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
+/*		else if (Gdx.input.isKeyJustPressed(Keys.J)) {
+			saveService.saveDataValue(SaveEnum.MAP_CODE, 1);
+			showScreen(ScreenEnum.LOAD_GAME);
+		}*/
 		else {
 			// draws the world
 			super.render(delta);
