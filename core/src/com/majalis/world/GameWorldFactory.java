@@ -51,6 +51,7 @@ public class GameWorldFactory {
 			GameWorldNode giantess = null;
 			GameWorldNode mouthfiend = null;
 			GameWorldNode mouthfiend2 = null;
+			GameWorldNode leaveMap = null;
 			
 			if (gameMode == GameMode.SKIRMISH) {
 				int nodeCode = 2;
@@ -68,7 +69,12 @@ public class GameWorldFactory {
 				
 				secondTown = addNode(getNode(1007, TOWN3, TOWN3, 45, 127, visitedInfo.get(1007, getFreshVisitInfo())), nodes);
 				
-				giantess = addNode(getNode(3000, GIANTESS_FUTA, GIANTESS_FUTA, 80, 145, visitedInfo.get(3000, getFreshVisitInfo())), nodes);
+				giantess = addNode(getNode(3000, GIANTESS_FUTA, GIANTESS_FUTA, 80, 142, visitedInfo.get(3000, getFreshVisitInfo())), nodes);
+				
+				leaveMap = addNode(getNode(29999, LEAVE_MAP, LEAVE_MAP, 80, 150, visitedInfo.get(29999, getFreshVisitInfo())), nodes);
+				
+				GameWorldNode offMap = addNode(getNode(29998, LEAVE_MAP, LEAVE_MAP, 80, 160, visitedInfo.get(29998, getFreshVisitInfo())), nodes);
+				offMap.connectTo(leaveMap);
 				
 				Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 2, 1, mapCode)
 					.addStartNode(zone.getEndNodes().get(0))
@@ -90,8 +96,6 @@ public class GameWorldFactory {
 				mouthfiend = addNode(getNode(50000, MOUTH_FIEND, MOUTH_FIEND, 96, 49, visitedInfo.get(50000, getFreshVisitInfo())), nodes);
 				mouthfiend2 = addNode(getNode(50001, MOUTH_FIEND_ESCAPE, MOUTH_FIEND_ESCAPE, 99, 49, visitedInfo.get(50001, getFreshVisitInfo())), nodes);
 				mouthfiend.connectTo(mouthfiend2);	
-				
-				
 			}
 			else {
 				int nodeCode = 1;
@@ -152,12 +156,14 @@ public class GameWorldFactory {
 			if (giantess != null && !giantess.isConnected()) {
 				GameWorldNode closest = null;
 				for (GameWorldNode node : nodes) {
-					if (node == giantess) continue;
+					if (node == giantess || node == leaveMap) continue;
 					int distanceToNode = giantess.getDistance(node);
 					if (closest == null || closest.getDistance(giantess) > distanceToNode) { closest = node; }
 				}
 				if (closest != null) giantess.connectTo(closest);		
 			}
+			
+			leaveMap.connectTo(giantess);
 		}
 		else { // second map
 			int nodeCode = 30000;

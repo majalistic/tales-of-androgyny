@@ -768,6 +768,7 @@ public class WorldMapScreen extends AbstractScreen {
 					EncounterCode newEncounter = node.getEncounterCode();
 					EncounterBounty miniEncounter = newEncounter.getMiniEncounter();
 					if(newEncounter == EncounterCode.DEFAULT) { nothingHappens(node); }
+					else if (newEncounter == EncounterCode.LEAVE_MAP) { moveToNewMap(node); }
 					else if (miniEncounter != null) { handleMiniEncounter(node, newEncounter, miniEncounter, enableButtons); }
 					else {
 						saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, newEncounter, false); 
@@ -859,6 +860,21 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private void nothingHappens(GameWorldNode node) { resetValues(); visit(node);  }
+	// this currently only works to move off the first map
+	private void moveToNewMap(GameWorldNode node) {
+		resetValues();
+		visit(node);
+		currentImage.addAction(moveBy(0, 500, 3));
+		currentImageGhost.addAction(moveBy(0, 500, 3));
+		this.addAction(sequence(delay(2), new Action() {
+			@Override
+			public boolean act(float delta) {
+				saveService.saveDataValue(SaveEnum.MAP_CODE, 1);
+				showScreen(ScreenEnum.LOAD_GAME);	
+				return false;
+			}
+		}));		
+	}
 	private void resetValues() { saveService.saveDataValue(SaveEnum.SCOUT, 0); saveService.saveDataValue(SaveEnum.STEALTH, 0); }
 	private void handleMiniEncounter(GameWorldNode node, EncounterCode newEncounter, EncounterBounty miniEncounter, Action enableButtons) { 
 		final Image displayNewEncounter = new Image(hoverImageTexture);
@@ -1105,10 +1121,6 @@ public class WorldMapScreen extends AbstractScreen {
 		else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
-/*		else if (Gdx.input.isKeyJustPressed(Keys.J)) {
-			saveService.saveDataValue(SaveEnum.MAP_CODE, 1);
-			showScreen(ScreenEnum.LOAD_GAME);
-		}*/
 		else {
 			// draws the world
 			super.render(delta);
