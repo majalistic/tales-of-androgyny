@@ -69,7 +69,7 @@ public class GameWorldFactory {
 				
 				secondTown = addNode(getNode(1007, TOWN3, TOWN3, 45, 127, visitedInfo.get(1007, getFreshVisitInfo())), nodes);
 				
-				giantess = addNode(getNode(3000, GIANTESS_FUTA, GIANTESS_FUTA, 80, 142, visitedInfo.get(3000, getFreshVisitInfo())), nodes);
+				giantess = addNode(getNode(3000, DEFAULT, DEFAULT, 80, 142, visitedInfo.get(3000, getFreshVisitInfo())), nodes);
 				
 				leaveMap = addNode(getNode(29999, LEAVE_MAP, LEAVE_MAP, 80, 150, visitedInfo.get(29999, getFreshVisitInfo())), nodes);
 				
@@ -170,8 +170,19 @@ public class GameWorldFactory {
 			GameWorldNode offramp = addNode(getNode(nodeCode, DEFAULT, DEFAULT, 20, 92, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
 			GameWorldNode onramp = addNode(getNode(nodeCode, RETURN_MAP, RETURN_MAP, 15, 87, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
 			GameWorldNode offScreen = addNode(getNode(nodeCode, RETURN_MAP, RETURN_MAP, 15, 70, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			addNode(getNode(nodeCode, GOLD_CACHE, DEFAULT, 24, 95, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 21, 95, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			addNode(getNode(nodeCode, GIANTESS_FUTA, GIANTESS_FUTA, 27, 92, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			
 			offramp.connectTo(onramp);
 			onramp.connectTo(offScreen);
+			for (int ii = 0; ii < nodes.size-1; ii++) {
+				for (int jj = ii + 1; jj < nodes.size; jj++) {
+					if (nodes.get(ii).isAdjacent(nodes.get(jj))) {
+						nodes.get(ii).connectTo(nodes.get(jj));
+					}
+				}
+			}			
 		}
 		
 		if (nodeMap.get(currentNode) != null) {
