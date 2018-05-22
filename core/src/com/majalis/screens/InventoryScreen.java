@@ -51,50 +51,50 @@ public class InventoryScreen extends AbstractScreen {
 		resourceRequirements.addAll(WorldMapScreen.resourceRequirements);
 	}
 	
-	private final Sound buttonSound;
+	private final SaveService saveService;
 	private final PlayerCharacter character;
+	private final Skin skin;
+	private final Sound buttonSound;
 	private final Label consoleText;
 	private final Label hoverText;
-	private final SaveService saveService;
 	private final Table inventoryTable;
 	private final Table weaponTable;
-	private final Label weaponText;
-	private final Label rangedWeaponText;
-	private final Label shieldText;
-	private final Label armorText;
-	private final Label legwearText;
-	private final Label underwearText;
-	private final Label headgearText;
-	private final Label armwearText;
-	private final Label footwearText;
-	private final Label accessoryText;
-	private final Label plugText;
-	private final Label cageText;
-	private final Label mouthwearText;
-	private final Button weaponUnequip;
-	private final Button rangedWeaponUnequip;
-	private final Button shieldUnequip;
-	private final Button armorUnequip;
-	private final Button legwearUnequip;
-	private final Button underwearUnequip;
-	private final Button headgearUnequip;
-	private final Button armwearUnequip;
-	private final Button footwearUnequip;
-	private final Button accessoryUnequip;
-	private final Button plugUnequip;
-	private final Button cageUnequip;
-	private final Button mouthwearUnequip;
-	private final Skin skin;
+	private final Table equipmentTable;
+	private Label weaponText;
+	private Label rangedWeaponText;
+	private Label shieldText;
+	private Label armorText;
+	private Label legwearText;
+	private Label underwearText;
+	private Label headgearText;
+	private Label armwearText;
+	private Label footwearText;
+	private Label accessoryText;
+	private Label plugText;
+	private Label cageText;
+	private Label mouthwearText;
+	private Button weaponUnequip;
+	private Button rangedWeaponUnequip;
+	private Button shieldUnequip;
+	private Button armorUnequip;
+	private Button legwearUnequip;
+	private Button underwearUnequip;
+	private Button headgearUnequip;
+	private Button armwearUnequip;
+	private Button footwearUnequip;
+	private Button accessoryUnequip;
+	private Button plugUnequip;
+	private Button cageUnequip;
+	private Button mouthwearUnequip;
 	
 	public InventoryScreen(ScreenFactory factory, ScreenElements elements, final SaveService saveService, final PlayerCharacter character) {
 		super(factory, elements, null);
 		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.CHARACTER_SCREEN.getTexture())).build()); 
-		
+		this.saveService = saveService;
+		this.character = character;
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getSound()); 
 		final TextButton done = new TextButton("Done", skin);
-		this.saveService = saveService;
-		this.character = character;
 		
 		Image characterImage = new Image(assetManager.get(character.getJobClass().getTexture()));
 		characterImage.setPosition(1250, 0);
@@ -129,11 +129,17 @@ public class InventoryScreen extends AbstractScreen {
 		this.addActor(characterButton);
 		
 		inventoryTable = new Table();
-		inventoryTable.add(getLabel("Inventory", skin, Color.BLACK)).row();
 		inventoryTable.setPosition(100, 550);
 		inventoryTable.align(Align.topLeft);
 		this.addActor(inventoryTable);
 		weaponTable = new Table();
+		weaponTable.setPosition(950, 1000);
+		weaponTable.align(Align.top);
+		this.addActor(weaponTable);
+		equipmentTable = new Table();
+		equipmentTable.align(Align.topLeft);
+		equipmentTable.setPosition(50, 1065);
+		this.addActor(equipmentTable);
 		consoleText = new Label("", skin);
 		consoleText.setPosition(425, 1075);
 		consoleText.setAlignment(Align.topLeft);
@@ -144,20 +150,46 @@ public class InventoryScreen extends AbstractScreen {
 		hoverText.setAlignment(Align.topLeft);
 		hoverText.setColor(Color.GOLDENROD);
 		this.addActor(hoverText);
-		weaponTable.add(getLabel("Equipment", skin, Color.BLACK)).row();
-		weaponTable.setPosition(950, 1000);
-		weaponTable.align(Align.top);
-		this.addActor(weaponTable);
-		
-		Table equipmentTable = new Table();
-		equipmentTable.align(Align.topLeft);
-		
+
 		if (character.getWeapon() != null && !character.getWeapon().isMelee()) {
 			Weapon temp = character.getWeapon();
 			character.unequipWeapon();
 			character.equip(temp);
 		}
 		
+		setItemTable("");
+		setWeaponTable("");
+	}
+	
+	private void setItemTable(String result) {
+		consoleText.setText(result);
+		saveService.saveDataValue(SaveEnum.PLAYER, character);
+		inventoryTable.clear();
+		inventoryTable.add(getLabel("Inventory", skin, Color.BLACK)).row();
+		ButtonStyle buttonStyle = new ButtonStyle();
+		buttonStyle.up = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS.getTexture())));
+		buttonStyle.down = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_DOWN.getTexture())));
+		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_HIGHLIGHT.getTexture())));		
+		
+		int inventoryColumn = 0;
+		for (Item newItem : character.getInventory()) {
+			final TextButton newItemButton = new TextButton(newItem.getName(), skin);
+			if (newItem.isConsumable()) {
+				newItemButton.addListener(getItemListener(newItem));
+				final Button toss = getTossButton();
+				toss.addListener(getItemTossListener(newItem));
+				inventoryTable.add(newItemButton).size(400, 40);
+				inventoryTable.add(toss).size(40, 40);
+				if (inventoryColumn == 2) inventoryTable.row();
+				inventoryColumn++;
+				inventoryColumn %= 3;
+			}
+		}
+	}
+	
+	private void setWeaponTable(String result) {
+		consoleText.setText(result);
+		saveService.saveDataValue(SaveEnum.PLAYER, character);
 		weaponText = getLabel(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed", skin, character.getWeapon() != null ? Color.GOLD : Color.BROWN);
 		rangedWeaponText  = getLabel(character.getRangedWeapon() != null ? character.getRangedWeapon().getName() : "Unarmed", skin, character.getRangedWeapon() != null ? Color.GOLD : Color.BROWN);
 		shieldText = getLabel(character.getShield() != null ? character.getShield().getName() : "Unarmed", skin, character.getShield() != null ? Color.GOLD : Color.BROWN);
@@ -172,19 +204,19 @@ public class InventoryScreen extends AbstractScreen {
 		cageText = getLabel(character.getCage() != null ? character.getCage().getName() : "None", skin, character.getCage() != null ? Color.GOLD : Color.BROWN);
 		mouthwearText = getLabel(character.getMouthwear() != null ? character.getMouthwear().getName() : "None", skin, character.getMouthwear() != null ? Color.GOLD : Color.BROWN);
 		
-		weaponText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipWeapon()); }});
-		rangedWeaponText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipRangedWeapon()); }});
-		shieldText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipShield()); }});
-		armorText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipArmor()); }});
-		legwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipLegwear()); }});
-		underwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipUnderwear()); }});
-		headgearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipHeadgear()); }});
-		armwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipArmwear()); }});
-		footwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipFootwear()); }});
-		accessoryText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipAccessory()); }});
-		plugText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipPlug()); }});
-		cageText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipCage()); }});
-		mouthwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipMouthwear()); }});
+		weaponText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipWeapon()); }});
+		rangedWeaponText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipRangedWeapon()); }});
+		shieldText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipShield()); }});
+		armorText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipArmor()); }});
+		legwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipLegwear()); }});
+		underwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipUnderwear()); }});
+		headgearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipHeadgear()); }});
+		armwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipArmwear()); }});
+		footwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipFootwear()); }});
+		accessoryText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipAccessory()); }});
+		plugText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipPlug()); }});
+		cageText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipCage()); }});
+		mouthwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipMouthwear()); }});
 		
 		weaponUnequip = getTossButton();
 		rangedWeaponUnequip = getTossButton();
@@ -200,19 +232,19 @@ public class InventoryScreen extends AbstractScreen {
 		cageUnequip = getTossButton();
 		mouthwearUnequip = getTossButton();
 		
-		weaponUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipWeapon()); }});
-		rangedWeaponUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipRangedWeapon()); }});
-		shieldUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipShield()); }});
-		armorUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipArmor()); }});
-		legwearUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipLegwear()); }});
-		underwearUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipUnderwear()); }});
-		headgearUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipHeadgear()); }});
-		armwearUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipArmwear()); }});
-		footwearUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipFootwear()); }});
-		accessoryUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipAccessory()); }});
-		plugUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipPlug()); }});
-		cageUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipCage()); }});
-		mouthwearUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipMouthwear()); }});
+		weaponUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipWeapon()); }});
+		rangedWeaponUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipRangedWeapon()); }});
+		shieldUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipShield()); }});
+		armorUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipArmor()); }});
+		legwearUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipLegwear()); }});
+		underwearUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipUnderwear()); }});
+		headgearUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipHeadgear()); }});
+		armwearUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipArmwear()); }});
+		footwearUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipFootwear()); }});
+		accessoryUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipAccessory()); }});
+		plugUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipPlug()); }});
+		cageUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipCage()); }});
+		mouthwearUnequip.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { setWeaponTable(character.unequipMouthwear()); }});
 		
 		if (character.getWeapon() == null) weaponUnequip.addAction(Actions.hide());
 		if (character.getRangedWeapon() == null) rangedWeaponUnequip.addAction(Actions.hide());
@@ -227,11 +259,10 @@ public class InventoryScreen extends AbstractScreen {
 		if (character.getPlug() == null) plugUnequip.addAction(Actions.hide());
 		if (character.getCage() == null) cageUnequip.addAction(Actions.hide());
 		if (character.getMouthwear() == null) mouthwearUnequip.addAction(Actions.hide());
-			
+		
 		int xBuffer = 160;
 		
-		equipmentTable.setPosition(50, 1065);
-		this.addActor(equipmentTable);
+		equipmentTable.clear();
 		equipmentTable.add(getLabel("Weapon:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
 		equipmentTable.add(weaponText).align(Align.left);
 		equipmentTable.add(weaponUnequip).size(35, 35).row();
@@ -272,107 +303,8 @@ public class InventoryScreen extends AbstractScreen {
 		equipmentTable.add(mouthwearText).align(Align.left);
 		equipmentTable.add(mouthwearUnequip).size(35, 35).row();
 		
-		int inventoryColumn = 0;
-		boolean equipmentColumn = false;
-		for (final Item item : character.getInventory()) {
-			final TextButton itemButton = new TextButton(item.getName(), skin);
-			final Button toss = getTossButton();
-			if (item.isConsumable()) {
-				itemButton.addListener(getItemListener(item));
-				toss.addListener(getItemTossListener(item));
-				inventoryTable.add(itemButton).size(400, 40);
-				inventoryTable.add(toss).size(40, 40);
-				if (inventoryColumn == 2) inventoryTable.row();
-				inventoryColumn++;
-				inventoryColumn %= 3;
-			}
-			else if (item.isEquippable()) { // this needs to properly equip the item in the correct slot
-				itemButton.addListener(getWeaponListener(item));
-				toss.addListener(getWeaponTossListener(item));
-				weaponTable.add(itemButton).size(400, 40);
-				weaponTable.add(toss).size(40, 40);
-				if (equipmentColumn) weaponTable.row();
-				equipmentColumn = !equipmentColumn;
-			}
-		}	
-	}
-	
-	private void resetItemTable(String result) {
-		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-		consoleText.setText(result);
-		saveService.saveDataValue(SaveEnum.PLAYER, character);
-		inventoryTable.clear();
-		inventoryTable.add(getLabel("Inventory", skin, Color.BLACK)).row();
-		ButtonStyle buttonStyle = new ButtonStyle();
-		buttonStyle.up = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS.getTexture())));
-		buttonStyle.down = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_DOWN.getTexture())));
-		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_HIGHLIGHT.getTexture())));		
-		
-		int inventoryColumn = 0;
-		for (Item newItem : character.getInventory()) {
-			final TextButton newItemButton = new TextButton(newItem.getName(), skin);
-			if (newItem.isConsumable()) {
-				newItemButton.addListener(getItemListener(newItem));
-				final Button toss = getTossButton();
-				toss.addListener(getItemTossListener(newItem));
-				inventoryTable.add(newItemButton).size(400, 40);
-				inventoryTable.add(toss).size(40, 40);
-				if (inventoryColumn == 2) inventoryTable.row();
-				inventoryColumn++;
-				inventoryColumn %= 3;
-			}
-		}
-	}
-	
-	private void resetWeaponTable(String result) {
-		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-		consoleText.setText(result);
-		weaponText.setText(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed");
-		rangedWeaponText.setText(character.getRangedWeapon() != null ? character.getRangedWeapon().getName() : "Unarmed");
-		shieldText.setText(character.getShield() != null ? character.getShield().getName() : "Unarmed");
-		armorText.setText(character.getArmor() != null ? character.getArmor().getName() : "None");
-		legwearText.setText(character.getLegwear() != null ? character.getLegwear().getName() : "None");
-		underwearText.setText(character.getUnderwear() != null ? character.getUnderwear().getName() : "None");
-		headgearText.setText(character.getHeadgear() != null ? character.getHeadgear().getName() : "None");
-		armwearText.setText(character.getArmwear() != null ? character.getArmwear().getName() : "None");			
-		footwearText.setText(character.getFootwear() != null ? character.getFootwear().getName() : "None");			
-		accessoryText.setText(character.getFirstAccessory() != null ? character.getFirstAccessory().getName() : "None");
-		plugText.setText(character.getPlug() != null ? character.getPlug().getName() : "None");
-		cageText.setText(character.getCage() != null ? character.getCage().getName() : "None");
-		mouthwearText.setText(character.getMouthwear() != null ? character.getMouthwear().getName() : "None");
-		
-		weaponText.setColor(character.getWeapon() != null ? Color.GOLD : Color.BROWN);
-		rangedWeaponText.setColor(character.getRangedWeapon() != null ? Color.GOLD : Color.BROWN);
-		shieldText.setColor(character.getShield() != null ? Color.GOLD : Color.BROWN);
-		armorText.setColor(character.getArmor() != null ? Color.GOLD : Color.BROWN);
-		legwearText.setColor(character.getLegwear() != null ? Color.GOLD : Color.BROWN);
-		underwearText.setColor(character.getUnderwear() != null ? Color.GOLD : Color.BROWN);
-		headgearText.setColor(character.getHeadgear() != null ? Color.GOLD : Color.BROWN);
-		armwearText.setColor(character.getArmwear() != null ? Color.GOLD : Color.BROWN);
-		footwearText.setColor(character.getFootwear() != null ? Color.GOLD : Color.BROWN);
-		accessoryText.setColor(character.getFirstAccessory() != null ? Color.GOLD : Color.BROWN);
-		plugText.setColor(character.getPlug() != null ? Color.GOLD : Color.BROWN);
-		cageText.setColor(character.getCage() != null ? Color.GOLD : Color.BROWN);	
-		mouthwearText.setColor(character.getMouthwear() != null ? Color.GOLD : Color.BROWN);	
-		
-		weaponUnequip.addAction(character.getWeapon() != null ? Actions.show() : Actions.hide());
-		rangedWeaponUnequip.addAction(character.getRangedWeapon() != null ? Actions.show() : Actions.hide());
-		shieldUnequip.addAction(character.getShield() != null ? Actions.show() : Actions.hide());
-		armorUnequip.addAction(character.getArmor() != null ? Actions.show() : Actions.hide());
-		legwearUnequip.addAction(character.getLegwear() != null ? Actions.show() : Actions.hide());	
-		underwearUnequip.addAction(character.getUnderwear() != null ? Actions.show() : Actions.hide());
-		headgearUnequip.addAction(character.getHeadgear() != null ? Actions.show() : Actions.hide());	
-		armwearUnequip.addAction(character.getArmwear() != null ? Actions.show() : Actions.hide());
-		footwearUnequip.addAction(character.getFootwear() != null ? Actions.show() : Actions.hide());
-		accessoryUnequip.addAction(character.getFirstAccessory() != null ? Actions.show() : Actions.hide());
-		plugUnequip.addAction(character.getPlug() != null ? Actions.show() : Actions.hide());
-		cageUnequip.addAction(character.getCage() != null ? Actions.show() : Actions.hide());
-		mouthwearUnequip.addAction(character.getMouthwear() != null ? Actions.show() : Actions.hide());			
-		
-		saveService.saveDataValue(SaveEnum.PLAYER, character);
 		weaponTable.clear();
 		weaponTable.add(getLabel("Equipment", skin, Color.BLACK)).row();
-		
 		
 		boolean equipmentColumn = false;
 		for (Item newItem : character.getInventory()) {
@@ -401,7 +333,8 @@ public class InventoryScreen extends AbstractScreen {
 		return new ClickListener() {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
-				resetItemTable(character.consumeItem(item).getResult());
+				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+				setItemTable(character.consumeItem(item).getResult());
 				if (item.isTownPortalScroll()) {
 					saveService.saveDataValue(SaveEnum.NODE_CODE, 1000);										
 					saveService.saveDataValue(SaveEnum.TOWN, TownCode.TOWN);	
@@ -423,7 +356,8 @@ public class InventoryScreen extends AbstractScreen {
 		return new ClickListener() {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
-				resetItemTable(character.discardItem(item));
+				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+				setItemTable(character.discardItem(item));
 	        }
 			@Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -440,7 +374,8 @@ public class InventoryScreen extends AbstractScreen {
 		return new ClickListener() {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
-				resetWeaponTable(character.equip((Equipment)item));
+				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+				setWeaponTable(character.equip((Equipment)item));
 	        }
 			@Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -457,7 +392,8 @@ public class InventoryScreen extends AbstractScreen {
 		return new ClickListener() {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
-				resetWeaponTable(character.discardItem(item));
+				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+				setWeaponTable(character.discardItem(item));
 	        }
 			@Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
