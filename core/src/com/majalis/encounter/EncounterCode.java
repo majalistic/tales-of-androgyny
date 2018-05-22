@@ -80,6 +80,7 @@ public enum EncounterCode {
 	LEVEL_UP, 
 	FORAGE,
 	LEAVE_MAP,
+	RETURN_MAP,
 	
 	/* Mini Encounters */
 	FOOD_CACHE,
@@ -186,7 +187,8 @@ public enum EncounterCode {
 					case HUNGER_CHARM: 
 					case DAMAGE_TRAP: 
 					case ANAL_TRAP: return "Unknown";
-					case LEAVE_MAP: return "Beyond";
+					case LEAVE_MAP:
+					case RETURN_MAP: return "Beyond";
 					default: return "Unknown - No Info for encounter #" + this + " and perception level = " + visibility;
 				}
 			case 2:
@@ -252,7 +254,8 @@ public enum EncounterCode {
 					case HUNGER_CHARM: return "Cache!";
 					case DAMAGE_TRAP: 
 					case ANAL_TRAP: return "Trap!";
-					case LEAVE_MAP: return "Beyond";
+					case LEAVE_MAP:
+					case RETURN_MAP: return "Beyond";
 					default: return "Unknown - No Info for encounter #" + this  + " and perception level = " + visibility;
 				}
 		}
@@ -275,7 +278,8 @@ public enum EncounterCode {
 			case ALTAR: return "Altar";
 			case GIANTESS_FUTA: return "Valley of the Giantess";
 			case END_OF_STORY: return "Beyond";
-			case LEAVE_MAP: return "Beyond";
+			case LEAVE_MAP:
+			case RETURN_MAP: return "Beyond";
 			default: return "Nothing here.";
 		}
 	}

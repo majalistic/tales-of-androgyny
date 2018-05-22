@@ -167,7 +167,11 @@ public class GameWorldFactory {
 		}
 		else { // second map
 			int nodeCode = 30000;
-			addNode(getNode(nodeCode, DEFAULT, DEFAULT, 20, 92, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			GameWorldNode offramp = addNode(getNode(nodeCode, DEFAULT, DEFAULT, 20, 92, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			GameWorldNode onramp = addNode(getNode(nodeCode, RETURN_MAP, RETURN_MAP, 15, 87, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			GameWorldNode offScreen = addNode(getNode(nodeCode, RETURN_MAP, RETURN_MAP, 15, 70, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			offramp.connectTo(onramp);
+			onramp.connectTo(offScreen);
 		}
 		
 		if (nodeMap.get(currentNode) != null) {
