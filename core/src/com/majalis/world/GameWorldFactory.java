@@ -167,7 +167,7 @@ public class GameWorldFactory {
 		}
 		else { // second map
 			int nodeCode = 30000;
-			addNode(getNode(nodeCode, DEFAULT, DEFAULT, 12, 92, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			addNode(getNode(nodeCode, DEFAULT, DEFAULT, 20, 92, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
 		}
 		
 		if (nodeMap.get(currentNode) != null) {
@@ -198,7 +198,7 @@ public class GameWorldFactory {
 				Logging.logTime("Failed to create a path from start to finish");
 			}
 		}
-		return new GameWorld(nodes, assetManager, random);
+		return new GameWorld(nodes, mapCode, assetManager, random);
 	}
 	
 	private VisitInfo getFreshVisitInfo() { return new VisitInfo(0, 0, (int) ((Math.random() * 1000) % 1000), 0, -1, mapCode); }

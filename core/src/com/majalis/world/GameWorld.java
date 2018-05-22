@@ -30,7 +30,7 @@ public class GameWorld {
 	private final Array<Image> reflections;
 	private final Array<AnimatedImage> lilies;
 	// this should not need an assetmanager - trees and doodads should not be actors in here
-	protected GameWorld(Array<GameWorldNode> nodes, AssetManager assetManager, RandomXS128 random) {
+	protected GameWorld(Array<GameWorldNode> nodes, int mapCode, AssetManager assetManager, RandomXS128 random) {
 		this.nodes = nodes;
 		ground = new Array<Array<GroundType>>();
 		doodads = new Array<Doodad>();
@@ -48,7 +48,6 @@ public class GameWorld {
 		forestShadowTexture = new TextureRegion(assetManager.get(AssetEnum.FOREST_2.getTexture()));
 		forestShadowTexture.flip(true, false);
 		forestShadowTextures.add(forestShadowTexture);
-		
 		
 		Texture treeClusterTextureSheet = assetManager.get(AssetEnum.TREE_CLUSTERS.getTexture());
 		Array<TextureRegion> treeClusterTextures = new Array<TextureRegion>();
@@ -161,10 +160,10 @@ public class GameWorld {
 				int closest = worldCollide(x, y);
 				
 				GroundType toAdd;
-				if (closest >= 2 && (isRiver(x, y) || isLake(x, y))) toAdd = GroundType.WATER;
-				else if (closest <= 4 || (closest <= 5 && (Math.abs(random.nextInt() % 2) == 0)) || pathChunks.contains(new Vector2(x, y), false) || shoreline(x, y)) toAdd = GroundType.DIRT;
+				if (closest >= 2 && (isRiver(x, y, mapCode) || isLake(x, y, mapCode))) toAdd = GroundType.WATER;
+				else if (closest <= 4 || (closest <= 5 && (Math.abs(random.nextInt() % 2) == 0)) || pathChunks.contains(new Vector2(x, y), false) || shoreline(x, y, mapCode)) toAdd = GroundType.DIRT;
 				else {
-					toAdd = GroundType.valueOf("RED_LEAF_" + Math.abs(random.nextInt() % 6));					
+					toAdd = GroundType.valueOf((mapCode == 0 ? "RED_LEAF_" : "GREEN_LEAF_") + Math.abs(random.nextInt() % 6));					
 				}
 				
 				layer.add(toAdd);
@@ -178,14 +177,14 @@ public class GameWorld {
 					lilies.add(lily);
 				}
 				
-				boolean treeAbundance = isAbundantTrees(x, y);				
-				if (closest >= 3 && (toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) && !pathChunks.contains(new Vector2(x, y), false)) {
+				boolean treeAbundance = isAbundantTrees(x, y, mapCode);				
+				if (closest >= 3 && (toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1 || toAdd == GroundType.GREEN_LEAF_0 || toAdd == GroundType.GREEN_LEAF_1) && !pathChunks.contains(new Vector2(x, y), false)) {
 					int rando = random.nextInt();
 					if (rando % (treeAbundance ? 2 : 5) == 0) {
 						Array<TextureRegion> textures;
 						Array<TextureRegion> shadowTextures;
 						int arraySize;
-						if (isSuperAbundantTrees(x, y) && rando % 7 == 0) {
+						if (isSuperAbundantTrees(x, y, mapCode) && rando % 7 == 0) {
 							textures = forestTextures;
 							shadowTextures = forestShadowTextures;
 							arraySize = forestTextures.size;
@@ -254,28 +253,27 @@ public class GameWorld {
 		}*/
 	}
 	
-	private boolean isDeadTree(int val) { return val == 1 || val == 3 || val == 5 || val == 17 || val == 19 || val == 22 || val == 23; }
 	public Array<GameWorldNode> getNodes() { return nodes; }
 	public Array<Array<GroundType>> getGround() { return ground; }
 	public Array<Doodad> getDoodads() { return doodads; }
 	public Array<Shadow> getShadows() { return shadows; }
 	public Array<Image> getReflections() { return reflections; }
 	public Array<AnimatedImage> getLilies() { return lilies; }
-
+	private boolean isDeadTree(int val) { return val == 1 || val == 3 || val == 5 || val == 17 || val == 19 || val == 22 || val == 23; }	
 	private int distance(int x, int y, int x2, int y2) { return GameWorldHelper.distance(x, y, x2, y2); }	
-	private boolean shoreline(int x, int y) {
+	private boolean shoreline(int x, int y, int mapCode) {
 		int shoreLineDistance = 2;
 		for (int ii = -shoreLineDistance; ii < shoreLineDistance; ii++) {
 			//for (int jj = -shoreLineDistance + Math.abs(ii); jj <= shoreLineDistance - Math.abs(ii); jj++) {
 			for (int jj = Math.max(-shoreLineDistance, -ii - shoreLineDistance); jj < Math.min(shoreLineDistance, -ii + shoreLineDistance); jj++) {
-				if (isRiver(ii + x, jj + y)) return true;
-				if (isLake(ii + x, jj + y)) return true;
+				if (isRiver(ii + x, jj + y, mapCode)) return true;
+				if (isLake(ii + x, jj + y, mapCode)) return true;
 			}
 		}
 		
 		return false;
 	}
-	private boolean isRiver(int x, int y) { return downRightRiverWiggle(x, y, 140, 7, 50, 200) || upRightRiverWiggle(x, y, 50, 4, 140, 200); }//downRightRiver(x, y, 140, 7, 50, 10000) upRightRiver(x, y, 50, 9, 140, 10000) || upRightRiver(x, y, 48, 13, 160, 163); }
+	private boolean isRiver(int x, int y, int mapCode) { return mapCode == 0 ? downRightRiverWiggle(x, y, 140, 7, 50, 200) || upRightRiverWiggle(x, y, 50, 4, 140, 200) : downRightRiverWiggle(x, y, 140, 7, 50, 100); }
 	
 	private boolean upRightRiverWiggle(int x, int y, int start, int width, int lowerBound, int upperBound) { // should also have wiggle amount, maybe width variance
 		// start at lower bound, and add or subtract a wiggle factor using modulus(?) to determine position
@@ -311,11 +309,11 @@ public class GameWorld {
 	
 	private boolean downRightRiver(int x, int y, int start, int width, int lowerBound, int upperBound) { return x + y > start && x + y <= start + width && y > lowerBound && y <= upperBound; }
 	private boolean upRightRiver(int x, int y, int start, int width, int lowerBound, int upperBound) { return y > start && y <= start + width && x + y > lowerBound && x + y <= upperBound; }
-	private boolean isLake(int x, int y) { return lake(x, y, 13, 90, 5) || lake(x, y, 87, 55, 7) || lake(x, y, 80, 62, 5) || lake(x, y, 94, 55, 3); }		
+	private boolean isLake(int x, int y, int mapCode) { return mapCode == 0 ? lake(x, y, 13, 90, 5) || lake(x, y, 87, 55, 7) || lake(x, y, 80, 62, 5) || lake(x, y, 94, 55, 3) : false; }		
 	private boolean lake(int x, int y, int lakeX, int lakeY, int size) { return distance(x, y, lakeX, lakeY) < size; }
 	
-	private boolean isSuperAbundantTrees(int x, int y) { return x + y * 2 > 170 && x + y * 2 < 180; }
-	private boolean isAbundantTrees(int x, int y) { return (x > 0 && x < 10) || isSuperAbundantTrees(x, y); }
+	private boolean isSuperAbundantTrees(int x, int y, int mapCode) { return mapCode == 0 ? x + y * 2 > 170 && x + y * 2 < 180 : x + y * 2 > 230 && x + y * 2 < 400; }
+	private boolean isAbundantTrees(int x, int y, int mapCode) { return isSuperAbundantTrees(x, y, mapCode) || mapCode == 0 ? (x > 0 && x < 10) : false; }
 	
 	private int worldCollide(int x, int y) {
 		int minDistance = 100;
