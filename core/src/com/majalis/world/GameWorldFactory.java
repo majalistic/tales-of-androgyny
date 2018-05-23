@@ -163,7 +163,7 @@ public class GameWorldFactory {
 				if (closest != null) giantess.connectTo(closest);		
 			}
 			
-			leaveMap.connectTo(giantess);
+			if (leaveMap != null && giantess != null) leaveMap.connectTo(giantess);
 		}
 		else { // second map
 			int nodeCode = 30000;
