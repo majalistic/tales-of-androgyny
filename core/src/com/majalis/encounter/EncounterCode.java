@@ -101,6 +101,7 @@ public enum EncounterCode {
 	BRIGAND_STORY (MOUNTAIN_ACTIVE),
 	ORC_STORY,
 	WEREWOLF_STORY,
+	GHOST_STORY,
 	ECCENTRIC_MERCHANT,
 	STORY_FEM (FOREST_INACTIVE), 
 	STORY_SIGN (FOREST_INACTIVE), 
@@ -1220,6 +1221,10 @@ public enum EncounterCode {
 						b.branch("Ignore her").textScene("GHOST-NIGHT-IGNORE").choiceScene("Camp or Leave?", b.branch("Camp").textScene("GHOST-NIGHT-CAMP").textScene(spookyGhostScene).textScene("GHOST-NIGHT-CAMP-CONT"), b.branch("Leave").textScene("GHOST-NIGHT-LOST"))
 					)
 				);	
+			case GHOST_STORY:
+				Branch ghostPossession2 = b.branch().textScene("GHOST-POSSESSION").gameEnd();
+				Branch ghostBattle2 = b.branch().battleScene(BattleCode.GHOST, b.branch(Outcome.VICTORY).textScene("GHOST-VICTORY"), b.branch(Outcome.DEFEAT).concat(ghostPossession2));
+				return b.branch().textScene("STORY-GHOST").concat(ghostBattle2);
 			case GIANTESS_FUTA:
 				Branch rebirth = b.branch().textScene("GIANTESS-REBIRTH");
 				Branch selfSacrifice = b.branch().textScene("GIANTESS-SELF-SACRIFICE").concat(rebirth);

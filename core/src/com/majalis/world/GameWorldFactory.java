@@ -112,8 +112,9 @@ public class GameWorldFactory {
 				addNode(getNode(nodeCode, HARPY_STORY, DEFAULT, 37, 88,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
 				addNode(getNode(nodeCode, ORC_STORY, DEFAULT, 37, 93,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
 				addNode(getNode(nodeCode, WEREWOLF_STORY, DEFAULT, 42, 90,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
-				addNode(getNode(nodeCode, END_OF_STORY, DEFAULT, 44, 92, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
-				
+				addNode(getNode(nodeCode, GHOST_STORY, DEFAULT, 44, 92, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+				addNode(getNode(nodeCode, END_OF_STORY, DEFAULT, 48, 92, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+						
 				addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 20, 95,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
 				addNode(getNode(nodeCode, OGRE_WARNING_STORY, DEFAULT, 19, 99,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);	
 				addNode(getNode(nodeCode, OGRE_STORY, DEFAULT, 19, 103,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
