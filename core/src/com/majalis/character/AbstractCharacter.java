@@ -375,44 +375,78 @@ public abstract class AbstractCharacter extends Group {
 
 	public String equip(Equipment item) {
 		if (item == null) return "";
-		if (item instanceof ChastityCage && getCage() != null && !hasKey()) return "You cannot remove your chastity cage without a key!";
-		String result = "You equipped the " + item.getName() + ".\n";
+		String result = canBeEquipped(item);
+		if (result.equals("")) {
+			result = "You equipped the " + item.getName() + ".\n";
+			if (item instanceof Weapon) {
+				if (((Weapon)item).isMelee()) result += unequip(getWeapon());
+				else result += unequip(getRangedWeapon());
+			}
+			if (item instanceof Armor) {
+				Armor armor = (Armor) item;
+				if (armor.coversTop()) result += unequip(getArmor());
+				if (armor.coversBottom()) result += unequip(getLegwear());
+				if (armor.isUnderwear()) result += unequip(getUnderwear());
+				if (armor.isShield()) result += unequip(getShield());
+				if (armor.isHeadgear()) result += unequip(getHeadgear());
+				if (armor.isArmwear()) result += unequip(getArmwear());
+				if (armor.isFootwear()) result += unequip(getFootwear());
+			}
+			if (item instanceof Accessory) { result += unequip(getFirstAccessory()); }
+			if (item instanceof Plug) {
+				Plug plug = (Plug) item;
+				if (plug.isPlug()) { ass.togglePlug();	}
+				result += unequip(getPlug());
+			}
+			if (item instanceof ChastityCage) {
+				if (this.cock != null) {
+					this.cock.setSkeletonSkin(isChastitied() ? "Cage" : phallus.getSkin());
+				}
+				result += unequip(getCage());
+			}
+			if (item instanceof Mouthwear) { result += unequip(getMouthwear()); }
+			
+			equipment.add(item);
+			inventory.removeValue(item, true);		
+		}
+		
+		return result;
+	}
+	
+	private String canBeEquipped(Equipment item) {
+		String result = "";
 		if (item instanceof Weapon) {
-			if (((Weapon)item).isMelee()) result += unequip(getWeapon());
-			else result += unequip(getRangedWeapon());
+			if (((Weapon)item).isMelee() && isCursed(getWeapon())) result = "The " + getName(getWeapon()) + " is cursed and cannot be removed!";
+			else if (isCursed(getRangedWeapon())) result = "The " + getName(getRangedWeapon()) + " is cursed and cannot be removed!";
 		}
 		if (item instanceof Armor) {
 			Armor armor = (Armor) item;
-			if (armor.coversTop()) result += unequip(getArmor());
-			if (armor.coversBottom()) result += unequip(getLegwear());
-			if (armor.isUnderwear()) result += unequip(getUnderwear());
-			if (armor.isShield()) result += unequip(getShield());
-			if (armor.isHeadgear()) result += unequip(getHeadgear());
-			if (armor.isArmwear()) result += unequip(getArmwear());
-			if (armor.isFootwear()) result += unequip(getFootwear());
+			if (armor.coversTop() && isCursed(getArmor())) result = "The " + getName(getArmor()) + " is cursed and cannot be removed!";
+			if (armor.coversBottom() && isCursed(getLegwear())) result = "The " + getName(getLegwear()) + " is cursed and cannot be removed!";
+			if (armor.isUnderwear() && isCursed(getUnderwear())) result +=result = "The " + getName(getUnderwear()) + " is cursed and cannot be removed!";
+			if (armor.isShield() && isCursed(getShield())) result += result = "The " + getName(getShield()) + " is cursed and cannot be removed!";
+			if (armor.isHeadgear() && isCursed(getHeadgear())) result += result = "The " + getName(getHeadgear()) + " is cursed and cannot be removed!";
+			if (armor.isArmwear() && isCursed(getArmwear())) result += result = "The " + getName(getArmwear()) + " is cursed and cannot be removed!";
+			if (armor.isFootwear() && isCursed(getFootwear())) result += result = "The " + getName(getFootwear()) + " is cursed and cannot be removed!";
 		}
-		if (item instanceof Accessory) { result += unequip(getFirstAccessory()); }
-		if (item instanceof Plug) {
-			Plug plug = (Plug) item;
-			if (plug.isPlug()) { ass.togglePlug();	}
-			result += unequip(getPlug());
+		if (item instanceof Accessory) { if (isCursed(getFirstAccessory())) result = "The " + getName(getFirstAccessory()) + " is cursed and cannot be removed!"; }
+		if (item instanceof Plug) {	if (isCursed(getPlug())) result = "The " + getName(getPlug()) + " is cursed and cannot be removed!"; }
+		if (item instanceof ChastityCage) { 
+			if (isCursed(getCage())) result = "The " + getName(getCage()) + " is cursed and cannot be removed!"; 
+			if (getCage() != null && !hasKey()) result = "You cannot remove your chastity cage without a key!";
 		}
-		if (item instanceof ChastityCage) {
-			if (this.cock != null) {
-				this.cock.setSkeletonSkin(isChastitied() ? "Cage" : phallus.getSkin());
-			}
-			result += unequip(getCage());
-		}
-		if (item instanceof Mouthwear) { result += unequip(getMouthwear()); }
+		if (item instanceof Mouthwear) { if (isCursed(getMouthwear())) result = "The " + getName(getMouthwear()) + " is cursed and cannot be removed!"; }
 		
-		equipment.add(item);
-		inventory.removeValue(item, true);		
 		return result;
 	}
+	
+	private boolean isCursed(Equipment equipment) { return equipment != null && equipment.isCursed(); }
+	private String getName(Equipment equipment) { return equipment != null ? equipment.getName() : ""; }	
 	
 	public String unequip(Equipment item) {
 		if (item == null) return "";
 		if (item instanceof ChastityCage && getCage() != null && !hasKey()) return "You cannot remove your chastity cage without a key!";
+		if (item.isCursed()) return "You cannot remove a cursed item!";
 		String result = equipment.contains(item, true) ? "You unequipped the " + item.getName() + "." : ""; 
 		equipment.removeValue(item, true);		
 		inventory.add(item);

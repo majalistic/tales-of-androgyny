@@ -121,6 +121,7 @@ public abstract class Item {
 		@Override
 		public boolean isEquippable() { return true; }
 		public abstract EquipEffect getEquipEffect();
+		public boolean isCursed() { return false; }
 	}
 	
 	public enum EquipEffect {
