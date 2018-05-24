@@ -323,6 +323,13 @@ public class BattleScreen extends AbstractScreen{
         	toggleXray();
         }});
 		
+		TextButton surrenderButton = new TextButton("Surrender", skin);
+		surrenderButton.setPosition(-25, 0);
+		surrenderButton.addListener(new ClickListener() { public void clicked(InputEvent event, float x, float y) {
+        	character.modHealth(-100);
+        }});
+		uiGroup.addActor(surrenderButton);
+		
 		hideHoverGroup();
 		checkEndBattle();
 		
@@ -334,8 +341,6 @@ public class BattleScreen extends AbstractScreen{
 		consoleComponents.add(battle.consoleText);
 		consoleComponents.add(battle.dialogText);
 		saveService.saveDataValue(SaveEnum.CONSOLE, consoleComponents);
-		
-		
 	}
 
 	@Override
