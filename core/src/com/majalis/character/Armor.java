@@ -9,6 +9,7 @@ import com.majalis.character.Item.Equipment;
 public class Armor extends Equipment {
 	private final ArmorType type;
 	private int durability;
+	private boolean cursed;
 	
 	@SuppressWarnings("unused") 
 	private Armor() { type = null; }
@@ -30,6 +31,9 @@ public class Armor extends Equipment {
 		Armor compare = (Armor) o;
 		return super.equals(o) && compare.type == this.type;
 	}
+	
+	public void curse() { cursed = true; }
+	public void uncurse() { cursed = false; }
 	
 	public void modDurability(int mod) {
 		durability += mod;
@@ -76,6 +80,8 @@ public class Armor extends Equipment {
 	public boolean isArmwear() { return type.isArmwear(); }
 	public boolean isFootwear() { return type.isFootwear(); }
 	public boolean isHeadgear() { return type.isHeadgear(); }
+	@Override
+	public boolean isCursed() { return cursed; }
 	
 	// may want to refactor this into dedicated tops/bottoms/overalls
 	public enum ArmorType {
