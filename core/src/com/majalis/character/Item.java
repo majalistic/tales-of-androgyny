@@ -17,6 +17,7 @@ public abstract class Item {
 	public boolean instantUse() { return false; }
 	public boolean isEquippable() { return false; }
 	public boolean isTownPortalScroll() { return false; }
+	public boolean isCursed() { return false; }
 	
 	@Override 
 	public boolean equals(Object o) {
@@ -121,7 +122,6 @@ public abstract class Item {
 		@Override
 		public boolean isEquippable() { return true; }
 		public abstract EquipEffect getEquipEffect();
-		public boolean isCursed() { return false; }
 	}
 	
 	public enum EquipEffect {

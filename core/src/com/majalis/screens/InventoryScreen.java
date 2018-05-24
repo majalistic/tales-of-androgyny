@@ -162,7 +162,7 @@ public class InventoryScreen extends AbstractScreen {
 	private class ItemSlot extends Table {
 		private ItemSlot(String slotName, String emptyName, Equipment item) {
 			this.add(getLabel(slotName, skin, Color.DARK_GRAY)).width(160).align(Align.left);
-			this.add(getLabel(item != null ? item.getName() : emptyName, skin, item != null ? Color.GOLD : Color.BROWN)).width(160).align(Align.left);
+			this.add(getLabel(item != null ? item.getName() : emptyName, skin, item != null ? (item.isCursed() ? Color.RED : Color.GOLD) : Color.BROWN)).width(160).align(Align.left);
 			if (item != null) {
 				this.add(getTossButton()).size(32, 32);
 				this.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { equipSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); setWeaponTable(character.unequip(item)); }});
@@ -192,8 +192,9 @@ public class InventoryScreen extends AbstractScreen {
 		
 		boolean equipmentColumn = false;
 		for (Item newItem : character.getInventory()) {
-			final TextButton newItemButton = new TextButton(newItem.getName(), skin);
 			if (newItem.isEquippable()) {
+				final TextButton newItemButton = new TextButton(newItem.getName(), skin);
+				if (newItem.isCursed()) newItemButton.setColor(Color.RED);
 				newItemButton.addListener(getWeaponListener(newItem));
 				weaponTable.add(newItemButton).size(400, 40);
 				final Button toss = getTossButton();
