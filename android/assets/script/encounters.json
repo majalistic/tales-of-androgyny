@@ -2553,7 +2553,9 @@
 			{"text": "After that, she remains quiet for a bit. She knows words are pointless. She feels your last breath on her asshole, and smiles, knowing how unfitting that sort of end is for a so-called \"hero\"."}, 
 			{"text": "To ensure that her unfortunate plaything isn't merely playing dead or unconscious, she sits for minutes more, feeling no stifled breaths into her sunless depths, at which point she is satisfied that the insult to her has been properly remedied, and gets to her feet."}, 
 			{"text": "She still feels the saliva coating her anus and inside of it, and she still remembers the rather satisfying orgasm, but she can no longer even recall the sound of its voice."},   
-			{"text": "She kicks the offending object gently, and its head falls limply to the side."}			
+			{
+			"mutations": [{"profileSaveType":"ACHIEVEMENT", "value":{"class": "com.majalis.save.Achievement", "value": "SEAT_OF_POWER"}}],
+			"text": "She kicks the offending object gently, and its head falls limply to the side."}			
 		]
 	},
 	{
@@ -4556,6 +4558,7 @@
 			"sound": "CUM",
 			"text": ".."},
 			{
+			"mutations": [{"profileSaveType":"ACHIEVEMENT", "value":{"class": "com.majalis.save.Achievement", "value": "GOKKUN"}}],
 			"sound": "BURP",
 			"text": "-BURP-"}
 		]
@@ -4978,7 +4981,9 @@
 			{"text": "Whenever she approaches you, undoubtedly for mating, your hole begins to cramp wildly, knowing that the impending anal penetration and knotting is going to stretch it unnaturally and uncomfortably without relief."},
 			{"text": "Eventually it is no longer painful; instead, all that remains is the uncomfortable sensations of having something large and phallic shoved up your ass, something thick and rough sliding in and out of your rectum, and something thick and slimy pumped into your bowels."},
 			{"text": "The unpleasant sensations of receptive anal sex become more and more familiar, until your goo-stuffed innards learn the best way to deal with it."},
-			{"text": "Your adventure is over, but your ordeal has just begun."}
+			{
+			"mutations": [{"profileSaveType":"ACHIEVEMENT", "value":{"class": "com.majalis.save.Achievement", "value": "BITCH"}}],
+			"text": "Your adventure is over, but your ordeal has just begun."}
 		]
 	},
 	{
@@ -5339,7 +5344,9 @@
 			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":10, "creampies":10, "other": "HARPY"}}],
 			"text": "-SPLURT, SPLURT-"},
-			{"text": "Bad End."}
+			{
+			"mutations": [{"profileSaveType":"ACHIEVEMENT", "value":{"class": "com.majalis.save.Achievement", "value": "HARPY_WIFE"}}],
+			"text": "Bad End."}
 		]
 	},
 	{
@@ -6588,7 +6595,9 @@
 		"scriptLines": [
 			{"text": "As the male centaur erupts, his runny semen filling and overflowing your bowels, a quick-shot by any measure, you hear the clopping of another centaur, ready to drain their foot-and-a-half-long cock in your already greased up innards, and you know that your adventure is over."},
 			{"text": "You will be fucked in the ass by horses that happen to be half-men until they get bored of you, which might be never. You should have never trespassed in the centaur's land."},
-			{"text": "But then, what is the greater trespass - yours into their land, or theirs into your ass?"}
+			{
+			"mutations": [{"profileSaveType":"ACHIEVEMENT", "value":{"class": "com.majalis.save.Achievement", "value": "HORSE_RIDER"}}],
+			"text": "But then, what is the greater trespass - yours into their land, or theirs into your ass?"}
 		]
 	},
 	{
@@ -7371,7 +7380,7 @@
 			"text": "...you received another frothy creampie or goblin slime soup serving to swallow down. Once both of your holes were full to bursting, and your stomach was distended and full, he dragged you back to his village... where the games began again."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":5, "creampies":20, "analEjaculation":5, "other": "GOBLIN_MALE"}}],
-			"text": "Days later, you stumbled out of the goblin village, spewing goblinoid cum from every orifice, your stomach looking thrice-over pregnant. That was the last any non-Goblin saw of you, as a passerby spotted you being dragged back into the dark forest, your stomach gurgling all the way."}
+			"text": "Days later, you stumbled out of the goblin village, spewing goblinoid cum from every orifice, your stomach looking thrice-over pregnant."}
 		]
 	},
 	{
@@ -7581,7 +7590,9 @@
 		"scriptLines": [
 			{"text": "You agree to come with her, and that seems to satisfy her. She continues to fuck your ass, your cock's cage clanking about, preventing you from being satisfied, until, eventually, she withdraws, having fully explored your well-travelled canyon."},
 			{"text": "You end up travelling with the eccentric merchant... on the way to Pearl's Gate, you end up forgetting why you ever wanted anything but to be her toy. You never end up getting erect again, although that doesn't stop you from dribbling cum out of your cage while she fucks your ass with her exotic toys."},
-			{"text": "Having lost sight of your goal, your mission ends in failure."}
+			{
+			"mutations": [{"profileSaveType":"ACHIEVEMENT", "value":{"class": "com.majalis.save.Achievement", "value": "LOCKED_UP"}}],
+			"text": "Having lost sight of your goal, your mission ends in failure."}
 		]
 	},
 	{
@@ -9232,7 +9243,9 @@
 			"sound": "CUMFART",
 			"text": "The second wave of disgust hits when he pulls out, and the gush of feline slime reveals to the audience that they've just borne witness to an interspecies anal insemination without even realizing it."},
 			{"text": "The show ends with a bang - her spreading your cheeks to show the crowd exactly what batting for team kitty looks like. The crowd is aghast. They see it leaking out... the pudding proof that it wasn't just some clever trick."},
-			{"text": "You don't care.  You want them to know exactly what kind of relationship you have... and if anyone in the audience knows a good topical cream for a hard-used direcat pussy, you'd be grateful if they let you know. It's so itchy."},			
+			{
+			"mutations": [{"profileSaveType":"ACHIEVEMENT", "value":{"class": "com.majalis.save.Achievement", "value": "QUEEN"}}],
+			"text": "You don't care.  You want them to know exactly what kind of relationship you have... and if anyone in the audience knows a good topical cream for a hard-used direcat pussy, you'd be grateful if they let you know. It's so itchy."},			
 		]
 	},
 	{
@@ -9769,7 +9782,9 @@
 	{
 		"key": "SPIDER-END",
 		"scriptLines": [
-			{"text": "Unable to escape, you spend the rest of your days birthing her spider brood and being dressed like a little girly doll - not the most triumphant of stories."}
+			{
+			"mutations": [{"profileSaveType":"ACHIEVEMENT", "value":{"class": "com.majalis.save.Achievement", "value": "NURSERY"}}],			
+			"text": "Unable to escape, you spend the rest of your days birthing her spider brood and being dressed like a little girly doll - not the most triumphant of stories."}
 		]
 	},	
 	{
@@ -10726,7 +10741,9 @@
 			{"text": "\"More... more...\" you demand, with a hoarse voice not your own. The men look at each other with morbid grins, and you feel no more capable of controlling your own body than you did before... and likely, you never will again."},
 			{"text": "As some of the men drop their drawers once more, you hear a voice in the distance, growing louder and louder still."},
 			{"text": "\"receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it\""},
-			{"text": "You are the brigands' buttboy forevermore."}
+			{
+			"mutations": [{"profileSaveType":"ACHIEVEMENT", "value":{"class": "com.majalis.save.Achievement", "value": "NINE_TENTHS"}}],			
+			"text": "You are the brigands' buttboy forevermore."}
 		]
 	},
 	{

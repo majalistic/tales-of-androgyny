@@ -1275,7 +1275,7 @@ public enum EncounterCode {
 					b.branch(false).textScene("GIANTESS-BLUNDERED").concat(village)
 				 );
 			case GOBLIN_MALE:
-				Branch maleDefeatCont = b.branch().textScene("GOBLIN-MALE-DEFEAT").gameEnd();
+				Branch maleDefeatCont = b.branch().textScene("GOBLIN-MALE-DEFEAT");
 				return b.branch().textScene("GOBLIN-MALE-INTRO").battleScene(
 					BattleCode.GOBLIN_MALE,
 					b.branch(Outcome.VICTORY).textScene("GOBLIN-MALE-VICTORY").choiceScene("Ride ze gobbo?", b.branch("Gobbo's waiting!").textScene("GOBLIN-MALE-VICTORY-BOTTOM").require(ChoiceCheckType.LEWD), b.branch("No")),
