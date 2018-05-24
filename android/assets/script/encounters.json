@@ -1143,6 +1143,12 @@
 		]
 	},
 	{
+		"key": "STORY-GHOST",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
 		"key": "TOWN",
 		"scriptLines": [
 			{
