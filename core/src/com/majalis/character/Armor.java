@@ -16,6 +16,7 @@ public class Armor extends Equipment {
 	public Armor(ArmorType type) {
 		this.type = type;
 		this.durability = type.getMaxDurability();
+		this.cursed = type.alwaysCursed();
 	}
 	
 	@Override
@@ -95,7 +96,8 @@ public class Armor extends Equipment {
 		BATTLE_SKIRT ("Battle Skirt", 50, new int[]{24, 24}, new int[]{6, 2}),
 		SHORTS ("Shorts", 10, new int[]{12, 12}, new int[]{3, 1}),
 		UNDERWEAR ("Underwear", new int[]{8}, new int[]{1}),
-		
+		PANTIES ("Panties", new int[]{8}, new int[]{1}),
+				
 		SHIELD ("Shield", 10, new int[]{15, 15}, new int[]{50, 50}),
 		REINFORCED_SHIELD ("Reinforced Shield", 50, new int[]{30, 30}, new int[]{50, 50}),
 		
@@ -135,7 +137,7 @@ public class Armor extends Equipment {
 			isFootwear() ? "Covers the feet and shins. " + getBonusDescription() :
 			isHeadgear() ? "Covers the head. " + getBonusDescription() :
 			isShield() ? "A shield which will block attacks while guarding.\nCan absorb " + getMaxDurability() + " damage before breaking." :
-			((coversTop() ? (coversBottom() ? "Protects both upper and lower body." : "Protects upper body.") : coversBottom() ? "Protects lower body." : isUnderwear() ? "Worn under clothing" : "") + "\n" +
+			((coversTop() ? (coversBottom() ? "Protects both upper and lower body." : "Protects upper body.") : coversBottom() ? "Protects lower body." : isUnderwear() ? ("Worn under clothing." + (this == PANTIES ? " Has a hole in the back." : "")) : "") + "\n" +
 			(coversAnus() ? "This protects the backdoor.\n" : "") + 
 			getDurabilityDescription()); 
 		}
@@ -146,7 +148,7 @@ public class Armor extends Equipment {
 		private boolean isShield() { return this == SHIELD || this == REINFORCED_SHIELD; }
 		private boolean coversTop() { return this == NO_TOP || this == CLOTH_TOP || this == BREASTPLATE || this == DIAMOND_PLATE || this == LIGHT_ENEMY_ARMOR || this == MEDIUM_ENEMY_ARMOR || this == HEAVY_ENEMY_ARMOR || this == FULL_PLATE;  }
 		private boolean coversBottom() { return this == NO_BOTTOM || this == SKIRT || this == BATTLE_SKIRT || this == SHORTS ||  this == LIGHT_ENEMY_LEGWEAR || this == MEDIUM_ENEMY_LEGWEAR || this == HEAVY_ENEMY_ARMOR || this == FULL_PLATE; }
-		private boolean isUnderwear() { return this == UNDERWEAR; }
+		private boolean isUnderwear() { return this == UNDERWEAR || this == PANTIES; }
 		private ChastityCage getCage() { return null; }
 		private Plug getPlug() { return null; }
 		private IntArray getDurability() { return durability; }
@@ -165,6 +167,7 @@ public class Armor extends Equipment {
 		private int getMaxDurability() { int maxDurability = 0; for (int value : getDurability().items) maxDurability += value; return maxDurability; }
 		private EquipEffect getEquipEffect() { return this == SHOES_OF_RUNNING ? EquipEffect.AGI_BONUS : this == HELM_OF_WISDOM ? EquipEffect.PER_BONUS : this == GAUNTLETS_OF_STRENGTH ? EquipEffect.STR_BONUS : EquipEffect.NULL; }
 		private boolean isTight() { return this == BREASTPLATE || this == DIAMOND_PLATE; }
+		private boolean alwaysCursed() { return this == PANTIES; }
 		private String getBonusDescription() {
 			switch(getEquipEffect()) {
 				case AGI_BONUS: return "Increases Agility by 1.";
