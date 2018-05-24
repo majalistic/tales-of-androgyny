@@ -405,7 +405,15 @@ public class SaveManager implements SaveService, LoadService {
     		}
     	}
     	
-    	public void addBonusPoints(ProfileSave profileSave) { if (profileSave != null && profileSave.achievements.get(Achievement.QUETZAL_GODDESS_DEFEATED.toString(), 0) > 0) { player.setBonusPoints(1); } }
+    	private void addBonusPoints(ProfileSave profileSave) { 
+    		if (profileSave != null && profileSave.achievements != null) {
+    			int bonusPoints = 0;
+    			for (ObjectMap.Entry<String, Integer> achievement : profileSave.achievements) {
+    				if (achievement.value >= 1) bonusPoints++;
+    			}    			
+    			player.setBonusPoints(bonusPoints);  
+    		}
+    	}
     }
     
     public static class ProfileSave {
