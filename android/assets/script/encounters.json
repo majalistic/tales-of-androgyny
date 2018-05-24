@@ -12661,6 +12661,7 @@
 			{"text": "\"This is a... special spell. I'm going to change you... from the inside out."},
 			{"text": "Bent over the table, legs together, she stands behind you, her legs spread, her plump sausage pressed against your balloon knot."},
 			{
+			"foreground": "WARLOCK_ANAL",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "other": "WARLOCK"}}],
 			"text": "She slips inside, and her thing is apparently rather plump, so it stretches you unexpectedly wide."},
 			{"text": "\"Mmm... nothing like anal sex to turn someone into an anal slut, no?\""},
@@ -12696,7 +12697,9 @@
 			{"text": "\"That's what you wanted, right? A nice fat wad of infernal spooge up your big, fat ass?\" she says, but you can't even begin to formulate a response."},
 			{"text": "She begins to pull it out, and you're blubbering incoherently."},
 			{"text": "\"Has anybody told you your ass was your best feature?\" she says, extracting her penis from your gaping hole. \"Phew, what a load. Not bad.\""},  	
-			{"text": "You're completely speechless. Your eyes blink once, twice. Nobody's home."}
+			{
+			"foreground": "WARLOCK",
+			"text": "You're completely speechless. Your eyes blink once, twice. Nobody's home."}
 		]
 	},
 	{
@@ -12710,7 +12713,15 @@
 	{
 		"key": "WARLOCK-ANAL-UNBROKEN",
 		"scriptLines": [
-			{"text": "\"Hmmm... seems you didn't break. You're going to be quite the buttslut, though... so I hope you like ass-sex, because you're going to need it.\""},
+			{"text": "\"Hmmm... seems you didn't break. Well, in that case...\""},
+			{"text": "She leans over and pulls something out of her nightstand, displaying it to your unfocused eyes: a pair of frilly women's underwear, which she turns over to reveal that there's a conspicuous portion missing in the back of it."},
+			{"text": "\"These are a fun little number, aren't they? Why don't you try them on?\" she says, and you lie there, exhausted, as she pulls them up your legs and around your hips."},
+			{
+			"mutations": [{"saveType":"ITEM", "value":{"class": "com.majalis.character.Armor", "type": "PANTIES", "durability": 8, "cursed": true}}],									
+			"text": "A sigil appears on your abdomen as she snaps the band against your hip, and she muses to herself."},
+			{"text": "\"Well... those should attract some... new friends. Good luck getting them off. The new friends, that is - these are never coming off.\""},
+			{"text": "That gets your attention. You hook your fingers into the girlish panties and try to pull them down... but some otherworldly force holds them in place."},
+			{"text": "\"So that's two gifts from me. You're going to be quite the buttslut... so I hope you like ass-sex, because you're going to need it.\""},
 			{"text": "You certainly do feel like you have a craving for it... even though she satisfied that craving so messily and recently. You sheepishly leave the manor, swearing never to return... but feeling forever changed."}			
 		]
 	},
