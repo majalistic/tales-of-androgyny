@@ -851,7 +851,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public Array<MutationResult> receiveItem(Item item) {
 		if (item.instantUse()) { consumeItem(item); }
-		else if (item instanceof ChastityCage) { equip((Equipment)item); }
+		else if (item instanceof ChastityCage || (item.isEquippable() && item.isCursed())) { equip((Equipment)item); }
 		else { inventory.add(item); }
 		return getResult("You have received a(n) " + item.getName() + "!");
 	}
@@ -863,7 +863,6 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (item instanceof Weapon) { equip((Equipment)item); }
 		return true;
 	}
-	
 
 	public boolean sellItem(Item item) {
 		if (item.isConsumable() || item.isEquippable() && !item.equals(new ChastityCage())) {
