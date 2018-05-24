@@ -580,7 +580,7 @@ public class CheckScene extends AbstractTextScene {
 		}, 
 		USABLE_COCK("", "") {
 			@Override
-			protected boolean getCheck(PlayerCharacter character) { return !character.isChastitied() && !character.isImpotent(); }  
+			protected boolean getCheck(PlayerCharacter character) { return character.hasUsableCock(); }  
 		}, 
 		FREE_COCK("", "") {
 			@Override

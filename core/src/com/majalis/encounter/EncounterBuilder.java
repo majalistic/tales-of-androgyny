@@ -133,7 +133,7 @@ public class EncounterBuilder {
 				case STAT_LESS_THAN_X:
 					return character.getRawStat(statToCheck) < target;
 				case FREE_COCK:
-					return !character.isChastitied() && ! character.isImpotent();
+					return character.hasUsableCock();
 				case HAS_GEM:
 					return character.hasGem();
 				case HAS_TRUDY:

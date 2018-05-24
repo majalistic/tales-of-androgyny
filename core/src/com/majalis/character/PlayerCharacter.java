@@ -1603,4 +1603,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	public boolean trudyAvailable() { return trudyAvailable; }
 	@Override
 	public boolean isImpotent() { return questFlags.get(QuestType.WARLOCK.toString(), 0) == 3; }
+	private boolean hasCursedUnderwear() { return getUnderwear() != null && getUnderwear().isCursed(); }
+	public boolean hasUsableCock() { return !isChastitied() && !isImpotent() && !hasCursedUnderwear(); }	
 }
