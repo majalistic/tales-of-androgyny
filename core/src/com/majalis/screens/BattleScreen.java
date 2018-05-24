@@ -309,7 +309,7 @@ public class BattleScreen extends AbstractScreen{
 		
 		uiVisible = initImage(assetManager.get(AssetEnum.SEARCHING.getTexture()), 1850, 5);
 		uiGroup.removeActor(uiVisible);
-		this.addActor(uiVisible);
+		uiStage.addActor(uiVisible);
 		uiVisible.setScale(.5f);
 		uiVisible.addListener(new ClickListener() { public void clicked(InputEvent event, float x, float y) {
         	toggleUI();
@@ -317,7 +317,7 @@ public class BattleScreen extends AbstractScreen{
 		
 		enemyToggle = initImage(assetManager.get(AssetEnum.XRAY.getTexture()), 1850, 55);
 		uiGroup.removeActor(enemyToggle);
-		this.addActor(enemyToggle);
+		uiStage.addActor(enemyToggle);
 		enemyToggle.setScale(.5f);
 		enemyToggle.addListener(new ClickListener() { public void clicked(InputEvent event, float x, float y) {
         	toggleXray();
