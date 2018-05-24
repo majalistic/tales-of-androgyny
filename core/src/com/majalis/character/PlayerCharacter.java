@@ -735,9 +735,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		if (virgin) {
 			String pioneer = enemy == null ? "" : enemy.toString();
-			String vowels = "aeiou";
-			String article = vowels.indexOf(Character.toLowerCase(pioneer.equals("") ? 'a' : pioneer.charAt(0))) != -1 ? "an" : "a";
-			eventLog.add("You lost your anal virginity" + (pioneer.equals("") ? "" : " to " + article + " " + pioneer) + " on the " + getTimeDescription() + "!");
+			eventLog.add("You lost your anal virginity" + (pioneer.equals("") ? "" : " to " + getArticle(pioneer) + " " + pioneer) + " on the " + getTimeDescription() + "!");
 		}
 				
 		if (isPlugged()) {
@@ -756,9 +754,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		String result = virgin ? "You are no longer a virgin!\n" : "";
 		if (virgin) {
 			String pioneer = enemy == null ? "" : enemy.toString();
-			String vowels = "aeiou";
-			String article = vowels.indexOf(Character.toLowerCase(pioneer.equals("") ? 'a' : pioneer.charAt(0))) != -1 ? "an" : "a";
-			eventLog.add("You lost your virginity" + (pioneer.equals("") ? "" : " to " + article + " " + pioneer) + " on the " + getTimeDescription() + "!");
+			eventLog.add("You lost your virginity" + (pioneer.equals("") ? "" : " to " + getArticle(pioneer) + " " + pioneer) + " on the " + getTimeDescription() + "!");
 		}
 			
 		gaveAnal++;
@@ -772,15 +768,15 @@ public class PlayerCharacter extends AbstractCharacter {
 		String result = virgin ? "You are no longer a mouth virgin!\n" : "";
 		if (virgin) {
 			String pioneer = enemy == null ? "" : enemy.toString();
-			String vowels = "aeiou";
-			String article = vowels.indexOf(Character.toLowerCase(pioneer.equals("") ? 'a' : pioneer.charAt(0))) != -1 ? "an" : "a";
-			eventLog.add("You lost your mouth virginity" + (pioneer.equals("") ? "" : " to " + article + " " + pioneer) + " on the " + getTimeDescription() + "!");
+			eventLog.add("You lost your mouth virginity" + (pioneer.equals("") ? "" : " to " + getArticle(pioneer) + " " + pioneer) + " on the " + getTimeDescription() + "!");
 		}
 		
 		receivedOral++;
 		result += incrementPerk(receivedOral, Perk.MOUTH_MANIAC, 10, 6, 3);
 		return result.equals("") ? new Array<MutationResult>() : getResult(result);
 	}
+	
+	private String getArticle(String nextWord) { String vowels = "aeiou"; return nextWord == null || nextWord.equals("") || vowels.indexOf(Character.toLowerCase(nextWord.equals("") ? 'a' : nextWord.charAt(0))) == -1 ? "a" : "an"; }
 	
 	@Override
 	public boolean fullOfEggs() { 
@@ -853,7 +849,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (item.instantUse()) { consumeItem(item); }
 		else if (item instanceof ChastityCage || (item.isEquippable() && item.isCursed())) { equip((Equipment)item); }
 		else { inventory.add(item); }
-		return getResult("You have received a(n) " + item.getName() + "!");
+		return getResult("You have received " + (item.isEquippable() ? "the" : getArticle(item.getName())) + " " + item.getName() + "!");
 	}
 	
 	public boolean buyItem(Item item, int cost) {
