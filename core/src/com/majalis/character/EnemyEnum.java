@@ -167,7 +167,7 @@ public enum EnemyEnum {
 	protected boolean canProneBone() { return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE || this == WARLOCK; }
 	protected boolean prefersProneBone() { return this == ORC || this == GOBLIN || this == WARLOCK; }
 	protected boolean prefersMissionary() { return this == BRIGAND || this == ADVENTURER; }
-	protected boolean canWrestle() { return this != ANGEL && this != HARPY && this != CENTAUR && this != UNICORN && this != OGRE && this != BEASTMISTRESS && this != SPIDER && this != GHOST && this != NAGA && this != QUETZAL; }
+	protected boolean canWrestle() { return this != GOLEM && this != ANGEL && this != HARPY && this != CENTAUR && this != UNICORN && this != OGRE && this != BEASTMISTRESS && this != SPIDER && this != GHOST && this != NAGA && this != QUETZAL; }
 	protected boolean willSeduce() { return this == GOBLIN || this == GOBLIN_MALE || this == ADVENTURER || this == MERMAID; }
 	protected boolean isCorporeal() { return this != GHOST; }
 	protected boolean usesDefensiveTechniques() { return this != QUETZAL; }
