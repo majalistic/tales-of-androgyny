@@ -1222,9 +1222,10 @@ public enum EncounterCode {
 					)
 				);	
 			case GHOST_STORY:
+				String spookyGhostScene2 = Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? "GHOST-BLOODY" : "GHOST-BLOODLESS";
 				Branch ghostPossession2 = b.branch().textScene("GHOST-POSSESSION").gameEnd();
 				Branch ghostBattle2 = b.branch().battleScene(BattleCode.GHOST, b.branch(Outcome.VICTORY).textScene("GHOST-VICTORY"), b.branch(Outcome.DEFEAT).concat(ghostPossession2));
-				return b.branch().textScene("STORY-GHOST").concat(ghostBattle2);
+				return b.branch().textScene("STORY-GHOST").textScene(spookyGhostScene2).textScene("STORY-GHOST-CONT").concat(ghostBattle2);
 			case GIANTESS_FUTA:
 				Branch rebirth = b.branch().textScene("GIANTESS-REBIRTH");
 				Branch selfSacrifice = b.branch().textScene("GIANTESS-SELF-SACRIFICE").concat(rebirth);

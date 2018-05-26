@@ -1145,7 +1145,28 @@
 	{
 		"key": "STORY-GHOST",
 		"scriptLines": [
-			{"text": ""}
+			{
+			"music": "HORROR_MUSIC",
+			"text": "Death is on the air. You feel a chill flowing through your veins, your breath is ragged, and something... something is near."},
+			{"text": "You've felt horror on this journey, but nothing that gnaws at the corners of your vision like this, every errant ruffling of leaves or bending of bows giving rise to a simple terror, one ancient and implacable."},
+			{"text": "You shudder. Perhaps the cold wind and the restless nights have gotten hold of you, and nothing more than fancy entreats you to whip your head around, sharply, as if at any moment, some foul thing may be just behind you, lurking out of sight."},
+			{"text": "Whispering into your ear."},
+			{"text": "One such impulse takes hold of you, and as you step onto a brittle twig, you turn sharply, the balls of your feet digging into leaf and wood with a swish and crunch, your hand finding itself firmly gripped on your pommel."},
+			{"text": "Nothing. Nothing ever was. The cold sweat you feel soaking your shirt is for nothing. You feel foolish, a deep sigh falling out of you before you can calm your rapidly beating heart."},
+			{"text": "You turn back to continue down the path, and all of color drains from your face."}
+		]
+	},
+	{
+		"key": "STORY-GHOST-CONT",
+		"scriptLines": [
+			{"text": "The visage appears before you and speaks in a rasping voice, pointing at you, skeletal fingers trembling."},
+			{"text": "\"receive it...\" it says, quietly. \"RECEVE IT...\" it says, again, louder now, its voice or the wind howling, its body shaking."},
+			{"text": "The bulge in the front of its dress grows... looking rather lively, all things considered. It fills out and engorges... to a truly monstrous size."},
+			{"text": "For a brief moment, a premonition flashes in your mind... her face, distorted by pleasure... your ass, distorted by an unseen force..."},
+			{"text": "Whether a spirit is... intangible or not, you know the size of the bloody bride's package is an immediate concern. You know not what unfinished business she has in the mortal realm, but you have a few guesses."},
+			{"text": "And all of them are \"wreck some boy's ass with a hard pounding until you drain your balls where the sun don't shine.\""},
+			{"text": "For a brief moment, a smile seems to creep onto the ghost's blue lips, as if she can tell that you know her earthly desires. You swallow."},
+			{"text": "You look down to her bloodstained breasts... and then further down at the whopper she has tenting her similarly crimson-stained dress. You ready your blade... although to cut into what, you're not sure."}
 		]
 	},
 	{
