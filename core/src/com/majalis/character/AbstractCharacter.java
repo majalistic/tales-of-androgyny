@@ -464,7 +464,7 @@ public abstract class AbstractCharacter extends Group {
 	public String unequipFootwear() { return unequip(getFootwear()); }
 	public String unequipAccessory() { return unequip(getFirstAccessory()); }
 	public String unequipPlug() { return unequip(getPlug()); }
-	public String unequipCage() { return unequip(getCage()); }
+	public String unequipCage() { Misc key = new Misc(MiscType.KEY); inventory.add(key); String result = unequip(getCage()); inventory.removeValue(key, true); return result; }
 	public String unequipMouthwear() { return unequip(getMouthwear()); }
 	
 	public boolean isPlugged() { return getPlug() != null && getPlug().isPlug(); }

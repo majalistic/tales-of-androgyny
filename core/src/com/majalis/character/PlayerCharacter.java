@@ -145,6 +145,19 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	private void initInventory() {
+		unequipWeapon();
+		unequipRangedWeapon();
+		unequipShield();
+		unequipArmor();
+		unequipLegwear();
+		unequipUnderwear();
+		unequipCage();
+		unequipHeadgear();
+		unequipFootwear();
+		unequipAccessory();
+		unequipPlug();
+		unequipMouthwear();
+		
 		inventory.clear();
 		for (int ii = 10; ii <= 20; ii += 10) {
 			inventory.add(new Potion(ii));
@@ -186,13 +199,6 @@ public class PlayerCharacter extends AbstractCharacter {
 		magicPoints = 0;
 		food = 60; 
 		
-		unequipWeapon();
-		unequipRangedWeapon();
-		unequipShield();
-		unequipArmor();
-		unequipLegwear();
-		unequipUnderwear();
-		unequipCage();
 		initInventory();
 		skills.remove(COMBAT_HEAL.toString());
 		skills.remove(INCANTATION.toString());
