@@ -374,6 +374,11 @@ public class EnemyCharacter extends AbstractCharacter {
 						}
 					}
 				}
+				else if (knotInflate >= 5 && stance == Stance.MOUTH_KNOTTED) {
+					if (stance == Stance.MOUTH_KNOTTED) {
+						return Outcome.KNOT_ORAL;
+					}
+				}
 				break;
 			case ADVENTURER:
 				if (getReceptiveClimaxCount() >= 1 ) return Outcome.SUBMISSION;
