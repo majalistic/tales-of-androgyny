@@ -10728,7 +10728,10 @@
 			{"text": "You wander, unable to control your own two feet, until you reach a secluded cave... which you soon discover is actually a bandit cove."},
 			{"text": "Through your own lips, you speak to the bandits, offering yourself up to them as a pleasure girl... in exchange for little more than their affection and copious semen."},
 			{"text": "They agree to your terms."},
-			{"text": "The first brigand clapping against your ass while getting ready to seed your rectum with all he's got doesn't hold back at all, and neither do any of the others."},
+			{
+			"sound": "ANAL_INSERTION",
+			"foreground": "GHOST_POSSESSION",
+			"text": "The first brigand clapping against your ass while getting ready to seed your rectum with all he's got doesn't hold back at all, and neither do any of the others."},
 			{
 			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":3, "creampies": 2}}],
@@ -10754,10 +10757,35 @@
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "analEjaculation": 3}}],
 			"text": "The resulting stretching renders your butthole ragged and obscene, and you spew your worthless jizz out as the two competing cocks slide in and out of you. This happens half a dozen times before you're running on empty, and the orgasms are dry, and the brigands dicks keep getting hard again before you get a break.."},
 			{
-			"sound": "CUM_BUBBLING",
+			"foreground": "GHOST_POSSESSION_SPIRIT",
+			"text": "Suddenly, all sound goes out of the world... and you find yourself looking at... yourself. Getting railed by five bandit dicks at the same time."},
+			{"text": "Your hands move of their own accord, eagerly milking them to completion, even though you know the best case scenario is that you're chambering a round that'll just end up firing sticky semen all over your face."},
+			{"text": "Another likely scenario is that at the last few moments, you'll take them into your mouth, where they'll throb and twitch between your lips a few times before letting you taste their milk. You don't even know their names, and you're watching helplessly as you jerk them off."},
+			{"text": "That's to say nothing of what's already happening between your lips, the stupid face of playful subservience you see on yourself as your lips are fucked messily by a vagabond."},
+			{"text": "And, of course, the two impatient wieners in your behind, stretching it beyond its limits."},
+			{"text": "You see a faint apparition... as if it's not even you that's at the center of all of this... someone you know so well..."},			
+			{
+			"foreground": "GHOST_POSSESSION",
+			"text": "Suddenly, you feel in control of your own body again... and you demurely stroke and suck while wincing at the double stuffing you're getting from behind."},
+			{
+			"sound": "CUM",
+			"text": "You look up at the brigand who's about to fire off into your mouth while giving a good, long suck - your eyes meet, and you flutter your eyelashes flirtatiously just in time to feel his approval fire across your tongue and down your throat."},
+			{"text": "You keep sucking, wanting to get the full load, and you push back at the two dicks raw dogging you side-by-side, feeling your own orgasm building again."},
+			{
+			"sound": "CUM",
+			"text": "One cock twitches in your hand, and you turn to it with your mouth open, giving it the last three and a half strokes it needs to spew a thick wad of semen into your mouth and over your face."},
+			{
+			"sound": "CUM",
+			"text": "You catch the third one just in time, turning around quickly and getting your mouth over it just as it spurts fantastically into the roof of your mouth."},
+			{"text": "You smile."},
+			{
+			"foreground": "GHOST_POSSESSION_CUM",
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":5, "oralSex":5, "analEjaculation": 3, "creampies": 4, "oralCreampies": 2}}],
 			"text": "Before the day is done, you've had more men take you, in the face or in the ass or in your hands, than the average pleasure girl sees in a month. For not a moment were you not serving three or four of them."},
-			{"text": "You're coated in semen, filled with it, and you've swallowed enough of it to have no want of supper. The semen leaking out of your stretced-open hole is from fifteen different men."},
+			{
+			"sound": "CUM_BUBBLING",
+			"text": "You're coated in semen, filled with it, and you've swallowed enough of it to have no want of supper. The semen leaking out of your stretced-open hole is from fifteen different men."},
 			{"text": "A rope of cum is flung over your already-glazed face, and you can't even tell if it was by your hand or their's. You catch it with grace, hungering for more."},
 			{"text": "\"More... more...\" you demand, with a hoarse voice not your own. The men look at each other with morbid grins, and you feel no more capable of controlling your own body than you did before... and likely, you never will again."},
 			{"text": "As some of the men drop their drawers once more, you hear a voice in the distance, growing louder and louder still."},
