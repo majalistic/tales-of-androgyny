@@ -50,8 +50,10 @@ public class ProgressScreen extends AbstractScreen {
 		Table achievementTable = new Table(skin);
 		
 		ObjectMap<String, Integer> achievements = loadService.loadDataValue(ProfileEnum.ACHIEVEMENT, ObjectMap.class);
+		int bonusPoints = 0;
 		for (ObjectMap.Entry<String, Integer> entry : achievements) {
 			if (entry.value > 0) {
+				bonusPoints++;
 				Achievement achievement = Achievement.valueOf(entry.key);
 				achievementTable.add(achievement.getLabel(), "default-font", Color.GOLD).align(Align.center).width(300);
 				achievementTable.add(achievement.getDescription(), "default-font", Color.WHITE).align(Align.left).row();
@@ -62,7 +64,7 @@ public class ProgressScreen extends AbstractScreen {
 		
 		addActorAndListen(achievementTable, 200, 1025);
 		
-		addLabelActor("Bonus Points: " + 0, 100, 500, Color.TAN);
+		addLabelActor("Bonus Points: " + bonusPoints, 100, 500, Color.TAN);
 		
 		addLabelActor("Start Bonuses Unlocked", 100, 450, Color.TAN);
 		
