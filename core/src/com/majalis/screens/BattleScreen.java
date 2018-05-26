@@ -1138,7 +1138,7 @@ public class BattleScreen extends AbstractScreen{
 	
 	private int cameraOffset = 0;
 	private boolean zoomIn = true;
-	private boolean cameraShake = false;
+	private boolean cameraShake = Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("cameraShake", true);
 	
 	@Override
 	public void render(float delta) {
@@ -1156,7 +1156,6 @@ public class BattleScreen extends AbstractScreen{
 			}
 			cameraOffset++;
 		}
-		
 		
 		battleLoop();
 		if (gameExit) {

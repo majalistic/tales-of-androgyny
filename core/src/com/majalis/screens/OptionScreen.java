@@ -151,7 +151,22 @@ public class OptionScreen extends AbstractScreen {
 	    });
 		fullScreen.getCells().get(0).size(50, 50);
 		fullScreen.getCells().get(0).padRight(25);
-		addActorAndListen(fullScreen, 1099, 420);
+		addActorAndListen(fullScreen, 900, 420);
+		
+		final CheckBox cameraShake = new CheckBox("Camera Shake", skin);
+		CheckBoxStyle cameraShakeStyle = cameraShake.getStyle();
+		cameraShakeStyle.fontColor = Color.WHITE;
+		cameraShake.setChecked(preferences.getBoolean("cameraShake", true));
+		cameraShake.addListener(new ChangeListener() {
+	        @Override
+	        public void changed(ChangeEvent event, Actor actor) {
+	            final boolean val = cameraShake.isChecked();
+	            preferences.putBoolean("cameraShake", val);
+	        }
+	    });
+		cameraShake.getCells().get(0).size(50, 50);
+		cameraShake.getCells().get(0).padRight(25);
+		addActorAndListen(cameraShake, 1150, 420);
 		
 		/* Resolution selection */
 		addLabelActor("Resolution", 700, 500);
