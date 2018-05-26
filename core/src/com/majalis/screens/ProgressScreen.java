@@ -45,35 +45,37 @@ public class ProgressScreen extends AbstractScreen {
 		// need a display for bonus points
 		// need to display a list for available starting bonuses
 		
-		addLabelActor("Achievements Unlocked", 100, 950, Color.TAN);
+		addLabelActor("Achievements Unlocked", 100, 1025, Color.TAN);
 		
 		Table achievementTable = new Table(skin);
 		
 		ObjectMap<String, Integer> achievements = loadService.loadDataValue(ProfileEnum.ACHIEVEMENT, ObjectMap.class);
 		for (ObjectMap.Entry<String, Integer> entry : achievements) {
 			if (entry.value > 0) {
-				achievementTable.add(Achievement.valueOf(entry.key).getLabel(), "default-font", Color.GOLD).row();
+				Achievement achievement = Achievement.valueOf(entry.key);
+				achievementTable.add(achievement.getLabel(), "default-font", Color.GOLD).align(Align.center).width(300);
+				achievementTable.add(achievement.getDescription(), "default-font", Color.WHITE).align(Align.left).row();
 			}
 		}
 		
 		achievementTable.align(Align.topLeft);
 		
-		addActorAndListen(achievementTable, 200, 900);
+		addActorAndListen(achievementTable, 200, 1025);
 		
-		addLabelActor("Bonus Points: " + 0, 100, 700, Color.TAN);
+		addLabelActor("Bonus Points: " + 0, 100, 500, Color.TAN);
 		
-		addLabelActor("Start Bonuses Unlocked", 100, 650, Color.TAN);
+		addLabelActor("Start Bonuses Unlocked", 100, 450, Color.TAN);
 		
 		Table unlockTable = new Table(skin);
 		
 		String[] unlocks = new String[]{"Bonus Stat Points", "Bonus Skill Points", "Bonus Soul Crystals", "Bonus Perk Points", "Bonus Gold", "Bonus Food"};
 		for (String s : unlocks) {
-			unlockTable.add(s, "default-font", Color.GOLD).row();
+			unlockTable.add(s, "default-font", Color.GOLD).align(Align.left).row();
 		}
 		
 		unlockTable.align(Align.topLeft);
 		
-		addActorAndListen(unlockTable, 200, 600);
+		addActorAndListen(unlockTable, 200, 450);
 		
 		final TextButton done = new TextButton("Done", skin);
 		
