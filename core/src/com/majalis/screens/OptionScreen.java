@@ -151,11 +151,9 @@ public class OptionScreen extends AbstractScreen {
 	    });
 		fullScreen.getCells().get(0).size(50, 50);
 		fullScreen.getCells().get(0).padRight(25);
-		addActorAndListen(fullScreen, 900, 420);
+		addActorAndListen(fullScreen, 750, 420);
 		
 		final CheckBox cameraShake = new CheckBox("Camera Shake", skin);
-		CheckBoxStyle cameraShakeStyle = cameraShake.getStyle();
-		cameraShakeStyle.fontColor = Color.WHITE;
 		cameraShake.setChecked(preferences.getBoolean("cameraShake", true));
 		cameraShake.addListener(new ChangeListener() {
 	        @Override
@@ -166,10 +164,23 @@ public class OptionScreen extends AbstractScreen {
 	    });
 		cameraShake.getCells().get(0).size(50, 50);
 		cameraShake.getCells().get(0).padRight(25);
-		addActorAndListen(cameraShake, 1150, 420);
+		addActorAndListen(cameraShake, 1000, 420);
+		
+		final CheckBox fastWorldMap = new CheckBox("Fast World Map", skin);
+		fastWorldMap.setChecked(preferences.getBoolean("fastWorldMap", false));
+		fastWorldMap.addListener(new ChangeListener() {
+	        @Override
+	        public void changed(ChangeEvent event, Actor actor) {
+	            final boolean val = fastWorldMap.isChecked();
+	            preferences.putBoolean("fastWorldMap", val);
+	        }
+	    });
+		fastWorldMap.getCells().get(0).size(50, 50);
+		fastWorldMap.getCells().get(0).padRight(25);
+		addActorAndListen(fastWorldMap, 1250, 420);
 		
 		/* Resolution selection */
-		addLabelActor("Resolution", 700, 500);
+		addLabelActor("Resolution", 550, 500);
 		final SelectBox<Vector2> resolution = new SelectBox<Vector2>(skin);
 		resolution.setItems(new Array<Vector2>(new Vector2[]{new Vector2(1920, 1080), new Vector2(1600, 900), new Vector2(1280, 720), new Vector2(960, 540)}));
 		Vector2 currentResolution = new Vector2(preferences.getInteger("width", TalesOfAndrogyny.defaultScreenWidth), preferences.getInteger("height", TalesOfAndrogyny.defaultScreenHeight));
@@ -191,7 +202,7 @@ public class OptionScreen extends AbstractScreen {
 	        }
 	    });
 		resolution.setWidth(150);
-		addActorAndListen(resolution, 700, 450);
+		addActorAndListen(resolution, 550, 450);
 		
 		/* Sound options */
 		addLabelActor("- Sound Options -", 860, 400);
