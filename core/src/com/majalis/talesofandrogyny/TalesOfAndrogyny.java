@@ -33,7 +33,7 @@ import static com.majalis.encounter.EncounterCode.*;
 @SuppressWarnings("unused")
 public class TalesOfAndrogyny extends Game {
 	public static boolean patron = true;
-	public static String getVersion() { return "Version: 0.2.00.4" + (patron ? " Patron-Only" : ""); }
+	public static String getVersion() { return "Version: 0.2.00.5" + (patron ? " Patron-Only" : ""); }
 	public static Array<EncounterCode> setEncounter = new Array<EncounterCode>();
 	public static boolean randomEncounters;
 	public static boolean testing = false;
