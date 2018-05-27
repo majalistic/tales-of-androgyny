@@ -52,8 +52,8 @@ public class OptionScreen extends AbstractScreen {
 		/* Gameplay options */
 		addLabelActor("- Gameplay Options -", 860, 950);
 		final CheckBox makeup = new CheckBox("Show Makeup", skin);
-		CheckBoxStyle styleMakeup = makeup.getStyle();
-		styleMakeup.fontColor = Color.WHITE;
+		CheckBoxStyle style = makeup.getStyle();
+		style.fontColor = Color.WHITE;
 		makeup.setChecked(preferences.getBoolean("makeup", true));
 		makeup.addListener(new ChangeListener() {
 	        @Override
@@ -67,8 +67,6 @@ public class OptionScreen extends AbstractScreen {
 		addActorAndListen(makeup, 325, 825);
 		
 		final CheckBox blood = new CheckBox("Show Blood", skin);
-		CheckBoxStyle style = blood.getStyle();
-		style.fontColor = Color.WHITE;
 		blood.setChecked(preferences.getBoolean("blood", true));
 		blood.addListener(new ChangeListener() {
 	        @Override
@@ -94,8 +92,21 @@ public class OptionScreen extends AbstractScreen {
 		preload.getCells().get(0).padRight(25);
 		addActorAndListen(preload, 825, 825);
 		
+		final CheckBox cheat = new CheckBox("Cheat", skin);
+		cheat.setChecked(preferences.getBoolean("cheat", false));
+		cheat.addListener(new ChangeListener() {
+	        @Override
+	        public void changed(ChangeEvent event, Actor actor) {
+	            final boolean val = cheat.isChecked();
+	            preferences.putBoolean("cheat", val);
+	        }
+	    });
+		cheat.getCells().get(0).size(50, 50);
+		cheat.getCells().get(0).padRight(25);
+		addActorAndListen(cheat, 1300, 825);
+		
 		/* Favorite flavor */
-		addLabelActor("Favorite Flavor", 1400, 900);
+		addLabelActor("Favorite Flavor", 1550, 900);
 		final SelectBox<String> flavors = new SelectBox<String>(skin);
 		flavors.setItems(new Array<String>(new String[]{"CREAM", "VANILLA", "CARAMEL", "CHOCOLATE", "DARK-CHOCOLATE"}));
 		String currentFavoriteFlavor = preferences.getString("bunny", "CREAM");
@@ -113,7 +124,7 @@ public class OptionScreen extends AbstractScreen {
 	        }
 	    });
 		flavors.setWidth(150);
-		addActorAndListen(flavors, 1400, 850);		
+		addActorAndListen(flavors, 1550, 850);		
 		
 		/* Auto slider */
 		final Label autoSpeed = addLabelActor("Autoplay speed: " + preferences.getInteger("autoplaySpeed", 5), 745, 800);

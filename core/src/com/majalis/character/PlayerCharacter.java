@@ -28,6 +28,7 @@ import com.majalis.save.SaveManager.GameOver;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.scenes.ShopScene.ShopCode;
 import com.majalis.screens.TimeOfDay;
+import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 
 /*
@@ -1264,7 +1265,10 @@ public class PlayerCharacter extends AbstractCharacter {
 		ass.tick(timePassed);
 		modDebtCooldown(-timePassed);
 		result.addAll(modHealth(getHealthRegen())); 
-		result.addAll(modFood(-getMetabolicRate() * timePassed));
+		if (!(TalesOfAndrogyny.patron && Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("cheat", false))) {
+			result.addAll(modFood(-getMetabolicRate() * timePassed));
+		}
+		
 		result.addAll(debtTick((time / 6) - currentDay));
 		return result;
 	}
