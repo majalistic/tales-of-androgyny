@@ -268,10 +268,10 @@ public abstract class AbstractCharacter extends Group {
 		}
 	}
 	// all the item-related buffs need to move into item bonus
-	protected int getStrengthBuff() { return (getArmwear() != null && getArmwear().getEquipEffect() == EquipEffect.STR_BONUS ? 1 : 0) + statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
+	protected int getStrengthBuff() { return totalEquipEffect(EquipEffect.STR_BONUS) + statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
 	protected int getEnduranceBuff() { return statuses.get(StatusType.ENDURANCE_BUFF.toString(), 0); }
-	protected int getAgilityBuff() { return (getFootwear() != null && getFootwear().getEquipEffect() == EquipEffect.AGI_BONUS ? 1 : 0) + statuses.get(StatusType.AGILITY_BUFF.toString(), 0); }
-	protected int getPerceptionBuff() { return (getHeadgear() != null && getHeadgear().getEquipEffect() == EquipEffect.PER_BONUS ? 1 : 0); }
+	protected int getAgilityBuff() { return totalEquipEffect(EquipEffect.AGI_BONUS) + statuses.get(StatusType.AGILITY_BUFF.toString(), 0); }
+	protected int getPerceptionBuff() { return totalEquipEffect(EquipEffect.PER_BONUS); }
 	protected boolean strengthDebuffed() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
 	protected boolean isGravitied() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
 	protected boolean isOily() { return statuses.get(StatusType.OIL.toString(), 0) > 0; }
@@ -299,14 +299,14 @@ public abstract class AbstractCharacter extends Group {
 	protected boolean alreadyIncapacitated() { return stance.isIncapacitatingOrErotic(); }
 	protected boolean wasIncapacitated() { return oldStance != null ? oldStance.isIncapacitatingOrErotic() : false; }
 	protected boolean hasGrappleAdvantage() { return grappleStatus.isAdvantage(); }
-	
-	private boolean hasEquipEffect(EquipEffect effect) {
+
+ 	private boolean hasEquipEffect(EquipEffect effect) { return totalEquipEffect(effect) > 0; }
+	private int totalEquipEffect(EquipEffect effect) {
+		int total = 0;
 		for (Equipment equipped : equipment) {
-			if (equipped.getEquipEffect() == effect) {
-				return true;
-			}
+			if (equipped.getEquipEffect() == effect) { total++; }
 		}
-		return false;
+		return total;
 	}
 	
 	public String getStatusBlurb() {
