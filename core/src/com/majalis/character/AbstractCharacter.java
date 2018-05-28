@@ -276,7 +276,7 @@ public abstract class AbstractCharacter extends Group {
 	protected boolean isGravitied() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
 	protected boolean isOily() { return statuses.get(StatusType.OIL.toString(), 0) > 0; }
 	protected boolean isParalyzed() { return statuses.get(StatusType.PARALYSIS.toString(), 0) > 0; }
-	protected boolean isHypnotized() { return statuses.get(StatusType.HYPNOSIS.toString(), 0) > 0; }
+	protected boolean isHypnotized() { return statuses.get(StatusType.HYPNOSIS.toString(), 0) > 0 || hasEquipEffect(EquipEffect.HYPNOSIS); }
 	protected int itemBonus(Stat stat) { return getFirstAccessory() != null && getFirstAccessory().getBoostedStat() != null && getFirstAccessory().getBoostedStat() == stat ? 1 : 0; }
 	protected int getBaseDefense() { return Math.max(baseDefense, 0); }
 	protected int getMagicResistance() { return 0; }
@@ -299,6 +299,15 @@ public abstract class AbstractCharacter extends Group {
 	protected boolean alreadyIncapacitated() { return stance.isIncapacitatingOrErotic(); }
 	protected boolean wasIncapacitated() { return oldStance != null ? oldStance.isIncapacitatingOrErotic() : false; }
 	protected boolean hasGrappleAdvantage() { return grappleStatus.isAdvantage(); }
+	
+	private boolean hasEquipEffect(EquipEffect effect) {
+		for (Equipment equipped : equipment) {
+			if (equipped.getEquipEffect() == effect) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	public String getStatusBlurb() {
 		String blurb = "";

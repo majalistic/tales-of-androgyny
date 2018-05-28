@@ -125,7 +125,7 @@ public abstract class Item {
 	}
 	
 	public enum EquipEffect {
-		NULL, STR_BONUS, AGI_BONUS, PER_BONUS
+		NULL, STR_BONUS, AGI_BONUS, PER_BONUS, HYPNOSIS
 	}
 	
 	public static class Weapon extends Equipment {
